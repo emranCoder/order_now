@@ -8,7 +8,8 @@ const notFoundError = (req, res, next) => {
 //default error handlers
 const errorHandler = (err, req, res, next) => {
 
-    res.locals.error = err.message;
+    res.locals.error = process.env.NODE_ENV === "development" ? err.message : { message: err.message };
+
     res.status(err.status || 500).json(res.locals.error);
 }
 

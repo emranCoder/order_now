@@ -1,22 +1,33 @@
-const express = require('express')
-const cors = require('cors')
-const dotenv = require('dotenv');
+const express = require('express');
+var cors = require('cors')
+const path = require('path');
 const db = require('./config/db');
-const user = require('./router/User');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
+const loginRoutes = require('./routes/login');
+const productRoutes = require('./routes/product');
 const { errorHandler, notFoundError } = require('./middleware/error_handler');
-
 
 
 const app = express()
 dotenv.config();
 
+const options = {
+    origin: `http://localhost:${process.env.PORT}`,
+    methods: 'GET, PUT, POST, DELETE',
+    allowedHeaders: '*'
+}
 
+app.use('/avatar', express.static(path.join(__dirname, '/public/uploads/avatars')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors(options))
 
 
-app.use('/user', user);
+
+app.use('/api/auth', authRoutes);
+app.use('/api/login', loginRoutes);
+app.use('/api/product', productRoutes);
 
 
 app.use(notFoundError);
