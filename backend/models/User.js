@@ -61,6 +61,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'default-avatar.png',
     },
+    orders: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Order',
+            default: null,
+        }
+    ],
     auth: [
         {
             type: Object,

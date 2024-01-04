@@ -1,16 +1,12 @@
-const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { check, validationResult } = require('express-validator');
 
-const productValidates = [
-    check('name', 'Invalid Product Name').not().isEmpty(),
-    check('price', 'Invalid original price.').not().isEmpty(),
-    check('currentPrice', 'Invalid product current price.').not().isEmpty(),
-    check('category', 'Invalid Category.').not().isEmpty(),
+const categoryValidates = [
+    check('name', 'Invalid category Name').not().isEmpty(),
 ];
 
-const productValidation = (req, res, next) => {
+const categoryValidation = (req, res, next) => {
     const errors = validationResult(req);
     const allErrors = errors.mapped();
     if (Object.keys(allErrors).length === 0) {
@@ -30,7 +26,7 @@ const imageValidation = function (req, res, next) {
         next();
     } else {
 
-        const fileDest = '../../public/uploads/products/';
+        const fileDest = '../../public/uploads/categories/';
         if (req.files && req.files.length > 0) {
             const fileName = req.files[0].filename;
             fs.unlink(path.join(__dirname, fileDest + fileName), (err) => {
@@ -44,4 +40,4 @@ const imageValidation = function (req, res, next) {
 }
 
 
-module.exports = { productValidates, productValidation, imageValidation };
+module.exports = { categoryValidates, categoryValidation, imageValidation };

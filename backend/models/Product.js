@@ -27,6 +27,8 @@ const productSchema = new mongoose.Schema({
         default: 'default-product.png',
     }
     // You can add more fields as needed
+}, {
+    timestamps: true,
 });
 
 // Create a model based on the schema

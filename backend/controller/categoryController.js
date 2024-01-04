@@ -1,10 +1,8 @@
-const Product = require('../models/Product');
-const jwt = require('jsonwebtoken');
+const Category = require('../models/Category');
 const fs = require('fs');
-const { hashedPwd } = require('../config/utility');
 const path = require('path');
 
-const addProduct = async (req, res) => {
+const addCategory = async (req, res) => {
     try {
         let productData = req.body;
 
@@ -14,11 +12,11 @@ const addProduct = async (req, res) => {
                 image: req.files[0].filename,
             }
         }
-        const newProduct = new Product(productData);
-        const addProduct = await newProduct.save();
-        if (!addProduct) { return res.res.status(500).send({ err: "Unable to add product!" }); }
+        const newCategory = new Category(productData);
+        const addCategory = await newCategory.save();
+        if (!addCategory) { return res.res.status(500).send({ err: "Unable to add category!" }); }
 
-        res.status(200).json({ message: "Product added Successfully!", id: addProduct._id });
+        res.status(200).json({ message: "Category added Successfully!", id: addCategory._id });
     } catch (error) {
         res.status(500).send({
             err: "Bad request!"
@@ -26,11 +24,11 @@ const addProduct = async (req, res) => {
     }
 }
 
-const getAllProduct = async (req, res) => {
+const getAllCategory = async (req, res) => {
 
     try {
 
-        const products = await Product.find();
+        const products = await Category.find();
 
         if (!products) {
             return res.status(404).json({ err: "False Attempted!" });
@@ -43,10 +41,10 @@ const getAllProduct = async (req, res) => {
     }
 }
 
-const getProduct = async (req, res) => {
+const getCategory = async (req, res) => {
 
     try {
-        const products = await Product.findById(req.params.id);
+        const products = await Category.findById(req.params.id);
 
         if (!products) {
             return res.status(404).json({ err: "False Attempted!" });
@@ -57,12 +55,12 @@ const getProduct = async (req, res) => {
         res.status(500).send({ err: "Bad request!" });
     }
 }
-const updateProduct = async (req, res) => {
+const updateCategory = async (req, res) => {
     try {
         const { id, ...bodyData } = { ...req.body };
 
-        const product = await Product.findByIdAndUpdate(id, bodyData);
-        if (!product) {
+        const category = await Category.findByIdAndUpdate(id, bodyData);
+        if (!category) {
             return res.status(500).send({
                 err: "Server is down!"
             });
@@ -74,18 +72,19 @@ const updateProduct = async (req, res) => {
         });
     }
 }
-const removeProduct = async (req, res) => {
+const removeCategory = async (req, res) => {
     try {
         const id = req.body.id;
-        const product = await Product.findByIdAndDelete(id).select('image -_id');
-        if (!product) {
+        const category = await Category.findByIdAndDelete(id).select('image -_id');
+
+        if (!category) {
             return res.status(404).send({
-                err: "Server is down!"
+                err: "Ser ver is down!"
             });
         }
-        const fileName = product.image;
+        const fileName = category.image;
         if (!(fileName === "default-avatar.png")) {
-            const fileDest = '../public/uploads/products/';
+            const fileDest = '../public/uploads/categories/';
 
             fs.unlink(path.join(__dirname, fileDest + fileName), (err) => {
                 if (err) {
@@ -102,4 +101,4 @@ const removeProduct = async (req, res) => {
 }
 
 
-module.exports = { addProduct, getAllProduct, getProduct, updateProduct, removeProduct };
+module.exports = { addCategory, getAllCategory, getCategory, updateCategory, removeCategory };

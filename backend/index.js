@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const loginRoutes = require('./routes/login');
 const productRoutes = require('./routes/product');
+const categoryRoutes = require('./routes/Category');
 const { errorHandler, notFoundError } = require('./middleware/error_handler');
 
 
@@ -28,6 +29,7 @@ app.use(cors(options))
 app.use('/api/auth', authRoutes);
 app.use('/api/login', loginRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/category', categoryRoutes);
 
 
 app.use(notFoundError);
