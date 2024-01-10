@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    wishlist: {
+        type: Boolean,
+        default: false,
+    },
     image: {
         type: String,
         default: 'default-product.png',

@@ -1,16 +1,15 @@
 const Order = require('../models/Order');
+const { generateString } = require('../config/utility');
 const fs = require('fs');
 const path = require('path');
 
-const addOrder = async (req, res) => {
+const placeOrder = async (req, res) => {
     try {
         let productData = req.body;
 
-        if (req.files && req.files.length > 0) {
-            productData = {
-                ...req.body,
-                image: req.files[0].filename,
-            }
+        productData = {
+            ...productData,
+            orderNumber: generateString(10)
         }
         const newOrder = new Order(productData);
         const addOrder = await newOrder.save();
@@ -101,4 +100,4 @@ const removeOrder = async (req, res) => {
 }
 
 
-module.exports = { addOrder, getAllOrder, getOrder, updateOrder, removeOrder };
+module.exports = { placeOrder, getAllOrder, getOrder, updateOrder, removeOrder };

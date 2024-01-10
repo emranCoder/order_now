@@ -8,6 +8,18 @@ const orderSchema = new mongoose.Schema({
             required: true,
         },
     ],
+    orderNumber: {
+        type: String,
+        default: null,
+    },
+    orderPrice: {
+        type: String,
+        default: null,
+    },
+    paymentMethod: {
+        type: String,
+        default: null,
+    },
     paymentStatus: {
         type: Boolean,
         default: false,
