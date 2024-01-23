@@ -91,7 +91,7 @@ export default function NavBar() {
                 className="text-black"
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block", color: "black" }}
+                sx={{ my: 2, display: "block", color: "black" }}
               >
                 {page}
               </Button>

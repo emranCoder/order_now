@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "server": "npm start --prefix backend",
+    "client": "npm start --prefix frontend",
+    "both": "concurrently \"npm:server\" \"npm:client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "node-gyp": "^10.0.1"
+  }
+}

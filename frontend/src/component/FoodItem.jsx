@@ -5,6 +5,7 @@ export default function FoodItem() {
   return (
     <div className="container pl-3 m-0">
       <div className="grid grid-cols-2 gap-4  max-md:grid-cols-1 max-lg:grid-cols-2 max-md:gap-0 max-lg:space-x-1">
+        {/* Food items */}
         <div className="list border-b-2">
           <div className="py-8 px-2 max-w-sm mx-auto bg-white rounded-xl space-y-2 max-lg:py-4 max-lg:flex max-lg:items-center max-lg:space-y-0 max-lg:space-x-6 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 max-lg:p-0 max-lg:m-0 max-lg:">
             <img
@@ -28,6 +29,7 @@ export default function FoodItem() {
             </button>
           </div>
         </div>
+        {/* Food items end */}
         <div className="list border-b-2">
           <div className="py-8 px-2 max-w-sm mx-auto bg-white rounded-xl space-y-2 max-lg:py-4 max-lg:flex max-lg:items-center max-lg:space-y-0 max-lg:space-x-6 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 max-lg:p-0 max-lg:m-0 max-lg:">
             <img

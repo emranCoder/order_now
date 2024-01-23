@@ -248,11 +248,11 @@ export default function FooterMenu() {
           <Grid
             onClick={toggleDrawer("bottom", true)}
             className=" cursor-pointer text-lg capitalize"
-            lg={6}
+            item
           >
             <ArrowCircleUpIcon /> Your Order
           </Grid>
-          <Grid className="font-semibold" lg={6}>
+          <Grid className="font-semibold">
             Price: 244,2230$
             <button
               onClick={toggleDrawer("bottom", true)}
