@@ -12,7 +12,7 @@ export default function HomeInfo() {
   return (
     <div className="my-10 info-box">
       <div className="flex gap-1">
-        <div className="bg-purple-800 border rounded-lg shadow-md p-10 px-5 pt-3 w-56 ">
+        <div className="bg-purple-900 border rounded-lg shadow-md p-10 px-5 pt-3 w-56 ">
           <div className="flex justify-between relative">
             <div className="text-left">
               <p className="text-md font-medium uppercase text-white">Income</p>
@@ -40,12 +40,14 @@ export default function HomeInfo() {
           </div>
         </div>
 
-        <div className="bg-purple-900 border rounded-lg shadow-md p-10 px-5 pt-3 w-60 ">
+        <div className="bg-blue-900 border rounded-lg shadow-md p-10 px-5 pt-3 w-60 ">
           <div className="flex justify-between relative">
             <div className="text-left">
-              <p className="text-md font-medium uppercase text-white">Income</p>
+              <p className="text-md font-medium uppercase text-white">
+                Products
+              </p>
               <h3 className="text-4xl font-bold leading-loose text-white">
-                $24k
+                # 100
               </h3>
             </div>
             <h3 className="icon ml-12 ">
