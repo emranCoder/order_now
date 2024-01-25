@@ -1,19 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Mui from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SellIcon from "@mui/icons-material/Sell";
+import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
+import PaidIcon from "@mui/icons-material/Paid";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 
 export default function Header() {
+  const [drawerActive, setDrawerActive] = useState({
+    left: false,
+    bottom: false,
+    right: false,
+    top: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    if (anchor === "left") setDrawerActive({ left: open });
+    if (anchor === "bottom") setDrawerActive({ bottom: open });
+    if (anchor === "right") setDrawerActive({ right: open });
+    if (anchor === "top") setDrawerActive({ top: open });
+  };
+
+  const adminControlMenu = (anchor) => (
+    <nav className=" text-slate-400 nav" aria-label="main mailbox folders">
+      <div className="my-5 text-left px-5 mt-10">
+        <div className="item-color rounded-lg px-5 py-3">
+          <h3 className="text-lg font-bold text-white">Admin</h3>
+          <h3>admin@mail.com</h3>
+        </div>
+      </div>
+      <Mui.Divider className="bg-slate-700" />
+      <div className="my-8 pt-0 p-5">
+        <Mui.ListItemButton className="font-thin item-btn active">
+          <span className="mr-5">
+            <SignalCellularAltIcon fontSize="small" className="icon" />
+          </span>
+          <span className="font-semibold text-sm">Home</span>
+        </Mui.ListItemButton>
+        <Mui.ListItemButton className="font-thin item-btn">
+          <span className="mr-5">
+            <SellIcon fontSize="small" className="icon" />
+          </span>
+          <span className="font-semibold text-sm">All Orders</span>
+        </Mui.ListItemButton>
+        <Mui.ListItemButton className="font-thin item-btn">
+          <span className="mr-5">
+            <ProductionQuantityLimitsIcon fontSize="small" className="icon" />
+          </span>
+          <span className="font-semibold text-sm">Current Orders</span>
+        </Mui.ListItemButton>
+        <Mui.ListItemButton className="font-thin item-btn">
+          <span className="mr-5">
+            <PaidIcon fontSize="small" className="icon" />
+          </span>
+          <span className="font-semibold text-sm">Payment Status</span>
+        </Mui.ListItemButton>
+        <Mui.ListItemButton className="font-thin item-btn">
+          <span className="mr-5">
+            <SettingsIcon fontSize="small" className="icon" />
+          </span>
+          <span className="font-semibold text-sm">Setting</span>
+        </Mui.ListItemButton>
+        <Mui.ListItemButton className="font-thin item-btn">
+          <span className="mr-5">
+            <LogoutIcon fontSize="small" className="icon" />
+          </span>
+          <span className="font-semibold text-sm">Logout</span>
+        </Mui.ListItemButton>
+      </div>
+      <Mui.Divider className="bg-slate-700" />
+    </nav>
+  );
+
   return (
     <div>
-      <nav className="navbar bg-white border-gray-200 dark:bg-gray-900 shadow-lg px-10">
+      <nav className="navbar bg-white border-gray-200 dark:bg-gray-900 shadow-lg lg:px-10">
         <div className="navbar-start">
           <button
             data-collapse-toggle="navbar-user"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-user"
             aria-expanded="false"
+            onClick={toggleDrawer("left", true)}
           >
             <span className="sr-only">Open main menu</span>
             <svg
@@ -34,7 +111,7 @@ export default function Header() {
           </button>
           <a
             href="/dashboard"
-            className="flex items-center space-x-3 rtl:space-x-reverse "
+            className="lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
           >
             <img
               src="https://flowbite.com/docs/images/logo.svg"
@@ -42,13 +119,27 @@ export default function Header() {
               alt="Flowbite Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
+              OrderNow
             </span>
           </a>
         </div>
 
+        <a
+          href="/dashboard"
+          className="max-lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
+        >
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            className="h-8"
+            alt="Flowbite Logo"
+          />
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            OrderNow
+          </span>
+        </a>
+
         <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle">
+          <button className="btn btn-ghost btn-circle lg:block hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -65,7 +156,7 @@ export default function Header() {
             </svg>
           </button>
           <div className="dropdown dropdown-end">
-            <button className="btn btn-ghost btn-circle">
+            <button className="btn btn-ghost btn-circle lg:block hidden">
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -136,6 +227,14 @@ export default function Header() {
           </div>
         </div>
       </nav>
+      <Mui.Drawer
+        anchor={"left"}
+        open={drawerActive["left"]}
+        onClose={toggleDrawer("left", false)}
+        className="border-r-0 shadow-none"
+      >
+        {adminControlMenu("left")}
+      </Mui.Drawer>
     </div>
   );
 }
