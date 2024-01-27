@@ -3,10 +3,21 @@ import * as Mui from "@mui/material";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import SellIcon from "@mui/icons-material/Sell";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
-import PaidIcon from "@mui/icons-material/Paid";
+import SegmentIcon from "@mui/icons-material/Segment";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import PeopleIcon from "@mui/icons-material/People";
+
+const Item = Mui.styled(Mui.Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(0),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  boxShadow: "none",
+  padding: 0,
+  margin: 0,
+}));
 
 export default function HomeInfo() {
   return (
@@ -51,7 +62,7 @@ export default function HomeInfo() {
               </h3>
             </div>
             <h3 className="icon ml-12 ">
-              <MonetizationOnIcon sx={{ fontSize: 50 }} />
+              <SegmentIcon sx={{ fontSize: 50 }} />
             </h3>
           </div>
         </div>
@@ -69,6 +80,70 @@ export default function HomeInfo() {
           </div>
         </div>
       </div>
+
+      <Mui.Grid container spacing={0} padding={0} margin={0}>
+        <Mui.Grid item xs={4}>
+          <Item></Item>
+        </Mui.Grid>
+        <Mui.Grid item xs={8}>
+          <Item>
+            <div className="overflow-x-auto my-5">
+              <h3 className="text-left text-xl capitalize text-slate-800 my-2 font-semibold">
+                Latest Orders
+              </h3>
+              <table className="table text-slate-800">
+                {/* head */}
+                <thead>
+                  <tr className="bg-base-200 text-slate-600 uppercase text-sm font-thin">
+                    <th>Order</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* row 1 */}
+                  <tr className="hover:bg-base-200">
+                    <td>Cy Ganderton</td>
+                    <td>Quality Control Specialist</td>
+                    <td>Blue</td>
+                    <td>
+                      <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                        pending
+                      </span>
+                    </td>
+                  </tr>
+                  {/* row 2 */}
+                  <tr>
+                    <td>Hart Hagerty</td>
+                    <td>Desktop Support Technician</td>
+                    <td>Purple</td>
+                    <td>
+                      <span className="uppercase px-3 py-1 text-green-800 font-medium text-xs bg-opacity-40 bg-green-200 rounded-full">
+                        Delivered
+                      </span>
+                    </td>
+                  </tr>
+                  {/* row 3 */}
+                  <tr>
+                    <td>Brice Swyre</td>
+                    <td>Tax Accountant</td>
+                    <td>Red</td>
+                    <td>
+                      <span className="uppercase px-3 py-1 text-red-800 font-medium text-xs bg-opacity-40 bg-red-200 rounded-full">
+                        refunded
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <a className="m-5 ease-out mr-14 float-end px-3 py-2 text-center  text-sm text-slate-800 font-medium bg-opacity-40 rounded-full cursor-pointer hover:bg-slate-100">
+                View all <ArrowRightAltIcon />
+              </a>
+            </div>
+          </Item>
+        </Mui.Grid>
+      </Mui.Grid>
     </div>
   );
 }
