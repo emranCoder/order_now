@@ -5,6 +5,7 @@ import SellIcon from "@mui/icons-material/Sell";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import PaidIcon from "@mui/icons-material/Paid";
 import SettingsIcon from "@mui/icons-material/Settings";
+import CloseIcon from "@mui/icons-material/Close";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 
 export default function Header() {
@@ -28,57 +29,6 @@ export default function Header() {
     if (anchor === "right") setDrawerActive({ right: open });
     if (anchor === "top") setDrawerActive({ top: open });
   };
-
-  const adminControlMenu = (anchor) => (
-    <nav className=" text-slate-400 nav" aria-label="main mailbox folders">
-      <div className="my-5 text-left px-5 mt-10">
-        <div className="item-color rounded-lg px-5 py-3">
-          <h3 className="text-lg font-bold text-white">Admin</h3>
-          <h3>admin@mail.com</h3>
-        </div>
-      </div>
-      <Mui.Divider className="bg-slate-700" />
-      <div className="my-8 pt-0 p-5">
-        <Mui.ListItemButton className="font-thin item-btn active">
-          <span className="mr-5">
-            <SignalCellularAltIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">Home</span>
-        </Mui.ListItemButton>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <SellIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">All Orders</span>
-        </Mui.ListItemButton>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <ProductionQuantityLimitsIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">Current Orders</span>
-        </Mui.ListItemButton>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <PaidIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">Payment Status</span>
-        </Mui.ListItemButton>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <SettingsIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">Setting</span>
-        </Mui.ListItemButton>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <LogoutIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">Logout</span>
-        </Mui.ListItemButton>
-      </div>
-      <Mui.Divider className="bg-slate-700" />
-    </nav>
-  );
 
   return (
     <div>
@@ -109,6 +59,7 @@ export default function Header() {
               />
             </svg>
           </button>
+
           <a
             href="/dashboard"
             className="lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
@@ -227,14 +178,69 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Mui.Drawer
-        anchor={"left"}
-        open={drawerActive["left"]}
-        onClose={toggleDrawer("left", false)}
-        className="border-r-0 shadow-none"
-      >
-        {adminControlMenu("left")}
-      </Mui.Drawer>
+
+      <Mui.Slide direction="right" in={drawerActive["left"]} timeout={500}>
+        <nav
+          className="text-slate-400 nav absolute top-0"
+          aria-label="main mailbox folders"
+        >
+          <div
+            className="absolute right-1 border border-slate-400  mr-2 m-2 cursor-pointer text-slate-400  rounded-full p-1   items-center flex justify-center"
+            onClick={toggleDrawer("left", false)}
+          >
+            <CloseIcon fontSize="small" className="icon " />
+          </div>
+          <div className="my-5 text-left px-5 mt-12">
+            <div className="item-color rounded-lg px-5 py-3">
+              <h3 className="text-lg font-bold text-white">Admin</h3>
+              <h3>admin@mail.com</h3>
+            </div>
+          </div>
+          <Mui.Divider className="bg-slate-700" />
+          <div className="my-8 pt-0 p-5">
+            <Mui.ListItemButton className="font-thin item-btn active">
+              <span className="mr-5">
+                <SignalCellularAltIcon fontSize="small" className="icon" />
+              </span>
+              <span className="font-semibold text-sm">Home</span>
+            </Mui.ListItemButton>
+            <Mui.ListItemButton className="font-thin item-btn">
+              <span className="mr-5">
+                <SellIcon fontSize="small" className="icon" />
+              </span>
+              <span className="font-semibold text-sm">All Orders</span>
+            </Mui.ListItemButton>
+            <Mui.ListItemButton className="font-thin item-btn">
+              <span className="mr-5">
+                <ProductionQuantityLimitsIcon
+                  fontSize="small"
+                  className="icon"
+                />
+              </span>
+              <span className="font-semibold text-sm">Current Orders</span>
+            </Mui.ListItemButton>
+            <Mui.ListItemButton className="font-thin item-btn">
+              <span className="mr-5">
+                <PaidIcon fontSize="small" className="icon" />
+              </span>
+              <span className="font-semibold text-sm">Payment Status</span>
+            </Mui.ListItemButton>
+            <Mui.ListItemButton className="font-thin item-btn">
+              <span className="mr-5">
+                <SettingsIcon fontSize="small" className="icon" />
+              </span>
+              <span className="font-semibold text-sm">Setting</span>
+            </Mui.ListItemButton>
+            <Mui.ListItemButton className="font-thin item-btn">
+              <span className="mr-5">
+                <LogoutIcon fontSize="small" className="icon" />
+              </span>
+              <span className="font-semibold text-sm">Logout</span>
+            </Mui.ListItemButton>
+          </div>
+          <Mui.Divider className="bg-slate-700" />
+        </nav>
+      </Mui.Slide>
     </div>
   );
 }

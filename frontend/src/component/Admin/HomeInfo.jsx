@@ -21,7 +21,7 @@ const Item = Mui.styled(Mui.Paper)(({ theme }) => ({
 
 export default function HomeInfo() {
   return (
-    <div className="my-10 info-box">
+    <div className="py-10 info-box box-info">
       <div className="flex gap-1">
         <div className="bg-purple-900 border rounded-lg shadow-md p-10 px-5 pt-3 w-56 ">
           <div className="flex justify-between relative">
