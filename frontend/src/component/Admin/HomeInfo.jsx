@@ -100,7 +100,7 @@ export default function HomeInfo() {
                 Latest Orders
               </h3>
               <div className="overflow-x-auto">
-                <table className="table text-slate-800 ">
+                <table className="table text-slate-800 max-md:w-max">
                   {/* head */}
                   <thead>
                     <tr className="bg-base-200 text-slate-600 uppercase text-sm font-thin">

@@ -2,6 +2,9 @@
   "scripts": {
     "server": "npm start --prefix backend",
     "client": "npm start --prefix frontend",
+    "servernpm": "npm install --prefix backend",
+    "frontendnpm": "npm install --prefix frontend",
+    "serve": "concurrently \"npm:servernpm\" \"npm:frontendnpm\"",
     "both": "concurrently \"npm:server\" \"npm:client\""
   },
   "devDependencies": {
