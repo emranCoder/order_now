@@ -34,17 +34,25 @@ body {
     width: 280px;
 }
 
-.box-info {
-    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    box-shadow: none;
+.box-right {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     height: 100%;
-    z-index: 1200;
+    width: 100%;
     position: fixed;
     outline: 0px;
-    z-index: 5;
+    z-index: -1;
+    padding: 10px 10px;
+    right: 1%;
+}
+
+.dark-bg {
+    background-color: rgba(26, 25, 25, 0.7);
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
 }
 
 

@@ -22,12 +22,12 @@ export default function Admin() {
     <div>
       <Header />
       <Grid container spacing={0} padding={0} margin={0}>
-        <Grid item xs={3}>
+        <Grid item lg={3}>
           <Item>
             <SideMenu />
           </Item>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item lg={9}>
           <Item>
             <HomeInfo />
           </Item>

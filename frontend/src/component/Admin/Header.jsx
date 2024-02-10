@@ -178,7 +178,9 @@ export default function Header() {
           </div>
         </div>
       </nav>
-
+      {drawerActive["left"] && (
+        <div className="dark-bg" onClick={toggleDrawer("left", false)}></div>
+      )}
       <Mui.Slide direction="right" in={drawerActive["left"]} timeout={500}>
         <nav
           className="text-slate-400 nav absolute top-0"
