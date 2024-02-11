@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import * as Mui from "@mui/material";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import SellIcon from "@mui/icons-material/Sell";
-import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import SegmentIcon from "@mui/icons-material/Segment";
-import SettingsIcon from "@mui/icons-material/Settings";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import PeopleIcon from "@mui/icons-material/People";
+import ReactApexChart from "react-apexcharts";
 
 const Item = Mui.styled(Mui.Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,8 +17,39 @@ const Item = Mui.styled(Mui.Paper)(({ theme }) => ({
   padding: 0,
   margin: 0,
 }));
-
 export default function HomeInfo() {
+  const [pieChart, setPieChart] = useState({
+    series: [25, 5, 8],
+    options: {
+      colors: ["#1e3a8a", "#ca8a04", "#166534"],
+      markers: {
+        colors: ["#333", "#333", "#333"],
+      },
+      chart: {
+        type: "donut",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+
+      legend: {
+        show: false,
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  });
   return (
     <div className="py-10 info-box box-right">
       <div className=" overflow-x-auto rounded-xl m-0  snap-x max-md:mb-10">
@@ -88,10 +118,154 @@ export default function HomeInfo() {
           </div>
         </div>
       </div>
-
+      <section className="chart my-11">
+        <Mui.Grid container spacing={0} padding={0} margin={0}>
+          <Mui.Grid item lg={7} md={12} xs={12}>
+            <Item></Item>
+          </Mui.Grid>
+          <Mui.Grid item lg={5} md={12} xs={12}>
+            <Item>
+              <div className="pi-chart border-b">
+                <h3 className="mb-5 text-left text-xl capitalize text-slate-800 font-semibold">
+                  Traffic Source
+                </h3>
+                <div className="mx-auto ">
+                  <ReactApexChart
+                    options={pieChart.options}
+                    series={pieChart.series}
+                    type="donut"
+                  />
+                </div>
+              </div>
+            </Item>
+          </Mui.Grid>
+        </Mui.Grid>
+      </section>
       <Mui.Grid container spacing={0} padding={0} margin={0}>
         <Mui.Grid item lg={4}>
-          <Item></Item>
+          <Item>
+            <div className="my-5 p-2">
+              <h3 className="text-left text-xl capitalize text-slate-800 my-2 font-semibold">
+                Reviews
+              </h3>
+              <div className="review-box">
+                <div className="review-product flex mb-5">
+                  <div className="avatar mr-4">
+                    <div className="w-10 rounded">
+                      <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                  </div>
+                  <div className="w-8">
+                    <div className="rating">
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                        defaultChecked
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                    </div>
+                    <p className="block">salad</p>
+                  </div>
+                </div>
+                <div className="review-product flex mb-5">
+                  <div className="avatar mr-4">
+                    <div className="w-10 rounded">
+                      <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                  </div>
+                  <div className="w-8">
+                    <div className="rating">
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                        defaultChecked
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                    </div>
+                    <p className="block">salad</p>
+                  </div>
+                </div>
+                <div className="review-product flex mb-5">
+                  <div className="avatar mr-4">
+                    <div className="w-10 rounded">
+                      <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                  </div>
+                  <div className="w-8">
+                    <div className="rating">
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                        defaultChecked
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                      <input
+                        type="radio"
+                        name="rating-2"
+                        className="mask mask-star-2 bg-orange-400"
+                      />
+                    </div>
+                    <p className="block">salad</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Item>
         </Mui.Grid>
         <Mui.Grid item lg={8} xs={12}>
           <Item>
