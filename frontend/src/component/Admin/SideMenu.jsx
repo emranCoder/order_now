@@ -9,7 +9,7 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 export default function SideMenu() {
   return (
     <nav
-      className=" text-slate-400 nav lg:block hidden"
+      className=" text-slate-400 nav lg:block hidden col-lg-3 col-md-3 "
       aria-label="main mailbox folders"
     >
       <div className="my-5 text-left px-5 mt-10">
