@@ -294,7 +294,7 @@ export default function HomeInfo() {
                     </thead>
                     <tbody>
                       {/* row 1 */}
-                      <tr className="hover:bg-base-200">
+                      <tr className="hover">
                         <td>Cy Ganderton</td>
                         <td>Quality Control Specialist</td>
                         <td>Blue</td>
@@ -305,7 +305,7 @@ export default function HomeInfo() {
                         </td>
                       </tr>
                       {/* row 2 */}
-                      <tr>
+                      <tr className="hover">
                         <td>Hart Hagerty</td>
                         <td>Desktop Support Technician</td>
                         <td>Purple</td>
@@ -316,7 +316,7 @@ export default function HomeInfo() {
                         </td>
                       </tr>
                       {/* row 3 */}
-                      <tr>
+                      <tr className="hover">
                         <td>Brice Swyre</td>
                         <td>Tax Accountant</td>
                         <td>Red</td>

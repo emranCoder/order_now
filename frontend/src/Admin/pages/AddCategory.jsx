@@ -53,44 +53,69 @@ export default function AddCategory() {
             </div>
           </dialog>
           <div className="overflow-x-auto my-11">
-            <table className="table table-xs table-pin-rows table-pin-cols">
+            <table className="table table-pin-rows table-pin-cols">
               <thead>
-                <tr>
-                  <th></th>
+                <tr className="bg-base-200 text-slate-600 uppercase text-sm font-bold">
+                  <tr></tr>
                   <td>Name</td>
-                  <td>Number Of Product</td>
+                  <td>No.Product</td>
                   <td>Action</td>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr className="hover">
                   <th>1</th>
                   <td>Cy Ganderton</td>
-                  <td>Quality Control Specialist</td>
+                  <td>
+                    {" "}
+                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                      52
+                    </span>
+                  </td>
                   <td>Littel, Schaden and Vandervort</td>
                 </tr>
-                <tr>
+                <tr className="hover">
                   <th>2</th>
                   <td>Hart Hagerty</td>
-                  <td>Desktop Support Technician</td>
+                  <td>
+                    {" "}
+                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                      7
+                    </span>
+                  </td>
                   <td>Zemlak, Daniel and Leannon</td>
                 </tr>
-                <tr>
+                <tr className="hover">
                   <th>3</th>
                   <td>Brice Swyre</td>
-                  <td>Tax Accountant</td>
+                  <td>
+                    {" "}
+                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                      15
+                    </span>
+                  </td>
                   <td>Carroll Group</td>
                 </tr>
-                <tr>
+                <tr className="hover">
                   <th>4</th>
                   <td>Marjy Ferencz</td>
-                  <td>Office Assistant I</td>
+                  <td>
+                    {" "}
+                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                      10
+                    </span>
+                  </td>
                   <td>Rowe-Schoen</td>
                 </tr>
                 <tr>
                   <th>5</th>
                   <td>Yancy Tear</td>
-                  <td>Community Outreach Specialist</td>
+                  <td>
+                    {" "}
+                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                      15
+                    </span>
+                  </td>
                   <td>Wyman-Ledner</td>
                 </tr>
               </tbody>
