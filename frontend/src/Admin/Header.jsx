@@ -6,7 +6,10 @@ import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import PaidIcon from "@mui/icons-material/Paid";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import CategoryIcon from "@mui/icons-material/Category";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const [drawerActive, setDrawerActive] = useState({
@@ -131,7 +134,7 @@ export default function Header() {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
+                <a href="#" className="justify-between">
                   Profile
                   <span className="badge">New</span>
                 </a>
@@ -163,7 +166,7 @@ export default function Header() {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
+                <a href="#" className="justify-between">
                   Profile
                   <span className="badge">New</span>
                 </a>
@@ -199,13 +202,15 @@ export default function Header() {
             </div>
           </div>
           <Mui.Divider className="bg-slate-700" />
-          <div className="my-8 pt-0 p-5">
-            <Mui.ListItemButton className="font-thin item-btn active">
-              <span className="mr-5">
-                <SignalCellularAltIcon fontSize="small" className="icon" />
-              </span>
-              <span className="font-semibold text-sm">Home</span>
-            </Mui.ListItemButton>
+          <div className="my-8 pt-0 p-5" onClick={toggleDrawer("left", false)}>
+            <NavLink to="/dashboard">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <SignalCellularAltIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">Dashboard</span>
+              </Mui.ListItemButton>
+            </NavLink>
             <Mui.ListItemButton className="font-thin item-btn">
               <span className="mr-5">
                 <SellIcon fontSize="small" className="icon" />
@@ -227,6 +232,23 @@ export default function Header() {
               </span>
               <span className="font-semibold text-sm">Payment Status</span>
             </Mui.ListItemButton>
+            <NavLink to="category">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <CategoryIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">Category</span>
+              </Mui.ListItemButton>
+            </NavLink>
+            <Mui.ListItemButton className="font-thin item-btn">
+              <span className="mr-5">
+                <ShoppingBasketIcon fontSize="small" className="icon" />
+              </span>
+              <span className="font-semibold text-sm">Add Product</span>
+            </Mui.ListItemButton>
+            <div className="my-5">
+              <Mui.Divider className="bg-slate-700 " />
+            </div>
             <Mui.ListItemButton className="font-thin item-btn">
               <span className="mr-5">
                 <SettingsIcon fontSize="small" className="icon" />
@@ -240,7 +262,6 @@ export default function Header() {
               <span className="font-semibold text-sm">Logout</span>
             </Mui.ListItemButton>
           </div>
-          <Mui.Divider className="bg-slate-700" />
         </nav>
       </Mui.Slide>
     </div>
