@@ -15,7 +15,8 @@ import {
   Route,
 } from "react-router-dom";
 import AddCategory from "./Admin/pages/AddCategory";
-import HomeInfo from "./Admin/HomeInfo";
+import HomeInfo from "./Admin/pages/HomeInfo";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>

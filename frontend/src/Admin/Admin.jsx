@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import SideMenu from "./SideMenu";
-import HomeInfo from "./HomeInfo";
 import { Outlet } from "react-router-dom";
 
 export default function Admin() {

@@ -52,6 +52,50 @@ export default function AddCategory() {
               </div>
             </div>
           </dialog>
+          <div className="overflow-x-auto my-11">
+            <table className="table table-xs table-pin-rows table-pin-cols">
+              <thead>
+                <tr>
+                  <th></th>
+                  <td>Name</td>
+                  <td>Number Of Product</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>1</th>
+                  <td>Cy Ganderton</td>
+                  <td>Quality Control Specialist</td>
+                  <td>Littel, Schaden and Vandervort</td>
+                </tr>
+                <tr>
+                  <th>2</th>
+                  <td>Hart Hagerty</td>
+                  <td>Desktop Support Technician</td>
+                  <td>Zemlak, Daniel and Leannon</td>
+                </tr>
+                <tr>
+                  <th>3</th>
+                  <td>Brice Swyre</td>
+                  <td>Tax Accountant</td>
+                  <td>Carroll Group</td>
+                </tr>
+                <tr>
+                  <th>4</th>
+                  <td>Marjy Ferencz</td>
+                  <td>Office Assistant I</td>
+                  <td>Rowe-Schoen</td>
+                </tr>
+                <tr>
+                  <th>5</th>
+                  <td>Yancy Tear</td>
+                  <td>Community Outreach Specialist</td>
+                  <td>Wyman-Ledner</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

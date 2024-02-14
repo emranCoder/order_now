@@ -4,8 +4,8 @@ import SellIcon from "@mui/icons-material/Sell";
 import SegmentIcon from "@mui/icons-material/Segment";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import PeopleIcon from "@mui/icons-material/People";
-import BarChart from "./chart/BarChart";
-import PieChart from "./chart/PieChart";
+import BarChart from "../chart/BarChart";
+import PieChart from "../chart/PieChart";
 
 const pieData = [25, 5, 8];
 const barData = [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65];
