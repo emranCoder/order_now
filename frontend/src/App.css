@@ -2,6 +2,21 @@ body {
     font-family: "Plus Jakarta Sans", sans-serif !important;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6e6e6e;
+    border-radius: 12px;
+}
+
+
 /***** Display Break Class *****/
 .container,
 .container-fluid,
@@ -640,6 +655,8 @@ body {
     z-index: -1;
 }
 
+
+
 /***** End Universal Class *****/
 
 .item-color {
@@ -705,4 +722,11 @@ body {
     .box-right {
         width: 100%;
     }
+
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+
 }

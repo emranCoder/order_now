@@ -87,7 +87,7 @@ export default function HomeInfo() {
           </div>
         </div>
       </div>
-      <section className="chart my-11  ">
+      <section className="chart my-11 mb-1  ">
         <div className="container">
           <div className="container-row ">
             <div className="col-lg-8 col-md-8 col-sm-12 max-sm:w-full p-1">
@@ -143,7 +143,7 @@ export default function HomeInfo() {
       <section className="mb-10">
         <div className="container">
           <div className="container-row">
-            <div className="col-md-4 col-lg-4 p-1 max-sm:w-full ">
+            <div className="col-md-3 col-lg-3 p-1 max-sm:w-full ">
               <div className="p-2 border rounded-lg">
                 <h3 className="mb-3 text-left text-xl capitalize text-slate-800 my-2 font-semibold">
                   Reviews
@@ -276,8 +276,8 @@ export default function HomeInfo() {
               </div>
             </div>
 
-            <div className="col-md-8 col-lg-8 p-1">
-              <div className="p-2 border rounded-lg h-max">
+            <div className="col-md-9 col-lg-9 p-1">
+              <div className="p-2 border rounded-lg pb-8">
                 <h3 className="mb-3 text-left text-xl capitalize text-slate-800 my-2 font-semibold">
                   Latest Orders
                 </h3>
@@ -285,7 +285,7 @@ export default function HomeInfo() {
                   <table className="table text-slate-800 table-fixed">
                     {/* head */}
                     <thead>
-                      <tr className="bg-base-200 text-slate-600 uppercase text-sm font-thin">
+                      <tr className="bg-base-200 text-slate-600 uppercase text-sm font-thin  ">
                         <th>Order</th>
                         <th>Customer</th>
                         <th>Date</th>
@@ -332,7 +332,7 @@ export default function HomeInfo() {
               </div>
               <a
                 href="#"
-                className="m-5 ease-out mr-14 float-end px-3 py-2 text-center  text-sm text-slate-800 font-medium bg-opacity-40 rounded-full cursor-pointer hover:bg-slate-100"
+                className="m-5 ease-out mr-14 float-end px-3 py-1 text-center  text-sm text-slate-800 font-medium bg-opacity-40 rounded-full cursor-pointer hover:bg-slate-800 hover:text-white max-sm:mr-3"
               >
                 View all <ArrowRightAltIcon />
               </a>
