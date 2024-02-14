@@ -630,14 +630,13 @@ body {
     border-right: 1px solid rgb(242, 244, 247);
     background-color: rgb(28, 37, 54);
     color: rgb(255, 255, 255);
-    width: 280px;
 }
 
 .box-right {
     position: fixed;
     overflow-y: auto;
     height: 100%;
-    right: 1%;
+    right: 0%;
     z-index: -1;
 }
 
@@ -661,7 +660,7 @@ body {
 
 .dark-bg {
     background-color: rgba(26, 25, 25, 0.7);
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -707,14 +706,3 @@ body {
         width: 100%;
     }
 }
-
-
-/***** Graph *****/
-.apexcharts-tooltip {
-    background: #f3f3f3;
-    color: orange;
-}
-
-
-
-/***** End Graph *****/

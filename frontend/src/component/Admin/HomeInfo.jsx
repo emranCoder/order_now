@@ -1,95 +1,19 @@
 import React, { useState } from "react";
-import * as Mui from "@mui/material";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import SellIcon from "@mui/icons-material/Sell";
 import SegmentIcon from "@mui/icons-material/Segment";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import PeopleIcon from "@mui/icons-material/People";
-import ReactApexChart from "react-apexcharts";
+import BarChart from "./chart/BarChart";
+import PieChart from "./chart/PieChart";
+
+const pieData = [25, 5, 8];
+const barData = [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65];
 
 export default function HomeInfo() {
-  const [pieData, setPieData] = useState([25, 5, 8]);
-  const options = {
-    colors: ["#3856ae", "#df9f16", "#30aa5e"],
-    chart: {
-      type: "donut",
-    },
-    dataLabels: {
-      enabled: false,
-    },
-
-    legend: {
-      show: false,
-    },
-
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 250,
-          },
-          legend: {
-            position: "bottom",
-          },
-          plotOptions: {
-            pie: {
-              donut: {
-                labels: {
-                  total: {
-                    fontSize: "20px",
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    ],
-
-    states: {
-      hover: {
-        filter: {
-          type: "none",
-        },
-      },
-      active: {
-        allowMultipleDataPointsSelection: false,
-      },
-    },
-    tooltip: {
-      fillSeriesColor: false,
-    },
-    stroke: {
-      show: false,
-    },
-    labels: ["Products", "Users", "Orders"],
-    plotOptions: {
-      pie: {
-        selection: {
-          enabled: false,
-        },
-        expandOnClick: false,
-        select: false,
-        donut: {
-          labels: {
-            show: true,
-            total: {
-              show: true,
-              label: "Total",
-              fontSize: "35px",
-              fontFamily: "Helvetica, Arial, sans-serif",
-              color: "#373d3f",
-            },
-          },
-        },
-      },
-    },
-  };
-
   return (
-    <div className="py-10 box-right mb-12 col-md-9 col-lg-9 col-sm-12">
-      <div className="container">
+    <div className="py-10 box-right mb-12 col-md-9 col-lg-9 col-sm-12 lg:w-4/5 lg:px-3">
+      <div className="container-fluid p-0 m-0">
         <div className="container-fluid">
           <div className="max-sm:overflow-x-auto rounded-xl">
             <div className="container-row max-sm:w-max max-sm:gap-2">
@@ -166,19 +90,51 @@ export default function HomeInfo() {
         </div>
         <section className="chart my-11  ">
           <div className="container">
-            <div className="container-row">
-              <div className="col-lg-7 col-md-7 col-sm-12"></div>
-              <div className="col-lg-5 col-md-5 col-sm-12 max-sm:w-full">
-                <div className="pi-chart border-b">
+            <div className="container-row ">
+              <div className="col-lg-8 col-md-8 col-sm-12 max-sm:w-full p-1">
+                <div className="bar-chart border rounded-lg p-2">
+                  <h3 className="mb-5 text-left text-xl capitalize text-slate-800 font-semibold">
+                    Income
+                  </h3>
+                  <div className="mx-auto">
+                    <BarChart data={barData} />
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 max-sm:w-full p-1">
+                <div className="pi-chart border rounded-lg p-2 h-full grid items-center">
                   <h3 className="mb-5 text-left text-xl capitalize text-slate-800 font-semibold">
                     Traffic Source
                   </h3>
                   <div className="mx-auto w-full flex justify-center">
-                    <ReactApexChart
-                      series={pieData}
-                      options={options}
-                      type="donut"
-                    />
+                    <PieChart data={pieData} />
+                  </div>
+                  <div className="dtl-box grid grid-cols-3 justify-items-center p-5 my-5">
+                    <div className="dtl-1 flex flex-col items-center">
+                      <SegmentIcon
+                        sx={{ fontSize: 40 }}
+                        className="text-slate-900"
+                      />
+                      <p className="my-1 text-slate-900 font-bold">Products</p>
+                      <p className=" text-slate-500">{pieData[0]}%</p>
+                    </div>
+                    <div className="dtl-2 flex flex-col items-center">
+                      <PeopleIcon
+                        sx={{ fontSize: 40 }}
+                        className="text-slate-900"
+                      />
+                      <p className="my-1 text-slate-900 font-bold">Users</p>
+                      <p className=" text-slate-500">{pieData[1]}%</p>
+                    </div>
+
+                    <div className="dtl-3 flex flex-col items-center">
+                      <SellIcon
+                        sx={{ fontSize: 40 }}
+                        className="text-slate-900"
+                      />
+                      <p className="my-1 text-slate-900 font-bold">Orders</p>
+                      <p className=" text-slate-500">{pieData[2]}%</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -188,9 +144,9 @@ export default function HomeInfo() {
         <section className="mb-10">
           <div className="container">
             <div className="container-row">
-              <div className="col-md-4 col-lg-4 ">
-                <div className="p-2">
-                  <h3 className="text-left text-xl capitalize text-slate-800 my-2 font-semibold">
+              <div className="col-md-4 col-lg-4 p-1 max-sm:w-full ">
+                <div className="p-2 border rounded-lg">
+                  <h3 className="mb-3 text-left text-xl capitalize text-slate-800 my-2 font-semibold">
                     Reviews
                   </h3>
                   <div className="review-box">
@@ -321,9 +277,9 @@ export default function HomeInfo() {
                 </div>
               </div>
 
-              <div className="col-md-8 col-lg-8 ">
-                <div className="my-5">
-                  <h3 className="text-left text-xl capitalize text-slate-800 my-2 font-semibold">
+              <div className="col-md-8 col-lg-8 p-1">
+                <div className="p-2 border rounded-lg h-max">
+                  <h3 className="mb-3 text-left text-xl capitalize text-slate-800 my-2 font-semibold">
                     Latest Orders
                   </h3>
                   <div className="overflow-x-auto">

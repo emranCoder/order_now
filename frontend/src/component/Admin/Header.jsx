@@ -183,7 +183,7 @@ export default function Header() {
       )}
       <Mui.Slide direction="right" in={drawerActive["left"]} timeout={500}>
         <nav
-          className="text-slate-400 nav absolute top-0"
+          className="text-slate-400 nav absolute top-0 w-4/6"
           aria-label="main mailbox folders"
         >
           <div
