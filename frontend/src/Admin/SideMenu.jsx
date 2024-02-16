@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 export default function SideMenu() {
   return (
     <nav
-      className=" text-slate-400 nav lg:block hidden col-lg-3 col-md-3 lg:w-1/5"
+      className=" text-slate-400 nav pb-14 lg:block hidden col-lg-3 col-md-3 lg:w-1/5"
       aria-label="main mailbox folders"
     >
       <div className="my-5 text-left px-5 mt-10">
@@ -32,25 +32,29 @@ export default function SideMenu() {
             <span className="font-semibold text-sm">Dashboard</span>
           </Mui.ListItemButton>
         </NavLink>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <SellIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">All Orders</span>
-        </Mui.ListItemButton>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <ProductionQuantityLimitsIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">Current Orders</span>
-        </Mui.ListItemButton>
+        <NavLink to="all-order">
+          <Mui.ListItemButton className="font-thin item-btn">
+            <span className="mr-5">
+              <SellIcon fontSize="small" className="icon" />
+            </span>
+            <span className="font-semibold text-sm">All Orders</span>
+          </Mui.ListItemButton>
+        </NavLink>
+        <NavLink to="current-order">
+          <Mui.ListItemButton className="font-thin item-btn">
+            <span className="mr-5">
+              <ProductionQuantityLimitsIcon fontSize="small" className="icon" />
+            </span>
+            <span className="font-semibold text-sm">Current Order</span>
+          </Mui.ListItemButton>
+        </NavLink>
         <Mui.ListItemButton className="font-thin item-btn">
           <span className="mr-5">
             <PaidIcon fontSize="small" className="icon" />
           </span>
           <span className="font-semibold text-sm">Payment Status</span>
         </Mui.ListItemButton>
-        <NavLink to="/dashboard/category">
+        <NavLink to="category">
           <Mui.ListItemButton className="font-thin item-btn">
             <span className="mr-5">
               <CategoryIcon fontSize="small" className="icon" />

@@ -186,7 +186,7 @@ export default function Header() {
       )}
       <Mui.Slide direction="right" in={drawerActive["left"]} timeout={300}>
         <nav
-          className="text-slate-400 nav absolute top-0 w-4/6"
+          className="text-slate-400 nav pb-14 absolute top-0 w-4/6"
           aria-label="main mailbox folders"
         >
           <div
@@ -211,21 +211,25 @@ export default function Header() {
                 <span className="font-semibold text-sm">Dashboard</span>
               </Mui.ListItemButton>
             </NavLink>
-            <Mui.ListItemButton className="font-thin item-btn">
-              <span className="mr-5">
-                <SellIcon fontSize="small" className="icon" />
-              </span>
-              <span className="font-semibold text-sm">All Orders</span>
-            </Mui.ListItemButton>
-            <Mui.ListItemButton className="font-thin item-btn">
-              <span className="mr-5">
-                <ProductionQuantityLimitsIcon
-                  fontSize="small"
-                  className="icon"
-                />
-              </span>
-              <span className="font-semibold text-sm">Current Orders</span>
-            </Mui.ListItemButton>
+            <NavLink to="all-order">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <SellIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">All Orders</span>
+              </Mui.ListItemButton>
+            </NavLink>
+            <NavLink to="current-order">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <ProductionQuantityLimitsIcon
+                    fontSize="small"
+                    className="icon"
+                  />
+                </span>
+                <span className="font-semibold text-sm">Current Order</span>
+              </Mui.ListItemButton>
+            </NavLink>
             <Mui.ListItemButton className="font-thin item-btn">
               <span className="mr-5">
                 <PaidIcon fontSize="small" className="icon" />

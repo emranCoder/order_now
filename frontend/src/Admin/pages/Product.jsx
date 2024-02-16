@@ -3,10 +3,12 @@ import * as Mui from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import SearchIcon from "@mui/icons-material/Search";
+import Animation from "../spinner/Animation";
 
 export default function Product() {
-  const [page, setPage] = React.useState(2);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(2);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -17,12 +19,20 @@ export default function Product() {
     setPage(0);
   };
   return (
-    <div>
+    <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
         <div className="container overflow-hidden">
           <div className="product-box ">
-            <div className="head flex justify-between">
+            <div className="head flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">Product</h3>
+              <label className="input mr-3  w-2/5 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-500  items-center gap-2">
+                <input
+                  type="text"
+                  className="grow max-sm:w-0 "
+                  placeholder="Search"
+                />
+                <SearchIcon sx={{ fontSize: 20 }} />
+              </label>
               <div className="tooltip" data-tip="Add Product">
                 <button
                   className="bg-transparent btn-sm btn btn-circle  mr-5 border-dotted border-slate-500  border-2 rounded-full text-slate-500 cursor-pointer overflow-hidden flex justify-center !content-center"
@@ -45,18 +55,32 @@ export default function Product() {
                   <form method="dialog">
                     <input
                       type="text"
+                      name="name"
                       placeholder="Product Name"
                       className="input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc"
                     />
+                    <input
+                      type="text"
+                      placeholder="Price"
+                      name="price"
+                      className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc"
+                    />
                     <textarea
                       type="text"
+                      name="description"
                       placeholder="Description"
-                      className="rounded-lg my-5 w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered"
+                      className="rounded-lg h-24 my-2 w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered"
                     />
-                    <div className="grid grid-cols-2 gap-1 my-5">
+                    <input
+                      type="file"
+                      name="image"
+                      placeholder="Upload Product Image"
+                      className="file-input w-full file-input-sm  "
+                    />
+                    <div className="grid grid-cols-2 gap-1 my-5 mt-10">
                       <button
                         type="btn"
-                        className="rounded-full bg-sky-600 btn hover:bg-green-600 text-white"
+                        className="rounded-full bg-slate-800 btn hover:bg-slate-700 text-white"
                       >
                         GO
                       </button>
@@ -70,10 +94,10 @@ export default function Product() {
             </dialog>
           </div>
           <div className="overflow-x-auto mt-10">
-            <table className="table max-sm:w-max ">
+            <table className="table  max-sm:w-max ">
               {/* head */}
               <thead>
-                <tr className="bg-base-200 text-slate-600 uppercase text-semibold">
+                <tr className="bg-base-300 text-slate-600 uppercase text-sm">
                   <th>Image</th>
                   <th className="max-sm:hidden">Description</th>
                   <th>Price</th>
@@ -279,6 +303,6 @@ export default function Product() {
           />
         </div>
       </div>
-    </div>
+    </Animation>
   );
 }

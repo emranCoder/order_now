@@ -17,6 +17,8 @@ import {
 import Category from "./Admin/pages/Category";
 import HomeInfo from "./Admin/pages/HomeInfo";
 import Product from "./Admin/pages/Product";
+import AllOrders from "./Admin/pages/AllOrders";
+import CurrentOrder from "./Admin/pages/CurrentOrder";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,10 +26,12 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
         <Route index element={<OrderBox />} />
       </Route>
-      <Route path="/dashboard" element={<Admin />}>
-        <Route path="/dashboard" element={<HomeInfo />} />
+      <Route element={<Admin />}>
+        <Route path="dashboard" element={<HomeInfo />} />
         <Route path="category" element={<Category />} />
         <Route path="Product" element={<Product />} />
+        <Route path="all-order" element={<AllOrders />} />
+        <Route path="current-order" element={<CurrentOrder />} />
       </Route>
     </Route>
   )
