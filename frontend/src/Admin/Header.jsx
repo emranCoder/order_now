@@ -93,7 +93,7 @@ export default function Header() {
         </a>
 
         <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle lg:block hidden">
+          <button className="btn btn-ghost btn-circle lg:flex md:flex hidden  just-center items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -184,7 +184,7 @@ export default function Header() {
       {drawerActive["left"] && (
         <div className="dark-bg" onClick={toggleDrawer("left", false)}></div>
       )}
-      <Mui.Slide direction="right" in={drawerActive["left"]} timeout={500}>
+      <Mui.Slide direction="right" in={drawerActive["left"]} timeout={300}>
         <nav
           className="text-slate-400 nav absolute top-0 w-4/6"
           aria-label="main mailbox folders"
@@ -240,12 +240,14 @@ export default function Header() {
                 <span className="font-semibold text-sm">Category</span>
               </Mui.ListItemButton>
             </NavLink>
-            <Mui.ListItemButton className="font-thin item-btn">
-              <span className="mr-5">
-                <ShoppingBasketIcon fontSize="small" className="icon" />
-              </span>
-              <span className="font-semibold text-sm">Add Product</span>
-            </Mui.ListItemButton>
+            <NavLink to="product">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <ShoppingBasketIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">Product</span>
+              </Mui.ListItemButton>
+            </NavLink>
             <div className="my-5">
               <Mui.Divider className="bg-slate-700 " />
             </div>

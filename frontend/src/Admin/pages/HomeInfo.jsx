@@ -87,7 +87,7 @@ export default function HomeInfo() {
           </div>
         </div>
       </div>
-      <section className="chart my-11 mb-1  ">
+      <section className="chart my-11 mb-1 ">
         <div className="container">
           <div className="container-row ">
             <div className="col-lg-8 col-md-8 col-sm-12 max-sm:w-full p-1">
@@ -140,11 +140,11 @@ export default function HomeInfo() {
           </div>
         </div>
       </section>
-      <section className="mb-10">
+      <section className="mb-12 ">
         <div className="container">
-          <div className="container-row">
-            <div className="col-md-3 col-lg-3 p-1 max-sm:w-full ">
-              <div className="p-2 border rounded-lg">
+          <div className="container-row ">
+            <div className="col-md-3 col-lg-3 p-1 max-sm:w-full  lg:h-[290px]">
+              <div className="p-2 border rounded-lg lg:h-[inherit]">
                 <h3 className="mb-3 text-left text-xl capitalize text-slate-800 my-2 font-semibold">
                   Reviews
                 </h3>
@@ -276,13 +276,13 @@ export default function HomeInfo() {
               </div>
             </div>
 
-            <div className="col-md-9 col-lg-9 p-1">
-              <div className="p-2 border rounded-lg pb-8">
+            <div className="col-md-9 col-lg-9 p-1  lg:h-[290px]">
+              <div className="p-2 border rounded-lg lg:h-[inherit] ">
                 <h3 className="mb-3 text-left text-xl capitalize text-slate-800 my-2 font-semibold">
                   Latest Orders
                 </h3>
                 <div className="overflow-x-auto">
-                  <table className="table text-slate-800 table-fixed">
+                  <table className="table text-slate-800 table-fixed ">
                     {/* head */}
                     <thead>
                       <tr className="bg-base-200 text-slate-600 uppercase text-sm font-thin  ">

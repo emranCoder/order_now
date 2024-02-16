@@ -14,8 +14,9 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import AddCategory from "./Admin/pages/AddCategory";
+import Category from "./Admin/pages/Category";
 import HomeInfo from "./Admin/pages/HomeInfo";
+import Product from "./Admin/pages/Product";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +26,8 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/dashboard" element={<Admin />}>
         <Route path="/dashboard" element={<HomeInfo />} />
-        <Route path="category" element={<AddCategory />} />
+        <Route path="category" element={<Category />} />
+        <Route path="Product" element={<Product />} />
       </Route>
     </Route>
   )

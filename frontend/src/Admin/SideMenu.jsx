@@ -58,12 +58,14 @@ export default function SideMenu() {
             <span className="font-semibold text-sm">Category</span>
           </Mui.ListItemButton>
         </NavLink>
-        <Mui.ListItemButton className="font-thin item-btn">
-          <span className="mr-5">
-            <ShoppingBasketIcon fontSize="small" className="icon" />
-          </span>
-          <span className="font-semibold text-sm">Add Product</span>
-        </Mui.ListItemButton>
+        <NavLink to="product">
+          <Mui.ListItemButton className="font-thin item-btn">
+            <span className="mr-5">
+              <ShoppingBasketIcon fontSize="small" className="icon" />
+            </span>
+            <span className="font-semibold text-sm">Product</span>
+          </Mui.ListItemButton>
+        </NavLink>
         <div className="my-5">
           <Mui.Divider className="bg-slate-700 " />
         </div>
