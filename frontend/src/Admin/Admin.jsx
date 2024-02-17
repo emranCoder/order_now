@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 export default function Admin() {
   return (
-    <div>
+    <div className="bg-slate-100">
       <Header />
       <div className="container-fluid">
         <div className="container-row">

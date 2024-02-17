@@ -23,6 +23,7 @@ import PaymentStatus from "./Admin/pages/PaymentStatus";
 import Staffs from "./Admin/pages/Staffs";
 import Setting from "./Admin/pages/Setting";
 import Customer from "./Admin/pages/Customer";
+import Login from "./component/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
         <Route path="setting" element={<Setting />} />
         <Route path="user" element={<Customer />} />
       </Route>
+      <Route path="/login" element={<Login />} />
     </Route>
   )
 );

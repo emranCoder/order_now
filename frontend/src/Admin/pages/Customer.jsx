@@ -27,7 +27,7 @@ export default function Customer() {
               <h3 className="text-2xl font-semibold text-slate-600">
                 All Users
               </h3>
-              <label className="input mr-3  w-2/5 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-800  items-center gap-2">
+              <label className="input mr-3 max-sm:w-3/5 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-800  items-center gap-2">
                 <input
                   type="text"
                   className="grow max-sm:w-0 "
@@ -35,18 +35,6 @@ export default function Customer() {
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
-              <div className="tooltip" data-tip="Add Product">
-                <button
-                  className="bg-transparent btn-sm btn btn-circle  mr-5 border-dotted border-slate-500  border-2 rounded-full text-slate-500 cursor-pointer overflow-hidden flex justify-center !content-center"
-                  onClick={() =>
-                    document.getElementById("my_modal_1").showModal()
-                  }
-                >
-                  <Mui.ListItemButton className="!p-1 !m-0 !flex !justify-center !items-center">
-                    <AddIcon sx={{ fontSize: 25 }} />
-                  </Mui.ListItemButton>
-                </button>
-              </div>
             </div>
           </div>
           <div className="overflow-x-auto mt-10 rounded-lg">
