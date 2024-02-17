@@ -19,7 +19,7 @@ export default function HomeInfo() {
         <div className="container-fluid">
           <div className="max-sm:overflow-x-auto rounded-xl">
             <div className="container-row max-sm:w-max max-sm:gap-2">
-              <div className="col-md-3 col-lg-3 max-sm:w-60">
+              <div className="col-md-3 col-lg-3 max-sm:w-60 lg:pr-1 max-sm:p-0 md:pr-0.5">
                 <div className="bg-purple-900 border  info-box rounded-lg shadow-md p-10 px-5 pt-3 snap-center">
                   <div className="flex justify-between relative">
                     <div className="text-left">
@@ -36,7 +36,7 @@ export default function HomeInfo() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-3 col-lg-3 max-sm:w-60">
+              <div className="col-md-3 col-lg-3 max-sm:w-60 lg:px-1 max-sm:p-0 md:px-0.5">
                 <div className="bg-green-800  info-box border rounded-lg shadow-md p-10 px-5 pt-3 snap-center">
                   <div className="flex justify-between relative">
                     <div className="text-left">
@@ -53,7 +53,7 @@ export default function HomeInfo() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-3 col-lg-3 max-sm:w-60">
+              <div className="col-md-3 col-lg-3 max-sm:w-60 lg:px-1 max-sm:p-0 md:px-0.5">
                 <div className="bg-blue-900  info-box border rounded-lg shadow-md p-10 px-5 pt-3 snap-center">
                   <div className="flex justify-between relative">
                     <div className="text-left">
@@ -70,7 +70,7 @@ export default function HomeInfo() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-3 col-lg-3 max-sm:w-60">
+              <div className="col-md-3 col-lg-3 max-sm:w-60 lg:pl-1 max-sm:p-0 md:pl-0.5">
                 <div className="bg-yellow-600  info-box border rounded-lg shadow-md p-10 px-5 pt-3 snap-center ">
                   <div className="flex justify-between relative">
                     <div className="text-left">
