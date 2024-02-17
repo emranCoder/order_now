@@ -26,7 +26,7 @@ export default function CurrentOrder() {
               <h3 className="text-2xl font-semibold text-slate-600">
                 Current Order
               </h3>
-              <label className="input mr-3 max-sm:w-3/6 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-500  items-center gap-2">
+              <label className="input mr-3 max-sm:w-3/6 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-800  items-center gap-2">
                 <input
                   type="text"
                   className="grow max-sm:w-0 "

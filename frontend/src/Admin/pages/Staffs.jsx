@@ -27,7 +27,7 @@ export default function Staffs() {
           <div className="staff-box ">
             <div className="head flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">Product</h3>
-              <label className="input mr-3  w-2/5 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-500  items-center gap-2">
+              <label className="input mr-3  w-2/5 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-800  items-center gap-2">
                 <input
                   type="text"
                   className="grow max-sm:w-0 "
@@ -59,22 +59,22 @@ export default function Staffs() {
                       type="text"
                       name="name"
                       placeholder="Staff Name"
-                      className="input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc"
+                      className="input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
                     />
                     <input
                       type="text"
                       placeholder="Phone Number (01........)"
                       name="phoneNumber"
-                      className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc"
+                      className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
                     />
                     <input
                       type="text"
                       placeholder="NID No."
                       name="nidNO"
-                      className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc"
+                      className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
                     />
                     <select
-                      className="select select-bordered  input mt-2  rounded-lg w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc"
+                      className="select select-bordered  input mt-2  rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
                       defaultValue="1"
                       name="staffRole"
                     >
@@ -92,7 +92,7 @@ export default function Staffs() {
                       type="text"
                       placeholder="Salary Amount (in hr/USD)"
                       name="salaryRate"
-                      className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1oc"
+                      className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
                     />
                     <div className="flex justify-between my-2   ">
                       <label

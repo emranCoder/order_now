@@ -118,9 +118,6 @@ export default function Header() {
                 </a>
               </li>
               <li>
-                <a>Settings</a>
-              </li>
-              <li>
                 <a>Logout</a>
               </li>
             </ul>
@@ -144,13 +141,9 @@ export default function Header() {
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <a href="#" className="justify-between">
+                <NavLink to="setting" className="justify-between">
                   Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
+                </NavLink>
               </li>
               <li>
                 <a>Logout</a>
@@ -244,12 +237,14 @@ export default function Header() {
             <div className="my-5">
               <Mui.Divider className="bg-slate-700 " />
             </div>
-            <Mui.ListItemButton className="font-thin item-btn">
-              <span className="mr-5">
-                <SettingsIcon fontSize="small" className="icon" />
-              </span>
-              <span className="font-semibold text-sm">Setting</span>
-            </Mui.ListItemButton>
+            <NavLink to="setting">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <SettingsIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">Setting</span>
+              </Mui.ListItemButton>
+            </NavLink>
             <Mui.ListItemButton className="font-thin item-btn">
               <span className="mr-5">
                 <LogoutIcon fontSize="small" className="icon" />
