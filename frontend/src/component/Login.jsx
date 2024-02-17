@@ -59,7 +59,7 @@ export default function Login() {
   };
 
   return (
-    <div className="container-fluid bg-slate-50 h-lvh">
+    <div className="container-fluid bg-cafe-100 h-lvh">
       <div className="container-row justify-center content-center h-full items-center m-auto">
         <div className="col-lg-1"></div>
         <div className="col-lg-5 col-md-9 max-sm:w-full">
@@ -69,7 +69,7 @@ export default function Login() {
               Don't have an account?
               <a
                 href="#"
-                className="font-semibold text-slate-700 hover:text-sky-700"
+                className="font-semibold text-slate-700 hover:text-amber-700"
               >
                 {" "}
                 Register
@@ -104,7 +104,7 @@ export default function Login() {
 
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#0060df",
+                      borderColor: "#b45309",
                     },
                   },
                 }}
@@ -134,7 +134,7 @@ export default function Login() {
 
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "#0060df",
+                      borderColor: "#b45309",
                     },
                   },
                 }}
@@ -147,7 +147,7 @@ export default function Login() {
               </div>
               <button
                 type="btn"
-                className="mt-5 rounded-xl p-0 font-semibold w-full  bg-sky-700 btn hover:bg-slate-800 text-slate-100 overflow-hidden"
+                className="mt-5 rounded-xl p-0 font-semibold w-full  bg-cafe-300 btn hover:bg-amber-700 text-slate-100 overflow-hidden"
               >
                 <Mui.ListItemButton
                   className="!flex !justify-center"
@@ -174,7 +174,7 @@ export default function Login() {
         </div>
         <div className="col-lg-6">
           <div className="lg:block hidden p-16 dtl-login">
-            <h3 className="text-[50px] font-bold text-sky-800">OrderNow</h3>
+            <h3 className="text-[50px] font-bold text-amber-800">OrderNow</h3>
             <p className="p-2 text-slate-600">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Distinctio adipisci eveniet, sunt officia praesentium maiores

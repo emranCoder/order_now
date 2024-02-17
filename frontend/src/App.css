@@ -655,7 +655,9 @@ body {
     z-index: -1;
 }
 
-
+.MuiBadge-badge {
+    background-color: #b45309 !important;
+}
 
 /***** End Universal Class *****/
 

@@ -18,7 +18,10 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function OrderBox() {
   return (
     <div>
-      <Container className="bg-white rounded-xl p-0" sx={{ flexGrow: 1 }}>
+      <Container
+        className="bg-white shadow-lg  rounded-xl p-0"
+        sx={{ flexGrow: 1 }}
+      >
         <Grid
           container
           direction={"row"}

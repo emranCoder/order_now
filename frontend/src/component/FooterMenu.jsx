@@ -68,7 +68,7 @@ export default function FooterMenu() {
           {["Breakfast", "Beverages", "Biriyani"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon className="text-purple-600">
+                <ListItemIcon className="text-amber-700">
                   {menuIcons[index]}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -81,7 +81,7 @@ export default function FooterMenu() {
           {["Breakfast", "Beverages", "Biriyani"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon className="text-purple-600">
+                <ListItemIcon className="text-amber-700">
                   {menuIcons[index]}
                 </ListItemIcon>
                 <ListItemText primary={text} />
@@ -95,7 +95,7 @@ export default function FooterMenu() {
 
   const checkOut = (anchor) => (
     <div role="presentation" className="p-5 pt-0">
-      <h3 className="capitalize font-medium text-2xl pt-5 text-purple-600">
+      <h3 className="capitalize font-medium text-2xl pt-5 text-amber-800">
         Order Details:
       </h3>
       <div className="grid grid-cols-3 gap-0 py-2 space-x-0 max-md:grid-cols-1">
@@ -114,7 +114,7 @@ export default function FooterMenu() {
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
             </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-purple hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-amber hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
               <HighlightOffIcon />
             </button>
           </div>
@@ -133,7 +133,7 @@ export default function FooterMenu() {
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
             </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-purple hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-amber hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
               <HighlightOffIcon />
             </button>
           </div>
@@ -151,7 +151,7 @@ export default function FooterMenu() {
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
             </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-purple hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-amber hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
               <HighlightOffIcon />
             </button>
           </div>
@@ -169,7 +169,7 @@ export default function FooterMenu() {
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
             </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-purple hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-amber hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
               <HighlightOffIcon />
             </button>
           </div>
@@ -188,7 +188,7 @@ export default function FooterMenu() {
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
             </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-purple hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
+            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-amber hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
               <HighlightOffIcon />
             </button>
           </div>
@@ -213,17 +213,17 @@ export default function FooterMenu() {
             </div>
             <div className="flex justify-center w-full my-5">
               <input
-                className="border-spacing-0 w-full inline-block p-2 outline-none border-purple-300 focus:border-purple-600 border no-underline rounded-l-md"
+                className="border-spacing-0 w-full inline-block p-2 outline-none border-amber-600 focus:border-amber-700 border no-underline rounded-l-md"
                 placeholder="kupon code"
                 inputProps={{ "aria-label": "search" }}
                 onKeyDown={(e) => console.log(e.target.value)}
               />
-              <button className="p-2 m-0 text-sm inline-block  text-white font-semibold bg-purple-600 rounded-l-none rounded-md border border-purple-600 hover:text-purple hover:bg-purple-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+              <button className="p-2 m-0 text-sm inline-block  text-white font-semibold bg-amber-700 rounded-l-none rounded-md border border-amber-700 hover:text-amber hover:bg-amber-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-700 focus:ring-offset-2">
                 <KeyboardArrowRightIcon />
               </button>
             </div>
             <div className="w-full">
-              <button className=" w-full py-2 text-sm text-purple-600 font-semibold rounded-full border border-purple-600 focus:outline-none focus:ring-2 hover:text-white  hover:border-purple-300 hover:bg-purple-600   focus:ring-purple-300 focus:bg-purple-600 focus:text-white   focus:ring-offset-2 ease-out duration-300">
+              <button className=" w-full py-2 text-sm text-amber-700 font-semibold rounded-full border border-amber-700 focus:outline-none focus:ring-2 hover:text-white  hover:border-amber-300 hover:bg-amber-700   focus:ring-amber-300 focus:bg-amber-700 focus:text-white   focus:ring-offset-2 ease-out duration-300">
                 Check Out
               </button>
             </div>
@@ -256,7 +256,7 @@ export default function FooterMenu() {
             Price: 244,2230$
             <button
               onClick={toggleDrawer("bottom", true)}
-              className="px-5 py-2 ml-5 text-sm text-white font-semibold rounded-full border bg-purple-600 hover:bg-transparent focus:outline-none focus:ring-2  border-purple-600 hover:text-purple-600    focus:ring-purple-300  hover:border-purple-600 focus:ring-offset-2 ease-out duration-300"
+              className="px-5 py-2 ml-5 text-sm text-white font-semibold rounded-full border bg-amber-700 hover:bg-transparent focus:outline-none focus:ring-2  border-amber-700 hover:text-amber-700    focus:ring-amber-300  hover:border-amber-700 focus:ring-offset-2 ease-out duration-300"
             >
               Check Out
             </button>

@@ -20,11 +20,11 @@ export default function FoodItem() {
                 </p>
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
-              <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2 max-lg:hidden">
+              <button className="px-4 py-1 text-sm text-amber-700 font-semibold rounded-full border border-amber-600 hover:text-white hover:bg-amber-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 max-lg:hidden">
                 Add To Cart <AddShoppingCartIcon />
               </button>
             </div>
-            <button className="hidden max-lg:block px-5 py-5 text-sm text-white font-semibold bg-purple-600 rounded-md border border-purple-600 hover:text-purple hover:bg-purple-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+            <button className="hidden max-lg:block px-5 py-5 text-sm text-white font-semibold bg-amber-700 rounded-md border border-amber-700 hover:text-amber hover:bg-amber-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-700 focus:ring-offset-2">
               <AddShoppingCartIcon />
             </button>
           </div>
@@ -44,11 +44,11 @@ export default function FoodItem() {
                 </p>
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
-              <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2 max-lg:hidden">
+              <button className="px-4 py-1 text-sm text-amber-700 font-semibold rounded-full border border-amber-600 hover:text-white hover:bg-amber-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 max-lg:hidden">
                 Add To Cart <AddShoppingCartIcon />
               </button>
             </div>
-            <button className="hidden max-lg:block px-5 py-5 text-sm text-white font-semibold bg-purple-600 rounded-md border border-purple-600 hover:text-purple hover:bg-purple-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+            <button className="hidden max-lg:block px-5 py-5 text-sm text-white font-semibold bg-amber-700 rounded-md border border-amber-700 hover:text-amber hover:bg-amber-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-700 focus:ring-offset-2">
               <AddShoppingCartIcon />
             </button>
           </div>
@@ -67,11 +67,11 @@ export default function FoodItem() {
                 </p>
                 <p className="text-slate-500 font-medium">8.99$</p>
               </div>
-              <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2 max-lg:hidden">
+              <button className="px-4 py-1 text-sm text-amber-700 font-semibold rounded-full border border-amber-600 hover:text-white hover:bg-amber-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 max-lg:hidden">
                 Add To Cart <AddShoppingCartIcon />
               </button>
             </div>
-            <button className="hidden max-lg:block px-5 py-5 text-sm text-white font-semibold bg-purple-600 rounded-md border border-purple-600 hover:text-purple hover:bg-purple-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+            <button className="hidden max-lg:block px-5 py-5 text-sm text-white font-semibold bg-amber-700 rounded-md border border-amber-700 hover:text-amber hover:bg-amber-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-700 focus:ring-offset-2">
               <AddShoppingCartIcon />
             </button>
           </div>
