@@ -6,7 +6,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
 
-export default function User() {
+export default function Customer() {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -20,9 +20,9 @@ export default function User() {
   };
   return (
     <Animation>
-      <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
+      <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5 mb-20">
         <div className="container overflow-hidden">
-          <div className="category-box">
+          <div className="customer-box">
             <div className="head flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">
                 All Users

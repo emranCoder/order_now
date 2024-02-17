@@ -73,7 +73,7 @@ export default function Category() {
             </dialog>
           </div>
 
-          <div className="overflow-x-auto my-11 max-w-full w-auto max-h-full block relative box-border">
+          <div className="overflow-x-auto my-11 max-w-full w-auto max-h-full block relative box-border rounded-lg">
             <table className="table-pin-rows table-zebra lg:table-sm table-pin-cols max-sm:w-max table">
               <thead className="table-row-group">
                 <tr className="bg-base-300 text-slate-600 uppercase text-sm ">
