@@ -22,6 +22,7 @@ import CurrentOrder from "./Admin/pages/CurrentOrder";
 import PaymentStatus from "./Admin/pages/PaymentStatus";
 import Staffs from "./Admin/pages/Staffs";
 import Setting from "./Admin/pages/Setting";
+import User from "./Admin/pages/User";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
         <Route path="payment-status" element={<PaymentStatus />} />
         <Route path="staff" element={<Staffs />} />
         <Route path="setting" element={<Setting />} />
+        <Route path="user" element={<User />} />
       </Route>
     </Route>
   )

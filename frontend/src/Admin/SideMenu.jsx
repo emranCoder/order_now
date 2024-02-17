@@ -9,6 +9,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import GroupsIcon from "@mui/icons-material/Groups";
+import ContactsIcon from "@mui/icons-material/Contacts";
 import { NavLink } from "react-router-dom";
 
 export default function SideMenu() {
@@ -79,6 +80,14 @@ export default function SideMenu() {
               <CategoryIcon fontSize="small" className="icon" />
             </span>
             <span className="font-semibold text-sm">Category</span>
+          </Mui.ListItemButton>
+        </NavLink>
+        <NavLink to="user">
+          <Mui.ListItemButton className="font-thin item-btn">
+            <span className="mr-5">
+              <ContactsIcon fontSize="small" className="icon" />
+            </span>
+            <span className="font-semibold text-sm">Customers</span>
           </Mui.ListItemButton>
         </NavLink>
 
