@@ -23,7 +23,7 @@ import PaymentStatus from "./Admin/pages/PaymentStatus";
 import Staffs from "./Admin/pages/Staffs";
 import Setting from "./Admin/pages/Setting";
 import Customer from "./Admin/pages/Customer";
-import Login from "./component/Login";
+import Login from "./Authentication/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

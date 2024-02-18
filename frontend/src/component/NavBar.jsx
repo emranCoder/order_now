@@ -33,8 +33,8 @@ export default function NavBar() {
     setAnchorElUser(null);
   };
   return (
-    <div className="bg-white" position="static">
-      <Container maxWidth="xl">
+    <div className="bg-white shadow-md  " position="static">
+      <div className="container" maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -97,41 +97,41 @@ export default function NavBar() {
               </Button>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src="https://mytourism.com.my/vuexy/ui/app-assets/images/profile/user-uploads/user-04.jpg"
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          <div className="flex-none gap-2">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 menu menu-sm dropdown-content bg-base-100 rounded-box w-52 shadow-[_0px_0px_10px_#555]"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </Toolbar>
-      </Container>
+      </div>
     </div>
   );
 }

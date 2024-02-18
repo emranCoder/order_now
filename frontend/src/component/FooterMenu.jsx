@@ -94,7 +94,7 @@ export default function FooterMenu() {
   );
 
   const checkOut = (anchor) => (
-    <div role="presentation" className="p-5 pt-0">
+    <div role="presentation" className="p-5 pt-0  ">
       <h3 className="capitalize font-medium text-2xl pt-5 text-amber-800">
         Order Details:
       </h3>
@@ -234,8 +234,8 @@ export default function FooterMenu() {
   );
 
   return (
-    <div className="grid">
-      <div className="bg-white rounded-t-3xl  px-40  max-lg:hidden grid items-center fixed bottom-0 w-full py-5">
+    <div className="grid ">
+      <div className="bg-white footer-box rounded-t-3xl  px-40  max-lg:hidden grid items-center fixed bottom-0 w-full py-5">
         <Drawer
           anchor={"bottom"}
           open={drawerActive["bottom"]}
@@ -278,7 +278,7 @@ export default function FooterMenu() {
           >
             {menuList("right")}
           </Drawer>
-          <label className="border-inherit border-l"></label>
+
           <BottomNavigationAction
             label="Check Out"
             value="check-out"
@@ -292,7 +292,6 @@ export default function FooterMenu() {
           >
             {checkOut("bottom")}
           </Drawer>
-          <label className="border-inherit border-l"></label>
           <BottomNavigationAction
             label="Recents"
             value="recents"
