@@ -1,99 +1,10 @@
-import React, { useState } from "react";
-import {
-  Drawer,
-  Grid,
-  List,
-  Divider,
-  ListItem,
-  ListItemButton,
-  BottomNavigationAction,
-  BottomNavigation,
-} from "@mui/material";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
-import RestoreIcon from "@mui/icons-material/Restore";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import CoffeeIcon from "@mui/icons-material/Coffee";
-import SetMealIcon from "@mui/icons-material/SetMeal";
-import RamenDiningIcon from "@mui/icons-material/RamenDining";
-import SearchIcon from "@mui/icons-material/Search";
+import React from "react";
+
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-export default function FooterMenu() {
-  const menuIcons = [<CoffeeIcon />, <SetMealIcon />, <RamenDiningIcon />];
-
-  const [value, setValue] = useState("food-menu");
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const [drawerActive, setDrawerActive] = useState({
-    right: false,
-    bottom: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    if (anchor === "right") setDrawerActive({ right: open });
-    if (anchor === "bottom") setDrawerActive({ bottom: open });
-  };
-
-  const menuList = (anchor) => (
-    <div role="presentation">
-      <div className="m-3 mt-5  space-x-1">
-        <SearchIcon />
-        <input
-          className="border-spacing-0 border-0 outline-none no-underline"
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-          onKeyDown={(e) => console.log(e.target.value)}
-        />
-      </div>
-      <Divider />
-      <div
-        onClick={toggleDrawer(anchor, false)}
-        onKeyDown={toggleDrawer(anchor, false)}
-      >
-        <List>
-          {["Breakfast", "Beverages", "Biriyani"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon className="text-red-700">
-                  {menuIcons[index]}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["Breakfast", "Beverages", "Biriyani"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon className="text-red-700">
-                  {menuIcons[index]}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    </div>
-  );
-
-  const checkOut = (anchor) => (
+export default function CheckOut() {
+  return (
     <div role="presentation" className="p-5 pt-0  ">
       <h3 className="capitalize font-medium text-2xl pt-5 text-red-800">
         Order Details:
@@ -229,75 +140,6 @@ export default function FooterMenu() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="flex justify-center">
-      <div className="bg-stone-50 grid drop-shadow-lg footer-box rounded-full border-red-700 border border-opacity-45  px-20  max-lg:hidden  items-center fixed bottom-0  py-4  w-11/12 my-2">
-        <Drawer
-          anchor={"bottom"}
-          open={drawerActive["bottom"]}
-          onClose={toggleDrawer("bottom", false)}
-        >
-          {checkOut("bottom")}
-        </Drawer>
-
-        <Grid className="flex justify-between items-center">
-          <Grid
-            onClick={toggleDrawer("bottom", true)}
-            className=" cursor-pointer text-lg capitalize"
-            item
-          >
-            <ArrowCircleUpIcon /> Your Order
-          </Grid>
-          <Grid className="font-semibold">
-            Price: 244,2230$
-            <button
-              onClick={toggleDrawer("bottom", true)}
-              className="px-5 py-2 ml-5 text-sm text-white font-semibold rounded-full border bg-red-700 hover:bg-transparent focus:outline-none focus:ring-2  border-red-700 hover:text-red-700    focus:ring-red-300  hover:border-red-700 focus:ring-offset-2 ease-out duration-300"
-            >
-              Check Out
-            </button>
-          </Grid>
-        </Grid>
-      </div>
-      <div className="max-lg:block hidden m-0 p-0 bottom-0 fixed w-full">
-        <BottomNavigation value={value} onChange={handleChange}>
-          <BottomNavigationAction
-            label="Food Menu"
-            value="food-menu"
-            onClick={toggleDrawer("right", true)}
-            icon={<RestaurantMenuIcon />}
-          />
-          <Drawer
-            anchor={"right"}
-            open={drawerActive["right"]}
-            onClose={toggleDrawer("right", false)}
-          >
-            {menuList("right")}
-          </Drawer>
-
-          <BottomNavigationAction
-            label="Check Out"
-            value="check-out"
-            onClick={toggleDrawer("bottom", true)}
-            icon={<ShoppingCartCheckoutIcon />}
-          />
-          <Drawer
-            anchor={"bottom"}
-            open={drawerActive["bottom"]}
-            onClose={toggleDrawer("bottom", false)}
-          >
-            {checkOut("bottom")}
-          </Drawer>
-          <BottomNavigationAction
-            label="Recents"
-            value="recents"
-            icon={<RestoreIcon />}
-          />
-        </BottomNavigation>
       </div>
     </div>
   );
