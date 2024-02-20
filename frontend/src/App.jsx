@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="bg-cafe-100" sx={{ flexGrow: 1 }}>
+    <div className="bg-red-50" sx={{ flexGrow: 1 }}>
       <NavBar />
       <Outlet />
     </div>
