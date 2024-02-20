@@ -23,10 +23,10 @@ export default function FoodItem() {
     if (anchor === "bottom") setDrawerActive({ bottom: open });
   };
   return (
-    <div className="container justify-center ">
-      <div className="grid lg:grid-cols-5  md:grid-cols-3 max-sm:grid-cols-1 gap-3">
+    <div className="justify-center ">
+      <div className="grid lg:grid-cols-5  md:grid-cols-3 sm:grid-cols-1 gap-3">
         <div className="list bg-white shadow-md py-5 hover:border-red-700 border-red-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between max-sm:px-4 max-sm:flex-row w-full flex-col items-center content-center justify-center">
+          <div className="flex max-sm:justify-between max-sm:px-4 max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
             <img
               className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
               src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"

@@ -75,7 +75,7 @@ export default function NavBar() {
           </div>
 
           <a
-            href="/dashboard"
+            href="#"
             className="max-lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
           >
             <img src={logo} className="h-9 max-sm:h-12 " alt="logo" />
