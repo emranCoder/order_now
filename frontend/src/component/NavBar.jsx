@@ -78,7 +78,7 @@ export default function NavBar() {
             href="#"
             className="max-lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
           >
-            <img src={logo} className="h-9 max-sm:h-12 " alt="logo" />
+            <img src={logo} className="h-9 max-sm:h-12 w-24" alt="logo" />
             <span className="self-center  max-sm:hidden  text-2xl font-semibold whitespace-nowrap dark:text-white">
               OrderNow
             </span>

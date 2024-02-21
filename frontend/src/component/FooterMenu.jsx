@@ -1,29 +1,24 @@
 import React, { useState } from "react";
 import {
   Drawer,
-  Grid,
-  List,
-  Divider,
-  ListItem,
-  ListItemButton,
   BottomNavigationAction,
   BottomNavigation,
 } from "@mui/material";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import RestoreIcon from "@mui/icons-material/Restore";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import CoffeeIcon from "@mui/icons-material/Coffee";
-import SetMealIcon from "@mui/icons-material/SetMeal";
-import RamenDiningIcon from "@mui/icons-material/RamenDining";
-import SearchIcon from "@mui/icons-material/Search";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { GiCookie } from "react-icons/gi";
+import { LuSoup, LuSalad, LuSandwich } from "react-icons/lu";
+import { FaHotjar, FaPlateWheat } from "react-icons/fa6";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckOut from "./CheckOut";
 
 export default function FooterMenu() {
-  const menuIcons = [<CoffeeIcon />, <SetMealIcon />, <RamenDiningIcon />];
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
 
   const [value, setValue] = useState("food-menu");
 
@@ -49,226 +44,104 @@ export default function FooterMenu() {
   };
 
   const menuList = (anchor) => (
-    <div role="presentation">
-      <div className="m-3 mt-5  space-x-1">
-        <SearchIcon />
-        <input
-          className="border-spacing-0 border-0 outline-none no-underline"
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-          onKeyDown={(e) => console.log(e.target.value)}
-        />
-      </div>
-      <Divider />
-      <div
-        onClick={toggleDrawer(anchor, false)}
-        onKeyDown={toggleDrawer(anchor, false)}
+    <div className="pb-8 pt-3 px-5">
+      <button
+        className="btn btn-circle mt-[-5px] ml-[-12px] btn-sm mb-2 border-red-100 bg-transparentss"
+        onClick={toggleDrawer("right", false)}
       >
-        <List>
-          {["Breakfast", "Beverages", "Biriyani"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon className="text-red-700">
-                  {menuIcons[index]}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["Breakfast", "Beverages", "Biriyani"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon className="text-red-700">
-                  {menuIcons[index]}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    </div>
-  );
+        <CloseIcon className="!font-bold" sx={{ fontSize: 16 }} />
+      </button>
+      <h3 className="font-semibold mb-3 text-slate-800 text-2xl">For You</h3>
+      <ul className="menu text-lg menu-vertical w-full container justify-center flex">
+        <li
+          className={
+            selectedIndex === 0 ? "bg-red-600 rounded-lg text-white" : ""
+          }
+          onClick={(event) => handleListItemClick(event, 0)}
+        >
+          <a>
+            <GiCookie />
+            <span>Appetizers/Snacks</span>
+          </a>
+        </li>
 
-  const checkOut = (anchor) => (
-    <div role="presentation" className="p-5 pt-0  ">
-      <h3 className="capitalize font-medium text-2xl pt-5 text-red-800">
-        Order Details:
-      </h3>
-      <div className="grid grid-cols-3 gap-0 py-2 space-x-0 max-md:grid-cols-1">
-        <div className="grid col-span-2 grid-cols-2 lg:grid-cols-3 max-md:grid-cols-none  justify-start gap-0 space-x-0  border-r-2 overflow-y-scroll h-64 max-md:h-52">
-          <div className="h-24 mx-auto bg-white space-y-0 py-4 flex items-center space-x-6  ">
-            <img
-              className="block h-full rounded max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="space-y-2 text-left">
-              <div className="space-y-0.5">
-                <p className="text-lg text-black font-semibold">
-                  Vegetables Salad{" "}
-                </p>
-                <p className="text-slate-500 font-medium">8.99$</p>
-              </div>
-            </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-red hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
-              <HighlightOffIcon />
-            </button>
-          </div>
+        <li
+          className={
+            selectedIndex === 1 ? "bg-red-600 rounded-lg text-white" : ""
+          }
+          onClick={(event) => handleListItemClick(event, 1)}
+        >
+          <a>
+            <LuSoup />
+            <span>Soups</span>
+          </a>
+        </li>
 
-          <div className="h-24 mx-auto bg-white rounded-xl space-y-0 py-4 flex items-center space-x-6  ">
-            <img
-              className="block h-full rounded max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="space-y-2 text-left">
-              <div className="space-y-0.5">
-                <p className="text-lg text-black font-semibold">
-                  Vegetables Salad{" "}
-                </p>
-                <p className="text-slate-500 font-medium">8.99$</p>
-              </div>
-            </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-red hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
-              <HighlightOffIcon />
-            </button>
-          </div>
-          <div className="h-24 mx-auto bg-white rounded-xl space-y-0 py-4 flex items-center space-x-6  ">
-            <img
-              className="block h-full rounded max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="space-y-2 text-left">
-              <div className="space-y-0.5">
-                <p className="text-lg text-black font-semibold">
-                  Vegetables Salad{" "}
-                </p>
-                <p className="text-slate-500 font-medium">8.99$</p>
-              </div>
-            </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-red hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
-              <HighlightOffIcon />
-            </button>
-          </div>
-          <div className="h-24 mx-auto bg-white rounded-xl space-y-0 py-4 flex items-center space-x-6  ">
-            <img
-              className="block h-full rounded max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="space-y-2 text-left">
-              <div className="space-y-0.5">
-                <p className="text-lg text-black font-semibold">
-                  Vegetables Salad{" "}
-                </p>
-                <p className="text-slate-500 font-medium">8.99$</p>
-              </div>
-            </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-red hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
-              <HighlightOffIcon />
-            </button>
-          </div>
+        <li
+          className={
+            selectedIndex === 2 ? "bg-red-600 rounded-lg text-white" : ""
+          }
+          onClick={(event) => handleListItemClick(event, 2)}
+        >
+          <a>
+            <LuSalad />
+            <span>Salads</span>
+          </a>
+        </li>
 
-          <div className="h-24 mx-auto bg-white rounded-xl space-y-0 py-4 flex items-center space-x-6  ">
-            <img
-              className="block h-full rounded max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="space-y-2 text-left">
-              <div className="space-y-0.5">
-                <p className="text-lg text-black font-semibold">
-                  Vegetables Salad{" "}
-                </p>
-                <p className="text-slate-500 font-medium">8.99$</p>
-              </div>
-            </div>
-            <button className="md:!m-auto md:!ml-2  px-2 text-sm text-red-400 font-semibold  hover:text-red hover:text-red-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2">
-              <HighlightOffIcon />
-            </button>
-          </div>
-        </div>
-        <div className="list px-5 ">
-          <div className="w-full ">
-            <div className="w-full border-b">
-              <span>Subtotal: </span>
-              <span className="float-right">100 $</span>
-            </div>
-            <div className="w-full border-b">
-              <span>Discount:</span>
-              <span className="float-right">0.0 %</span>
-            </div>
-            <div className="w-full border-b">
-              <span>Tax: </span>
-              <span className="float-right">1.5 %</span>
-            </div>
-            <div className="w-full">
-              <span>Total: </span>
-              <span className="float-right">110 $</span>
-            </div>
-            <div className="flex justify-center w-full my-5">
-              <input
-                className="border-spacing-0 w-full inline-block p-2 outline-none border-red-600 focus:border-red-700 border no-underline rounded-l-md"
-                placeholder="kupon code"
-                inputProps={{ "aria-label": "search" }}
-                onKeyDown={(e) => console.log(e.target.value)}
-              />
-              <button className="p-2 m-0 text-sm inline-block  text-white font-semibold bg-red-700 rounded-l-none rounded-md border border-red-700 hover:text-red hover:bg-red-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2">
-                <KeyboardArrowRightIcon />
-              </button>
-            </div>
-            <div className="w-full">
-              <button className=" w-full py-2 text-sm text-red-700 font-semibold rounded-full border border-red-700 focus:outline-none focus:ring-2 hover:text-white  hover:border-red-300 hover:bg-red-700   focus:ring-red-300 focus:bg-red-700 focus:text-white   focus:ring-offset-2 ease-out duration-300">
-                Check Out
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+        <li
+          className={
+            selectedIndex === 3 ? "bg-red-600 rounded-lg text-white" : ""
+          }
+          onClick={(event) => handleListItemClick(event, 3)}
+        >
+          <a>
+            <LuSandwich />
+            <span>Sandwiches</span>
+          </a>
+        </li>
+
+        <li
+          className={
+            selectedIndex === 4 ? "bg-red-600 rounded-lg text-white" : ""
+          }
+          onClick={(event) => handleListItemClick(event, 4)}
+        >
+          <a>
+            <FaHotjar />
+            <span>Hot Entrees</span>
+          </a>
+        </li>
+
+        <li
+          className={
+            selectedIndex === 5 ? "bg-red-600 rounded-lg text-white" : ""
+          }
+          onClick={(event) => handleListItemClick(event, 5)}
+        >
+          <a>
+            <FaPlateWheat />
+            <span>Biryani</span>
+          </a>
+        </li>
+      </ul>
     </div>
   );
 
   return (
     <div className="flex justify-center">
-      <div className="bg-stone-50 grid drop-shadow-lg footer-box rounded-full border-red-700 border border-opacity-45  px-20  max-lg:hidden  items-center fixed bottom-0  py-4  w-11/12 my-2">
-        <Drawer
-          anchor={"bottom"}
-          open={drawerActive["bottom"]}
-          onClose={toggleDrawer("bottom", false)}
+      <div className="max-lg:block hidden m-0 p-0 bottom-0 fixed w-full ">
+        <BottomNavigation
+          value={value}
+          onChange={handleChange}
+          className="!rounded-t-3xl shadow-[0px_0px_5px_#c5c5c5] border-t border-red-100 "
         >
-          {checkOut("bottom")}
-        </Drawer>
-
-        <Grid className="flex justify-between items-center">
-          <Grid
-            onClick={toggleDrawer("bottom", true)}
-            className=" cursor-pointer text-lg capitalize"
-            item
-          >
-            <ArrowCircleUpIcon /> Your Order
-          </Grid>
-          <Grid className="font-semibold">
-            Price: 244,2230$
-            <button
-              onClick={toggleDrawer("bottom", true)}
-              className="px-5 py-2 ml-5 text-sm text-white font-semibold rounded-full border bg-red-700 hover:bg-transparent focus:outline-none focus:ring-2  border-red-700 hover:text-red-700    focus:ring-red-300  hover:border-red-700 focus:ring-offset-2 ease-out duration-300"
-            >
-              Check Out
-            </button>
-          </Grid>
-        </Grid>
-      </div>
-      <div className="max-lg:block hidden m-0 p-0 bottom-0 fixed w-full">
-        <BottomNavigation value={value} onChange={handleChange}>
           <BottomNavigationAction
+            showLabel={true}
             label="Food Menu"
             value="food-menu"
             onClick={toggleDrawer("right", true)}
+            className="!text-red-800 "
             icon={<RestaurantMenuIcon />}
           />
           <Drawer
@@ -280,8 +153,10 @@ export default function FooterMenu() {
           </Drawer>
 
           <BottomNavigationAction
+            showLabel={true}
             label="Check Out"
             value="check-out"
+            className="!text-red-800 "
             onClick={toggleDrawer("bottom", true)}
             icon={<ShoppingCartCheckoutIcon />}
           />
@@ -290,11 +165,13 @@ export default function FooterMenu() {
             open={drawerActive["bottom"]}
             onClose={toggleDrawer("bottom", false)}
           >
-            {checkOut("bottom")}
+            <CheckOut closeBtn={toggleDrawer("bottom", false)} />
           </Drawer>
           <BottomNavigationAction
+            showLabel={true}
             label="Recents"
             value="recents"
+            className="!text-red-800"
             icon={<RestoreIcon />}
           />
         </BottomNavigation>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 // Import Swiper styles
@@ -11,13 +11,11 @@ import { LuSoup, LuSalad, LuSandwich } from "react-icons/lu";
 import { FaHotjar, FaPlateWheat } from "react-icons/fa6";
 
 export default function OrderMenuBox() {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-  // selected={selectedIndex === 0}
-  // onClick={(event) => handleListItemClick(event, 0)}
 
   return (
     <div className="container  bg-red-50 rounded-box ">

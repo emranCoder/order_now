@@ -1,254 +1,89 @@
 import React from "react";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-export default function CheckOut() {
+export default function CheckOut(props) {
+  const test = () => (
+    <div className="border-red-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
+      <img
+        className="block rounded-l-lg h-20  mx-0 shrink-0 "
+        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
+        alt="Woman's Face"
+      />
+
+      <div className="ml-3 text-left ">
+        <p className="text-lg m-0  mt-3  my-1 text-red-900">
+          Vegetables Salad{" "}
+        </p>
+        <p className="my-1 font-semibold text-red-900">$ 8.99</p>
+      </div>
+      <div className="relative flex items-center max-w-[5rem] ml-5">
+        <button
+          type="button"
+          id="decrement-button"
+          data-input-counter-decrement="quantity-input"
+          className="btn btn-sm rounded-none rounded-l-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300  p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
+        >
+          <span>-</span>
+        </button>
+        <input
+          type="text"
+          id="quantity-input"
+          data-input-counter
+          aria-describedby="helper-text-explanation"
+          className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
+          placeholder="100"
+          defaultValue={100}
+          disabled={true}
+          required
+        />
+
+        <button
+          type="button"
+          id="increment-button"
+          data-input-counter-increment="quantity-input"
+          className="btn btn-sm rounded-none rounded-r-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300 py-0 p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
+        >
+          <span>+</span>
+        </button>
+      </div>
+    </div>
+  );
   return (
-    <div className="container">
-      <div className="container-row">
-        <div className="col-lg-12 col-md-12 col-sm-12 checkout-box py-8 max-sm:pt-4">
-          <h3 className="capitalize max-sm:px-3 font-medium text-2xl mb-5 text-red-800">
-            Order Details:
-          </h3>
+    <div className="container-fluid">
+      <div className="container-row lg:px-10">
+        <div className="col-lg-12 col-md-12 col-sm-12 max-sm:pt-4 pt-8  w-full">
+          <div className="flex justify-between">
+            <h3 className="capitalize font-medium text-2xl mb-5 text-red-800 max-sm:px-3 ">
+              Order Details:
+            </h3>
+            <button
+              className="btn btn-circle mr-3 btn-sm border-red-100 bg-transparent"
+              onClick={props.closeBtn}
+            >
+              <CloseIcon className="!font-bold" sx={{ fontSize: 16 }} />
+            </button>
+          </div>
+        </div>
+        <div className="col-lg-12 col-md-12 col-sm-12 checkout-box  sm:px-3">
           <div className="container ">
             <div className="container-row">
-              <div className="col-lg-8 col-md-6 md:border-r max-sm:w-full max-md:w-full max-sm:px-3 ">
-                <div className="container-fluid  h-64 overflow-y-auto">
-                  <div className="container-row grid justify-center lg:grid-cols-2 gap-y-2  md:grid-cols-1 max-sm:h-48 h-auto rounded-lg">
-                    <div className="border-red-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
-                      <img
-                        className="block rounded-l-lg h-20  mx-0 shrink-0 "
-                        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-                        alt="Woman's Face"
-                      />
-
-                      <div className="ml-3 text-left ">
-                        <p className="text-lg m-0  mt-3  my-1 text-red-900">
-                          Vegetables Salad{" "}
-                        </p>
-                        <p className="my-1 font-semibold text-red-900">
-                          $ 8.99
-                        </p>
-                      </div>
-                      <div className="relative flex items-center max-w-[5rem] ml-5">
-                        <button
-                          type="button"
-                          id="decrement-button"
-                          data-input-counter-decrement="quantity-input"
-                          className="btn btn-sm rounded-none rounded-l-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300  p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
-                        >
-                          <span>-</span>
-                        </button>
-                        <input
-                          type="text"
-                          id="quantity-input"
-                          data-input-counter
-                          aria-describedby="helper-text-explanation"
-                          className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
-                          placeholder="100"
-                          defaultValue={100}
-                          disabled={true}
-                          required
-                        />
-
-                        <button
-                          type="button"
-                          id="increment-button"
-                          data-input-counter-increment="quantity-input"
-                          className="btn btn-sm rounded-none rounded-r-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300 py-0 p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
-                        >
-                          <span>+</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="border-red-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
-                      <img
-                        className="block rounded-l-lg h-20  mx-0 shrink-0 "
-                        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-                        alt="Woman's Face"
-                      />
-
-                      <div className="ml-3 text-left ">
-                        <p className="text-lg m-0  mt-3  my-1 text-red-900">
-                          Vegetables Salad{" "}
-                        </p>
-                        <p className="my-1 font-semibold text-red-900">
-                          $ 8.99
-                        </p>
-                      </div>
-                      <div className="relative flex items-center max-w-[5rem] ml-5">
-                        <button
-                          type="button"
-                          id="decrement-button"
-                          data-input-counter-decrement="quantity-input"
-                          className="btn btn-sm rounded-none rounded-l-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300  p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
-                        >
-                          <span>-</span>
-                        </button>
-                        <input
-                          type="text"
-                          id="quantity-input"
-                          data-input-counter
-                          aria-describedby="helper-text-explanation"
-                          className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
-                          placeholder="100"
-                          defaultValue={100}
-                          disabled={true}
-                          required
-                        />
-
-                        <button
-                          type="button"
-                          id="increment-button"
-                          data-input-counter-increment="quantity-input"
-                          className="btn btn-sm rounded-none rounded-r-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300 py-0 p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
-                        >
-                          <span>+</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="border-red-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
-                      <img
-                        className="block rounded-l-lg h-20  mx-0 shrink-0 "
-                        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-                        alt="Woman's Face"
-                      />
-
-                      <div className="ml-3 text-left ">
-                        <p className="text-lg m-0  mt-3  my-1 text-red-900">
-                          Vegetables Salad{" "}
-                        </p>
-                        <p className="my-1 font-semibold text-red-900">
-                          $ 8.99
-                        </p>
-                      </div>
-                      <div className="relative flex items-center max-w-[5rem] ml-5">
-                        <button
-                          type="button"
-                          id="decrement-button"
-                          data-input-counter-decrement="quantity-input"
-                          className="btn btn-sm rounded-none rounded-l-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300  p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
-                        >
-                          <span>-</span>
-                        </button>
-                        <input
-                          type="text"
-                          id="quantity-input"
-                          data-input-counter
-                          aria-describedby="helper-text-explanation"
-                          className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
-                          placeholder="100"
-                          defaultValue={100}
-                          disabled={true}
-                          required
-                        />
-
-                        <button
-                          type="button"
-                          id="increment-button"
-                          data-input-counter-increment="quantity-input"
-                          className="btn btn-sm rounded-none rounded-r-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300 py-0 p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
-                        >
-                          <span>+</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="border-red-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
-                      <img
-                        className="block rounded-l-lg h-20  mx-0 shrink-0 "
-                        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-                        alt="Woman's Face"
-                      />
-
-                      <div className="ml-3 text-left ">
-                        <p className="text-lg m-0  mt-3  my-1 text-red-900">
-                          Vegetables Salad{" "}
-                        </p>
-                        <p className="my-1 font-semibold text-red-900">
-                          $ 8.99
-                        </p>
-                      </div>
-                      <div className="relative flex items-center max-w-[5rem] ml-5">
-                        <button
-                          type="button"
-                          id="decrement-button"
-                          data-input-counter-decrement="quantity-input"
-                          className="btn btn-sm rounded-none rounded-l-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300  p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
-                        >
-                          <span>-</span>
-                        </button>
-                        <input
-                          type="text"
-                          id="quantity-input"
-                          data-input-counter
-                          aria-describedby="helper-text-explanation"
-                          className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
-                          placeholder="100"
-                          defaultValue={100}
-                          disabled={true}
-                          required
-                        />
-
-                        <button
-                          type="button"
-                          id="increment-button"
-                          data-input-counter-increment="quantity-input"
-                          className="btn btn-sm rounded-none rounded-r-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300 py-0 p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
-                        >
-                          <span>+</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="border-red-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
-                      <img
-                        className="block rounded-l-lg h-20  mx-0 shrink-0 "
-                        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-                        alt="Woman's Face"
-                      />
-
-                      <div className="ml-3 text-left ">
-                        <p className="text-lg m-0  mt-3  my-1 text-red-900">
-                          Vegetables Salad{" "}
-                        </p>
-                        <p className="my-1 font-semibold text-red-900">
-                          $ 8.99
-                        </p>
-                      </div>
-                      <div className="relative flex items-center max-w-[5rem] ml-5">
-                        <button
-                          type="button"
-                          id="decrement-button"
-                          data-input-counter-decrement="quantity-input"
-                          className="btn btn-sm rounded-none rounded-l-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300  p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
-                        >
-                          <span>-</span>
-                        </button>
-                        <input
-                          type="text"
-                          id="quantity-input"
-                          data-input-counter
-                          aria-describedby="helper-text-explanation"
-                          className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
-                          placeholder="100"
-                          defaultValue={100}
-                          disabled={true}
-                          required
-                        />
-
-                        <button
-                          type="button"
-                          id="increment-button"
-                          data-input-counter-increment="quantity-input"
-                          className="btn btn-sm rounded-none rounded-r-lg bg-red-700  text-white dark:bg-gray-700 hover:bg-red-600  border border-gray-300 py-0 p-2  focus:bg-red-600 focus:ring-red-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
-                        >
-                          <span>+</span>
-                        </button>
-                      </div>
-                    </div>
+              <div className="col-lg-8 col-md-6  max-sm:w-full max-md:w-full pb-10">
+                <div className="container-fluid md:border-r">
+                  <div className="container-row grid justify-center lg:grid-cols-2 gap-y-2  md:grid-cols-1  rounded-lg overflow-y-auto h-52 max-sm:h-40">
+                    {test()}
+                    {test()}
+                    {test()}
+                    {test()}
+                    {test()}
+                    {test()}
+                    {test()}
+                    {test()}
+                    {test()}
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 col-md-6 md:border-l max-sm:w-full max-md:w-full max-sm:mt-5">
+              <div className="col-lg-4 col-md-6 max-sm:w-full max-md:w-full max-sm:mt-5">
                 <div className="list px-5 ">
                   <div className="w-full ">
                     <div className="w-full border-b">
