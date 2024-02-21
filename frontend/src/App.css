@@ -661,7 +661,6 @@ body {
 
 
 .navbar-ul li>.active {
-    text-decoration: underline;
     color: rgb(220, 38, 38);
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
 import logo from "../img/orderNow.png";
 
 export default function NavBar() {
@@ -34,7 +34,7 @@ export default function NavBar() {
             </button>
 
             <a
-              href="#"
+              href="/"
               className="lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
             >
               <img src={logo} className="h-12" alt="Flowbite Logo" />
@@ -45,7 +45,7 @@ export default function NavBar() {
           </div>
 
           <a
-            href="#"
+            href="/"
             className="max-lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
           >
             <img src={logo} className="h-9 max-sm:h-12 w-24" alt="logo" />
@@ -56,8 +56,9 @@ export default function NavBar() {
           <div className="flex w-full justify-center">
             <ul className="flex cursor-pointer navbar-ul">
               <li>
-                <a className="active">Home</a>
+                <NavLink to="/">Home</NavLink>
               </li>
+
               <li>
                 <a>Product</a>
               </li>
