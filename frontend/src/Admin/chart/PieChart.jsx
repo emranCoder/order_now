@@ -1,5 +1,5 @@
 import React from "react";
-import ReactApexChart from "react-apexcharts";
+import ApexCharts from "apexcharts";
 
 export default function PieChart(props) {
   const pieChart = {
@@ -79,5 +79,5 @@ export default function PieChart(props) {
       },
     },
   };
-  return <ReactApexChart series={props.data} options={pieChart} type="donut" />;
+  return <ApexCharts series={props.data} options={pieChart} type="donut" />;
 }

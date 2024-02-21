@@ -12,9 +12,9 @@ export default function CheckOut() {
           </h3>
           <div className="container ">
             <div className="container-row">
-              <div className="col-lg-8 col-md-6 md:border-r max-sm:w-full max-md:w-full max-sm:px-3">
-                <div className="container-fluid ">
-                  <div className="container-row grid justify-center lg:grid-cols-2 gap-y-2  md:grid-cols-1 max-sm:h-48 h-64 overflow-y-auto rounded-lg">
+              <div className="col-lg-8 col-md-6 md:border-r max-sm:w-full max-md:w-full max-sm:px-3 ">
+                <div className="container-fluid  h-64 overflow-y-auto">
+                  <div className="container-row grid justify-center lg:grid-cols-2 gap-y-2  md:grid-cols-1 max-sm:h-48 h-auto rounded-lg">
                     <div className="border-red-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
                       <img
                         className="block rounded-l-lg h-20  mx-0 shrink-0 "
@@ -47,6 +47,7 @@ export default function CheckOut() {
                           className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
                           placeholder="100"
                           defaultValue={100}
+                          disabled={true}
                           required
                         />
 
@@ -92,8 +93,10 @@ export default function CheckOut() {
                           className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
                           placeholder="100"
                           defaultValue={100}
+                          disabled={true}
                           required
                         />
+
                         <button
                           type="button"
                           id="increment-button"
@@ -136,8 +139,10 @@ export default function CheckOut() {
                           className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
                           placeholder="100"
                           defaultValue={100}
+                          disabled={true}
                           required
                         />
+
                         <button
                           type="button"
                           id="increment-button"
@@ -180,8 +185,10 @@ export default function CheckOut() {
                           className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
                           placeholder="100"
                           defaultValue={100}
+                          disabled={true}
                           required
                         />
+
                         <button
                           type="button"
                           id="increment-button"
@@ -224,8 +231,10 @@ export default function CheckOut() {
                           className="text-white border-x-0 p-0 bg-red-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-red-700 focus:border-red-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-red-700 dark:focus:border-red-700 outline-none  block"
                           placeholder="100"
                           defaultValue={100}
+                          disabled={true}
                           required
                         />
+
                         <button
                           type="button"
                           id="increment-button"

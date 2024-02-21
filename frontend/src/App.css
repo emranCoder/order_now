@@ -742,3 +742,10 @@ body {
 .MuiInputBase-root.MuiInputBase-colorPrimary.MuiTablePagination-input.css-16c50h-MuiInputBase-root-MuiTablePagination-select {
     margin: 2px;
 }
+
+.menu li> :not(ul, .menu-title, details, .btn):active,
+.menu li> :not(ul, .menu-title, details, .btn).active,
+.menu li>details>summary:active {
+    background-color: #dc2626 !important;
+    color: white !important;
+}
