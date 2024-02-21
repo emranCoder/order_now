@@ -647,6 +647,24 @@ body {
     color: rgb(255, 255, 255);
 }
 
+.navbar-ul li {
+    color: rgb(71, 85, 105);
+    padding: 0px 10px;
+}
+
+.navbar-ul li:hover {
+    color: rgb(220, 38, 38) !important;
+    transition: 0.5s;
+
+}
+
+
+
+.navbar-ul li>.active {
+    text-decoration: underline;
+    color: rgb(220, 38, 38);
+}
+
 .box-right {
     position: fixed;
     overflow-y: auto;

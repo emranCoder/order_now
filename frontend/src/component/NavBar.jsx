@@ -1,38 +1,8 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import React from "react";
+
 import logo from "../img/orderNow.png";
 
-const pages = ["Home", "Check Out", "Contact Us"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export default function NavBar() {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
   return (
     <div className="bg-white border-gray-200 dark:bg-slate-800 shadow-md lg:px-10">
       <div className="container">
@@ -83,6 +53,25 @@ export default function NavBar() {
               OrderNow
             </span>
           </a>
+          <div className="flex w-full justify-center">
+            <ul className="flex cursor-pointer navbar-ul">
+              <li>
+                <a className="active">Home</a>
+              </li>
+              <li>
+                <a>Product</a>
+              </li>
+              <li>
+                <a>Offers</a>
+              </li>
+              <li>
+                <a>Contact Us</a>
+              </li>
+              <li>
+                <a>Cart</a>
+              </li>
+            </ul>
+          </div>
 
           <div className="navbar-end">
             <div className="dropdown dropdown-end">
@@ -100,7 +89,7 @@ export default function NavBar() {
               </div>
               <ul
                 tabIndex={0}
-                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                className="mt-3 z-[1] border border-red-100 p-2 shadow-[-5px_4px_31px_-12px] menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
                 <li>
                   <a href="#" className="justify-between">

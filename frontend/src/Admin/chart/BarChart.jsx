@@ -1,5 +1,5 @@
 import React from "react";
-import ApexCharts from "apexcharts";
+import ReactApexChart from "react-apexcharts";
 
 export default function BarChart(props) {
   const barChartSeries = [
@@ -89,5 +89,7 @@ export default function BarChart(props) {
     },
   };
 
-  return <ApexCharts options={barChart} series={barChartSeries} type="bar" />;
+  return (
+    <ReactApexChart options={barChart} series={barChartSeries} type="bar" />
+  );
 }

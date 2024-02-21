@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper/modules";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/scrollbar";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper/modules";
 import { GiCookie } from "react-icons/gi";
 import { LuSoup, LuSalad, LuSandwich } from "react-icons/lu";
 import { FaHotjar, FaPlateWheat } from "react-icons/fa6";
