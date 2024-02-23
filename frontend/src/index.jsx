@@ -24,12 +24,14 @@ import Staffs from "./Admin/pages/Staffs";
 import Setting from "./Admin/pages/Setting";
 import Customer from "./Admin/pages/Customer";
 import Login from "./Authentication/Login";
+import ContactUs from "./component/ContactUs";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/" element={<App />}>
-        <Route index element={<OrderBox />} />
+      <Route element={<App />}>
+        <Route path="/" element={<OrderBox />} />
+        <Route path="contactus" element={<ContactUs />} />
       </Route>
       <Route element={<Admin />}>
         <Route path="dashboard" element={<HomeInfo />} />

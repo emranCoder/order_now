@@ -658,9 +658,7 @@ body {
 
 }
 
-
-
-.navbar-ul li>.active {
+.navbar-ul .active>li {
     color: rgb(220, 38, 38);
 }
 
@@ -675,6 +673,7 @@ body {
 .MuiBadge-badge {
     background-color: #b45309 !important;
 }
+
 
 /***** End Universal Class *****/
 

@@ -54,21 +54,21 @@ export default function NavBar() {
             </span>
           </a>
           <div className="flex w-full justify-center">
-            <ul className="flex cursor-pointer navbar-ul">
-              <li>
-                <NavLink to="/">Home</NavLink>
-              </li>
+            <ul className="flex cursor-pointer navbar-ul main-nav">
+              <NavLink to="/">
+                <li className="nav-link">Home</li>
+              </NavLink>
 
-              <li>
+              <li className="nav-link">
                 <a>Product</a>
               </li>
-              <li>
+              <li className="nav-link">
                 <a>Offers</a>
               </li>
-              <li>
-                <a>Contact Us</a>
-              </li>
-              <li>
+              <NavLink to="contactus">
+                <li className="nav-link">Contact Us</li>
+              </NavLink>
+              <li className="nav-link">
                 <a>Cart</a>
               </li>
             </ul>
