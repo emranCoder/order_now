@@ -1,11 +1,13 @@
-import React from "react";
-
+import React, { useEffect } from "react";
 import FoodItem from "./FoodItem";
-
 import FooterMenu from "./FooterMenu";
 import OrderMenuBox from "./OrderMenuBox";
 
 export default function OrderBox() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <section className="order-section py-5">
       <div className="container">

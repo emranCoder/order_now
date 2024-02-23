@@ -3,6 +3,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaSlackHash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -19,7 +20,9 @@ export default function Footer() {
           <nav>
             <h6 className="footer-title">Company</h6>
             <a className="link link-hover">About us</a>
-            <a className="link link-hover">Contact</a>
+            <NavLink to="contactus" className="link link-hover">
+              Contact
+            </NavLink>
             <a className="link link-hover">Jobs</a>
             <a className="link link-hover">Press kit</a>
           </nav>

@@ -53,7 +53,7 @@ export default function NavBar() {
               OrderNow
             </span>
           </a>
-          <div className="flex w-full justify-center">
+          <div className="w-full justify-center lg:flex hidden">
             <ul className="flex cursor-pointer navbar-ul main-nav">
               <NavLink to="/">
                 <li className="nav-link">Home</li>
