@@ -64,12 +64,12 @@ export default function Login() {
         <div className="col-lg-1"></div>
         <div className="col-lg-5 col-md-9 max-sm:w-full">
           <div className="login-form bg-base-100 max-sm:p-10  p-16 border rounded-xl shadow-lg  ">
-            <h3 className="text-3xl font-semibold text-slate-900">Login</h3>
+            <h3 className="text-3xl font-semibold text-slate-600">Login</h3>
             <p className="my-2 text-slate-500">
               Don't have an account?
               <a
                 href="#"
-                className="font-semibold text-slate-700 hover:text-red-700"
+                className="font-semibold text-red-600 hover:text-slate-600"
               >
                 {" "}
                 Register
@@ -102,12 +102,12 @@ export default function Login() {
                     paddingBottom: "10px",
                   },
                   "& .Mui-focused": {
-                    color: "rgb(220,38,38) !important",
+                    color: "rgb(71,85,105)",
                   },
 
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "rgb(220,38,38)",
+                      borderColor: "rgb(71,85,105)",
                     },
                   },
                 }}
@@ -135,25 +135,28 @@ export default function Login() {
                     paddingBottom: "10px",
                   },
                   "& .Mui-focused": {
-                    color: "rgb(220,38,38) !important",
+                    color: "rgb(71,85,105)",
                   },
 
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": {
-                      borderColor: "rgb(220,38,38)",
+                      borderColor: "rgb(71,85,105)",
                     },
                   },
                 }}
               />
               <div className="form-control float-end flex-row w-full">
                 <label className="label cursor-pointer">
-                  <input type="checkbox" className="checkbox" />
+                  <input
+                    type="checkbox"
+                    className="checkbox checked:!bg-slate-600"
+                  />
                   <span className="label-text ml-5">Remember me</span>
                 </label>
               </div>
               <button
                 type="btn"
-                className="mt-5 rounded-xl p-0 font-semibold w-full  bg-red-700 btn hover:bg-red-600 text-slate-100 overflow-hidden"
+                className="mt-5 rounded-full p-0 font-semibold w-full  bg-red-600 btn hover:bg-red-500 text-slate-100 overflow-hidden"
               >
                 <Mui.ListItemButton
                   className="!flex !justify-center"
@@ -170,7 +173,7 @@ export default function Login() {
               <label className="label mt-3">
                 <a
                   href="#"
-                  className="label-text-alt link link-hover hover:text-sky-800"
+                  className="label-text-alt link link-hover hover:!text-red-600"
                 >
                   Forgot password?
                 </a>
@@ -180,7 +183,7 @@ export default function Login() {
         </div>
         <div className="col-lg-6">
           <div className="lg:block hidden p-16 dtl-login">
-            <h3 className="text-[50px] font-bold text-red-800">OrderNow</h3>
+            <h3 className="text-[50px] font-bold text-slate-600">OrderNow</h3>
             <p className="p-2 text-slate-600">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Distinctio adipisci eveniet, sunt officia praesentium maiores

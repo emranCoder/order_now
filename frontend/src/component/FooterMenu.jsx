@@ -46,7 +46,7 @@ export default function FooterMenu() {
   const menuList = (anchor) => (
     <div className="pb-8 pt-3 px-5">
       <button
-        className="btn btn-circle mt-[-5px] ml-[-12px] btn-sm mb-2 border-red-100 bg-transparentss"
+        className="btn btn-circle mt-[-5px] ml-[-12px] btn-sm mb-2 border-amber-100 bg-transparentss"
         onClick={toggleDrawer("right", false)}
       >
         <CloseIcon className="!font-bold" sx={{ fontSize: 16 }} />
@@ -55,7 +55,7 @@ export default function FooterMenu() {
       <ul className="menu text-lg menu-vertical w-full container justify-center flex">
         <li
           className={
-            selectedIndex === 0 ? "bg-red-600 rounded-lg text-white" : ""
+            selectedIndex === 0 ? "bg-amber-600 rounded-lg text-white" : ""
           }
           onClick={(event) => handleListItemClick(event, 0)}
         >
@@ -67,7 +67,7 @@ export default function FooterMenu() {
 
         <li
           className={
-            selectedIndex === 1 ? "bg-red-600 rounded-lg text-white" : ""
+            selectedIndex === 1 ? "bg-amber-600 rounded-lg text-white" : ""
           }
           onClick={(event) => handleListItemClick(event, 1)}
         >
@@ -79,7 +79,7 @@ export default function FooterMenu() {
 
         <li
           className={
-            selectedIndex === 2 ? "bg-red-600 rounded-lg text-white" : ""
+            selectedIndex === 2 ? "bg-amber-600 rounded-lg text-white" : ""
           }
           onClick={(event) => handleListItemClick(event, 2)}
         >
@@ -91,7 +91,7 @@ export default function FooterMenu() {
 
         <li
           className={
-            selectedIndex === 3 ? "bg-red-600 rounded-lg text-white" : ""
+            selectedIndex === 3 ? "bg-amber-600 rounded-lg text-white" : ""
           }
           onClick={(event) => handleListItemClick(event, 3)}
         >
@@ -103,7 +103,7 @@ export default function FooterMenu() {
 
         <li
           className={
-            selectedIndex === 4 ? "bg-red-600 rounded-lg text-white" : ""
+            selectedIndex === 4 ? "bg-amber-600 rounded-lg text-white" : ""
           }
           onClick={(event) => handleListItemClick(event, 4)}
         >
@@ -115,7 +115,7 @@ export default function FooterMenu() {
 
         <li
           className={
-            selectedIndex === 5 ? "bg-red-600 rounded-lg text-white" : ""
+            selectedIndex === 5 ? "bg-amber-600 rounded-lg text-white" : ""
           }
           onClick={(event) => handleListItemClick(event, 5)}
         >
@@ -134,14 +134,14 @@ export default function FooterMenu() {
         <BottomNavigation
           value={value}
           onChange={handleChange}
-          className="!rounded-t-3xl shadow-[0px_0px_5px_#c5c5c5] border-t border-red-100 "
+          className="!rounded-t-3xl shadow-[0px_0px_5px_#c5c5c5] border-t border-amber-100 "
         >
           <BottomNavigationAction
             showLabel={true}
             label="Food Menu"
             value="food-menu"
             onClick={toggleDrawer("right", true)}
-            className="!text-red-800 "
+            className="!text-amber-800 "
             icon={<RestaurantMenuIcon />}
           />
           <Drawer
@@ -156,7 +156,7 @@ export default function FooterMenu() {
             showLabel={true}
             label="Check Out"
             value="check-out"
-            className="!text-red-800 "
+            className="!text-amber-800 "
             onClick={toggleDrawer("bottom", true)}
             icon={<ShoppingCartCheckoutIcon />}
           />
@@ -171,7 +171,7 @@ export default function FooterMenu() {
             showLabel={true}
             label="Recents"
             value="recents"
-            className="!text-red-800"
+            className="!text-amber-800"
             icon={<RestoreIcon />}
           />
         </BottomNavigation>

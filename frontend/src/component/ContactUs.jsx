@@ -9,12 +9,17 @@ export default function ContactUs() {
   }, []);
   return (
     <section className="order-section p-5 ">
-      <div className="container  rounded-xl px-10 py-10 max-sm:p-5 md:px-5 bg-white">
-        <div className="container-row max-sm:justify-center">
-          <div className="col-lg-6 col-md-6 col-sm-12 pr-1">
+      <div className="container  rounded-xl px-10 py-10 max-sm:p-5 max-md:px-5 bg-white">
+        <div className="container-row justify-center">
+          <div className="col-lg-12 mb-5">
+            <h3 className="flex justify-center text-4xl font-semibold text-slate-600">
+              Contact Us
+            </h3>
+          </div>
+          <div className="col-lg-4 col-md-12 col-sm-12 pr-1">
             <div className="contact-box p-10 flex items-center h-full ">
-              <ul className="space-y-12 ">
-                <li className="flex gap-x-5 items-center">
+              <ul className="lg:space-y-12 lg:space-x-0 md:space-y-0 md:space-x-5 flex lg:flex-col md:flex-row space-y-12 flex-col">
+                <li className="flex gap-x-5  items-center">
                   <div className="cnt-icon text-red-600 text-2xl">
                     <FaPhoneAlt />
                   </div>
@@ -41,10 +46,10 @@ export default function ContactUs() {
               </ul>
             </div>
           </div>
-          <div className="col-lg-6 col-md-6 col-sm-12 pl-1">
+          <div className="col-lg-6 col-md-12 col-sm-12 pl-1 md:mt-10">
             <form
               action="#"
-              className="space-y-2 border rounded-xl shadow p-10"
+              className="space-y-2 p-10 rounded-xl border shadow"
             >
               <div>
                 <label

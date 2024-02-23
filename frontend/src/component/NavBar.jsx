@@ -60,11 +60,9 @@ export default function NavBar() {
               </NavLink>
 
               <li className="nav-link">
-                <a>Product</a>
+                <a>About Us</a>
               </li>
-              <li className="nav-link">
-                <a>Offers</a>
-              </li>
+
               <NavLink to="contactus">
                 <li className="nav-link">Contact Us</li>
               </NavLink>
@@ -75,6 +73,12 @@ export default function NavBar() {
           </div>
 
           <div className="navbar-end">
+            <a
+              href="/login"
+              className="btn min-h-full  h-full rounded-full hover:bg-red-600 hover:text-slate-100 border-red-600 bg-transparent text-red-600 py-3 px-6"
+            >
+              Login/Registration
+            </a>
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
