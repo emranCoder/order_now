@@ -54,9 +54,14 @@ export default function Login() {
   };
 
   return (
-    <div className="container-fluid bg-red-50 h-lvh">
-      <div className="container-row justify-center content-center h-full items-center m-auto">
-        <div className="col-lg-1"></div>
+    <div className="container-fluid bg-slate-50 py-10 h-svh">
+      <div className="container-row justify-center content-center flex-start items-center m-auto">
+        <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
+          {" "}
+          <h3 className="text-[50px] font-serif font-bold text-slate-600 mb-10 mt-8">
+            OrderNow
+          </h3>
+        </div>
         <div className="col-lg-5 col-md-9 max-sm:w-full">
           <div className="login-form bg-base-100 max-sm:p-10  p-16 border rounded-xl shadow-lg  ">
             <h3 className="text-3xl font-semibold text-slate-600">Login</h3>
@@ -64,7 +69,7 @@ export default function Login() {
               Don't have an account?
               <a
                 href="#"
-                className="font-semibold text-red-600 hover:text-slate-600"
+                className="font-semibold text-slate-600 hover:text-slate-600"
               >
                 {" "}
                 Register
@@ -97,7 +102,7 @@ export default function Login() {
                     paddingBottom: "10px",
                   },
                   "& .Mui-focused": {
-                    color: "rgb(71,85,105)",
+                    color: "rgb(71 85 105) !important",
                   },
 
                   "& .MuiOutlinedInput-root": {
@@ -130,7 +135,7 @@ export default function Login() {
                     paddingBottom: "10px",
                   },
                   "& .Mui-focused": {
-                    color: "rgb(71,85,105)",
+                    color: "rgb(71 85 105) !important",
                   },
 
                   "& .MuiOutlinedInput-root": {
@@ -151,7 +156,7 @@ export default function Login() {
               </div>
               <button
                 type="btn"
-                className="mt-5 rounded-full p-0 font-semibold w-full  bg-red-600 btn hover:bg-red-500 text-slate-100 overflow-hidden"
+                className="mt-5 rounded-full p-0 font-semibold w-full  bg-slate-600 btn hover:bg-slate-500 text-slate-100 overflow-hidden"
               >
                 <Mui.ListItemButton
                   className="!flex !justify-center"
@@ -168,7 +173,7 @@ export default function Login() {
               <label className="label mt-3">
                 <a
                   href="#"
-                  className="label-text-alt link link-hover hover:!text-red-600"
+                  className="label-text-alt link link-hover hover:!text-slate-600"
                 >
                   Forgot password?
                 </a>
@@ -176,9 +181,11 @@ export default function Login() {
             </form>
           </div>
         </div>
-        <div className="col-lg-6">
-          <div className="lg:block hidden p-16 dtl-login">
-            <h3 className="text-[50px] font-bold text-slate-600">OrderNow</h3>
+        <div className="col-lg-6 lg:block hidden">
+          <div className=" p-16 dtl-login">
+            <h3 className="text-[50px] font-bold font-serif text-slate-600">
+              OrderNow
+            </h3>
             <p className="p-2 text-slate-600">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Distinctio adipisci eveniet, sunt officia praesentium maiores

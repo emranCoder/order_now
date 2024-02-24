@@ -38,7 +38,7 @@ export default function NavBar() {
               className="lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
             >
               <img src={logo} className="h-12" alt="Flowbite Logo" />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center font-serif text-2xl font-semibold whitespace-nowrap dark:text-white">
                 OrderNow
               </span>
             </a>
@@ -49,7 +49,7 @@ export default function NavBar() {
             className="max-lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
           >
             <img src={logo} className="h-9 max-sm:h-12 w-24" alt="logo" />
-            <span className="self-center  max-sm:hidden  text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center  max-sm:hidden  text-2xl font-semibold whitespace-nowrap dark:text-white font-serif">
               OrderNow
             </span>
           </a>
@@ -75,7 +75,7 @@ export default function NavBar() {
           <div className="navbar-end">
             <a
               href="/login"
-              className="btn min-h-full  h-full rounded-full hover:bg-red-600 hover:text-slate-100 border-red-600 bg-transparent text-red-600 py-3 px-6"
+              className="btn min-h-full  h-full rounded-full hover:bg-slate-600 hover:text-slate-100 border-slate-600 bg-transparent text-slate-600 py-3 px-6"
             >
               Login/Registration
             </a>
@@ -94,7 +94,7 @@ export default function NavBar() {
               </div>
               <ul
                 tabIndex={0}
-                className="mt-3 z-[1] border border-red-100 p-2 shadow-[-5px_4px_31px_-12px] menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                className="mt-3 z-[1] border border-slate-100 p-2 shadow-[-5px_4px_31px_-12px] menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
                 <li>
                   <NavLink to="profile">Profile</NavLink>

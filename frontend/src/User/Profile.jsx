@@ -7,7 +7,7 @@ export default function Profile() {
     <section className="order-section p-5 ">
       <div className="container rounded-xl px-10 py-16 max-sm:p-5 max-md:px-5 bg-white">
         <div className="container-row justify-center gap-4">
-          <div className="col-lg-4 col-md-12 col-sm-12 pr-2 border border-dotted border-red-600 rounded-2xl flex items-center justify-center">
+          <div className="col-lg-4 col-md-12 col-sm-12 max-sm:w-full pr-2  lg:border border-dotted border-slate-600 rounded-2xl flex items-center justify-center">
             <div className="profile-box flex flex-col items-center ">
               <div className="avatar">
                 <div className="w-32 mask mask-squircle">
@@ -34,7 +34,7 @@ export default function Profile() {
                       document.getElementById("fileInput").click();
                     }}
                     htmlFor="files"
-                    className="btn w-full !bg-transparent !outline-none !border-0 font-semibold text-red-600 rounded-lg"
+                    className="btn w-full !bg-transparent !outline-none !border-0 font-semibold text-slate-600 rounded-lg"
                   >
                     Upload Picture
                   </label>
@@ -55,7 +55,7 @@ export default function Profile() {
               </div>
             </div>
           </div>
-          <div className="col-lg-7 col-md-12 col-sm-12 pl-2">
+          <div className="col-lg-7 col-md-12 col-sm-12 pl-2 max-sm:w-full max-sm:mt-5">
             <form class="mx-auto px-5">
               <h3 className="mb-3 text-4xl">Profile</h3>
               <div class="grid md:grid-cols-2 md:gap-6">
@@ -64,13 +64,13 @@ export default function Profile() {
                     type="text"
                     name="floating_first_name"
                     id="floating_first_name"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-slate-600 peer"
                     placeholder=" "
                     required
                   />
                   <label
                     for="floating_first_name"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-slate-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     First name
                   </label>
@@ -80,13 +80,13 @@ export default function Profile() {
                     type="text"
                     name="floating_last_name"
                     id="floating_last_name"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-slate-600 peer"
                     placeholder=" "
                     required
                   />
                   <label
                     for="floating_last_name"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-slate-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     {" "}
                     Last name
@@ -98,13 +98,13 @@ export default function Profile() {
                   type="email"
                   name="floating_email"
                   id="floating_email"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-slate-600 peer"
                   placeholder=" "
                   required
                 />
                 <label
                   for="floating_email"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-slate-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Email address
                 </label>
@@ -117,13 +117,13 @@ export default function Profile() {
                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     name="floating_phone"
                     id="floating_phone"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-slate-600 peer"
                     placeholder=" "
                     required
                   />
                   <label
                     for="floating_phone"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-slate-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Phone number (123-456-7890)
                   </label>
@@ -133,13 +133,13 @@ export default function Profile() {
                     type="text"
                     name="floating_company"
                     id="floating_company"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-slate-600 peer"
                     placeholder=" "
                     required
                   />
                   <label
                     for="floating_company"
-                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus :translate-x-1/4 peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus :translate-x-1/4 peer-focus:text-slate-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Address
                   </label>
@@ -147,7 +147,7 @@ export default function Profile() {
               </div>
               <button
                 type="submit"
-                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
               >
                 Submit
               </button>

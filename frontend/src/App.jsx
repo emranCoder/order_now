@@ -6,7 +6,7 @@ import Footer from "./component/Footer";
 
 function App() {
   return (
-    <div className="bg-red-50 ">
+    <div className="bg-gray-100 ">
       <NavBar />
       <Outlet />
       <Footer />

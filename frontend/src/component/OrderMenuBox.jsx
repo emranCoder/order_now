@@ -16,7 +16,7 @@ export default function OrderMenuBox() {
   };
 
   return (
-    <div className="container  bg-red-50 rounded-box ">
+    <div className="container  bg-slate-50 rounded-box ">
       <ul className="menu text-lg menu-horizontal w-full container justify-center flex">
         <Swiper
           freeMode
@@ -28,7 +28,7 @@ export default function OrderMenuBox() {
           <SwiperSlide>
             <li
               className={
-                selectedIndex === 0 ? "bg-red-600 rounded-lg text-white" : ""
+                selectedIndex === 0 ? "bg-slate-600 rounded-lg text-white" : ""
               }
               onClick={(event) => handleListItemClick(event, 0)}
             >
@@ -41,7 +41,7 @@ export default function OrderMenuBox() {
           <SwiperSlide>
             <li
               className={
-                selectedIndex === 1 ? "bg-red-600 rounded-lg text-white" : ""
+                selectedIndex === 1 ? "bg-slate-600 rounded-lg text-white" : ""
               }
               onClick={(event) => handleListItemClick(event, 1)}
             >
@@ -54,7 +54,7 @@ export default function OrderMenuBox() {
           <SwiperSlide>
             <li
               className={
-                selectedIndex === 2 ? "bg-red-600 rounded-lg text-white" : ""
+                selectedIndex === 2 ? "bg-slate-600 rounded-lg text-white" : ""
               }
               onClick={(event) => handleListItemClick(event, 2)}
             >
@@ -67,7 +67,7 @@ export default function OrderMenuBox() {
           <SwiperSlide>
             <li
               className={
-                selectedIndex === 3 ? "bg-red-600 rounded-lg text-white" : ""
+                selectedIndex === 3 ? "bg-slate-600 rounded-lg text-white" : ""
               }
               onClick={(event) => handleListItemClick(event, 3)}
             >
@@ -80,7 +80,7 @@ export default function OrderMenuBox() {
           <SwiperSlide>
             <li
               className={
-                selectedIndex === 4 ? "bg-red-600 rounded-lg text-white" : ""
+                selectedIndex === 4 ? "bg-slate-600 rounded-lg text-white" : ""
               }
               onClick={(event) => handleListItemClick(event, 4)}
             >
@@ -93,7 +93,7 @@ export default function OrderMenuBox() {
           <SwiperSlide>
             <li
               className={
-                selectedIndex === 5 ? "bg-red-600 rounded-lg text-white" : ""
+                selectedIndex === 5 ? "bg-slate-600 rounded-lg text-white" : ""
               }
               onClick={(event) => handleListItemClick(event, 5)}
             >
