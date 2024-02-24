@@ -25,6 +25,8 @@ import Setting from "./Admin/pages/Setting";
 import Customer from "./Admin/pages/Customer";
 import Login from "./Authentication/Login";
 import ContactUs from "./component/ContactUs";
+import Profile from "./User/Profile";
+import ChangePwd from "./User/ChangePwd";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +34,9 @@ const router = createBrowserRouter(
       <Route element={<App />}>
         <Route path="/" element={<OrderBox />} />
         <Route path="contactus" element={<ContactUs />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="changepwd" element={<ChangePwd />} />
       </Route>
       <Route element={<Admin />}>
         <Route path="dashboard" element={<HomeInfo />} />
