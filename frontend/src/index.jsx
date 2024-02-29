@@ -27,6 +27,7 @@ import Login from "./Authentication/Login";
 import ContactUs from "./component/ContactUs";
 import Profile from "./User/Profile";
 import ChangePwd from "./User/ChangePwd";
+import Blog from "./component/Blog";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="profile" element={<Profile />} />
         <Route path="changepwd" element={<ChangePwd />} />
+        <Route path="blog" element={<Blog />} />
       </Route>
       <Route element={<Admin />}>
         <Route path="dashboard" element={<HomeInfo />} />

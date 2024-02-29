@@ -6,9 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'cafe-100': '#f7f3ef',
-        'cafe-200': '#e29655',
-        'cafe-300': '#bc722d',
+        'cerulean': '#0295db',
+        'off-gray': '#9d9da1',
+        'geyser': '#e0e5e9',
+        'mine-sbaft': '#262626',
       },
     },
   },
