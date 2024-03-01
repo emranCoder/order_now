@@ -5,10 +5,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
+import axios from "axios";
 
 export default function Product() {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [data, setData] = useState();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -17,6 +19,18 @@ export default function Product() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+  const handleOnChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    console.log(data);
+    await axios
+      .post("http://localhost:5000/api/product/", data)
+      .then((response) => console.log(response))
+      .catch((error) => console.log({ err: error }));
   };
   return (
     <Animation>
@@ -52,30 +66,34 @@ export default function Product() {
                 <h3 className="font-bold text-lg">New Product!</h3>
 
                 <div className="modal-action justify-center">
-                  <form method="dialog">
+                  <form onSubmit={handleOnSubmit} method="dialog">
                     <input
                       type="text"
                       name="name"
                       placeholder="Product Name"
                       className="input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
+                      onChange={handleOnChange}
                     />
                     <input
                       type="text"
                       placeholder="Price"
                       name="price"
                       className="input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
+                      onChange={handleOnChange}
                     />
                     <textarea
                       type="text"
                       name="description"
                       placeholder="Description"
                       className="rounded-lg h-24 my-2 w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered"
+                      onChange={handleOnChange}
                     />
                     <input
                       type="file"
                       name="image"
                       placeholder="Upload Product Image"
                       className="file-input w-full file-input-sm  "
+                      onChange={handleOnChange}
                     />
                     <div className="grid grid-cols-2 gap-1 my-5 mt-10">
                       <button

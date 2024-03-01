@@ -15,7 +15,7 @@ const app = express()
 dotenv.config();
 
 const options = {
-    origin: `http://localhost:${process.env.PORT}`,
+    "Access-Control-Allow-Origin": `http://localhost:${process.env.PORT}/`,
     methods: 'GET, PUT, POST, DELETE',
     allowedHeaders: '*'
 }

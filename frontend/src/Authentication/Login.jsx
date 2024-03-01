@@ -58,18 +58,18 @@ export default function Login() {
       <div className="container-row justify-center content-center flex-start items-center m-auto">
         <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
           {" "}
-          <h3 className="text-[50px] font-serif font-bold text-sky-800 mb-10 mt-8">
+          <h3 className="text-[50px] font-serif font-bold text-slate-800 mb-10 mt-8">
             OrderNow
           </h3>
         </div>
         <div className="col-lg-5 col-md-9 max-sm:w-full">
           <div className="login-form bg-base-100 max-sm:p-10  p-16 border rounded-xl shadow-lg  ">
-            <h3 className="text-3xl font-semibold text-sky-800 ">Login</h3>
+            <h3 className="text-3xl font-semibold text-slate-800 ">Login</h3>
             <p className="my-2 text-slate-500">
               Don't have an account?
               <a
                 href="#"
-                className="font-semibold text-sky-600 hover:text-sky-800 hover:underline"
+                className="font-semibold text-slate-600 hover:text-slate-800 hover:underline"
               >
                 {" "}
                 Register
@@ -81,7 +81,7 @@ export default function Login() {
             >
               <TextField
                 fullWidth
-                className="!border-sky-700 "
+                className="!border-slate-700 "
                 label="Username"
                 name="username"
                 value={formData.username}
@@ -156,7 +156,7 @@ export default function Login() {
               </div>
               <button
                 type="btn"
-                className="mt-5 rounded-full p-0 font-semibold w-full  bg-sky-700 btn hover:bg-sky-600 text-slate-100 overflow-hidden"
+                className="mt-5 rounded-full p-0 font-semibold w-full  bg-slate-700 btn hover:bg-slate-600 text-slate-100 overflow-hidden"
               >
                 <Mui.ListItemButton
                   className="!flex !justify-center"
@@ -173,7 +173,7 @@ export default function Login() {
               <label className="label mt-3">
                 <a
                   href="#"
-                  className="label-text-alt link link-hover hover:!text-sky-800"
+                  className="label-text-alt link link-hover hover:!text-slate-800"
                 >
                   Forgot password?
                 </a>
@@ -183,7 +183,7 @@ export default function Login() {
         </div>
         <div className="col-lg-6 lg:block hidden">
           <div className=" p-16 dtl-login">
-            <h3 className="text-[50px] font-bold font-serif text-sky-800">
+            <h3 className="text-[50px] font-bold font-serif text-slate-800">
               OrderNow
             </h3>
             <p className="p-2 text-slate-600">

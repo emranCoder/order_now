@@ -1,16 +1,79 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import * as Mui from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
+import { IoCloseOutline } from "react-icons/io5";
+import { TiTick } from "react-icons/ti";
+import axios from "axios";
 
 export default function Category() {
+  const [data, setData] = useState();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const closeBtn = useRef(null);
+
+  const handleOnChange = (e) => {
+    if (error && error.name) {
+      setError({ ...error, name: null });
+    } else {
+      setError({ ...error, description: null });
+    }
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    console.log(data);
+    const response = await axios
+      .post("http://localhost:5000/api/category/", data)
+      .catch((error) => setError(error.response.data.err));
+    console.log(response);
+    if (response && response.status === 200) {
+      setSuccess(response.data);
+      setData(null);
+      closeBtn.current.click();
+    }
+  };
   return (
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
-        <div className="container overflow-hidden">
+        <div className="container ">
+          {/* Toast */}
+          <div className="col-lg-12 col-md-12 col-sm-12">
+            <div className="w-full flex justify-center absolute top-1 left-0 z-20">
+              <div
+                class={`-translate-y-20 opacity-0 transition duration-300 max-w-xs bg-white border  rounded-xl shadow-lg border-success ${
+                  success ? "-translate-y-0 !opacity-100" : ""
+                }`}
+                role="alert"
+              >
+                <div className="flex p-4">
+                  <div className="flex-shrink-0 ">
+                    <TiTick className="flex-shrink-0 size-4 rounded-full bg-success text-white mt-0.5 " />
+                  </div>
+                  <div className="ms-3">
+                    <p className="text-sm text-gray-700 dark:text-gray-400">
+                      Category Created Successfully!
+                    </p>
+                  </div>
+                  <div className="ms-auto">
+                    <button
+                      onClick={() => {
+                        setSuccess(null);
+                      }}
+                      className="btn btn-sm h-auto min-h-[auto] hover:text-slate-900 text-slate-600 text-lg !border-none !bg-transparent"
+                    >
+                      <IoCloseOutline />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Toast End */}
           <div className="category-box">
             <div className="head flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">
@@ -49,21 +112,47 @@ export default function Category() {
                     <input
                       type="text"
                       placeholder="Category Name"
-                      className="input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
+                      name="name"
+                      value={(data && data.name) || ""}
+                      className={`input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc ${
+                        error && error.name ? "border-error text-error" : ""
+                      }`}
+                      onChange={handleOnChange}
                     />
+                    {error && error.name && (
+                      <span className="label-text-alt ml-2 text-error">
+                        {error.name.msg}
+                      </span>
+                    )}
                     <textarea
                       type="text"
                       placeholder="Description"
-                      className="rounded-lg h-24 my-5 w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered"
+                      name="description"
+                      value={(data && data.description) || ""}
+                      className={`rounded-lg h-24 mt-5 w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered ${
+                        error && error.description
+                          ? "border-error text-error"
+                          : ""
+                      }`}
+                      onChange={handleOnChange}
                     />
-                    <div className="grid grid-cols-2 gap-1 my-5">
+                    {error && error.description && (
+                      <span className="label-text-alt ml-2 text-error">
+                        {error.description.msg}
+                      </span>
+                    )}
+                    <div className="grid grid-cols-2 gap-1 my-5 mt-10">
                       <button
                         type="btn"
+                        onClick={handleOnSubmit}
                         className="rounded-full bg-slate-800 btn hover:bg-slate-700 text-white"
                       >
                         GO
                       </button>
-                      <button className="btn rounded-full bg-slate-500 text-white hover:bg-red-500 ">
+                      <button
+                        ref={closeBtn}
+                        className="btn rounded-full bg-slate-500 text-white hover:bg-red-500 "
+                      >
                         Close
                       </button>
                     </div>
@@ -72,7 +161,6 @@ export default function Category() {
               </div>
             </dialog>
           </div>
-
           <div className="overflow-x-auto my-11 max-w-full w-auto max-h-full block relative box-border rounded-lg">
             <table className="table-pin-rows table-zebra lg:table-sm table-pin-cols max-sm:w-max table">
               <thead className="table-row-group">

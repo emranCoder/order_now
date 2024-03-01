@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 
 const categoryValidates = [
     check('name', 'Invalid category Name').not().isEmpty(),
+    check('description', 'Invalid category description').not().isEmpty(),
 ];
 
 const categoryValidation = (req, res, next) => {
