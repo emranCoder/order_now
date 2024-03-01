@@ -1,19 +1,37 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Mui from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
-import { IoCloseOutline } from "react-icons/io5";
-import { TiTick } from "react-icons/ti";
+import Toast from "../Alert/Toast";
 import axios from "axios";
 
 export default function Category() {
   const [data, setData] = useState();
   const [error, setError] = useState(null);
+  const [category, setCategory] = useState(null);
   const [success, setSuccess] = useState(null);
   const closeBtn = useRef(null);
+
+  useEffect(() => {
+    const getCategory = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/category/all"
+        );
+        if (response && response.status === 200) {
+          setCategory(response.data.category);
+        }
+      } catch (error) {
+        if (error.message === "Network Error")
+          return console.error(error.message);
+        console.log(error.response.data.message);
+      }
+    };
+    getCategory();
+  }, [success]);
 
   const handleOnChange = (e) => {
     if (error && error.name) {
@@ -26,53 +44,48 @@ export default function Category() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
-    const response = await axios
-      .post("http://localhost:5000/api/category/", data)
-      .catch((error) => setError(error.response.data.err));
-    console.log(response);
-    if (response && response.status === 200) {
-      setSuccess(response.data);
-      setData(null);
-      closeBtn.current.click();
+    try {
+      let response;
+      if (data && data.id) {
+        response = await axios.put("http://localhost:5000/api/category/", data);
+      } else {
+        response = await axios.post(
+          "http://localhost:5000/api/category/",
+          data
+        );
+      }
+      if (response && response.status === 200) {
+        setSuccess({ type: "success", msg: response.data.message });
+        setData(null);
+        closeBtn.current.click();
+      }
+    } catch (error) {
+      if (error.message === "Network Error")
+        return console.error(error.message);
+      setError(error.response.data.err);
     }
   };
+
+  const handleDelete = async (delId) => {
+    let id = { id: delId };
+    const response = await axios
+      .delete("http://localhost:5000/api/category/", { data: id })
+      .catch((error) => console.error(error.response.data.err));
+    console.log(response);
+    if (response && response.status === 200) {
+      setSuccess({ type: "del", msg: response.data.message });
+    }
+  };
+  const handleSuccess = () => {
+    setSuccess(null);
+  };
+
   return (
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
         <div className="container ">
           {/* Toast */}
-          <div className="col-lg-12 col-md-12 col-sm-12">
-            <div className="w-full flex justify-center absolute top-1 left-0 z-20">
-              <div
-                class={`-translate-y-20 opacity-0 transition duration-300 max-w-xs bg-white border  rounded-xl shadow-lg border-success ${
-                  success ? "-translate-y-0 !opacity-100" : ""
-                }`}
-                role="alert"
-              >
-                <div className="flex p-4">
-                  <div className="flex-shrink-0 ">
-                    <TiTick className="flex-shrink-0 size-4 rounded-full bg-success text-white mt-0.5 " />
-                  </div>
-                  <div className="ms-3">
-                    <p className="text-sm text-gray-700 dark:text-gray-400">
-                      Category Created Successfully!
-                    </p>
-                  </div>
-                  <div className="ms-auto">
-                    <button
-                      onClick={() => {
-                        setSuccess(null);
-                      }}
-                      className="btn btn-sm h-auto min-h-[auto] hover:text-slate-900 text-slate-600 text-lg !border-none !bg-transparent"
-                    >
-                      <IoCloseOutline />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {success && <Toast msg={success} control={handleSuccess} />}
           {/* Toast End */}
           <div className="category-box">
             <div className="head flex justify-between content-center">
@@ -90,9 +103,12 @@ export default function Category() {
               <div className="tooltip" data-tip="Add Category">
                 <button
                   className="bg-transparent btn-sm btn btn-circle  mr-5 border-dotted border-slate-500  border-2 rounded-full text-slate-500 cursor-pointer overflow-hidden flex justify-center !content-center"
-                  onClick={() =>
-                    document.getElementById("my_modal_1").showModal()
-                  }
+                  onClick={() => {
+                    document.getElementById("my_modal_1").showModal();
+                    setData(null);
+                    setSuccess(null);
+                    setError(null);
+                  }}
                 >
                   <Mui.ListItemButton className="!p-1 !m-0 !flex !justify-center !items-center">
                     <AddIcon sx={{ fontSize: 25 }} />
@@ -172,94 +188,48 @@ export default function Category() {
                 </tr>
               </thead>
               <tbody className="table-row-group box-border">
-                <tr className="hover table-row align-middle">
-                  <th className="table-cell align-[inherit]">1</th>
-                  <td className="table-cell align-[inherit]">Cy Ganderton</td>
-                  <td className="table-cell align-[inherit]">
-                    {" "}
-                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
-                      52
-                    </span>
-                  </td>
-                  <td className="flex gap-3">
-                    <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <EditIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                    <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <HighlightOffIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="hover table-row align-middle">
-                  <th className="table-cell align-[inherit]">2</th>
-                  <td className="table-cell align-[inherit]">Cy Ganderton</td>
-                  <td className="table-cell align-[inherit]">
-                    {" "}
-                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
-                      52
-                    </span>
-                  </td>
-                  <td className="flex gap-3">
-                    <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <EditIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                    <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <HighlightOffIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="hover table-row align-middle">
-                  <th className="table-cell align-[inherit]">3</th>
-                  <td className="table-cell align-[inherit]">Cy Ganderton</td>
-                  <td className="table-cell align-[inherit]">
-                    {" "}
-                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
-                      52
-                    </span>
-                  </td>
-                  <td className="flex gap-3">
-                    <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <EditIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                    <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <HighlightOffIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="hover table-row align-middle">
-                  <th className="table-cell align-[inherit]">4</th>
-                  <td className="table-cell align-[inherit]">Cy Ganderton</td>
-                  <td className="table-cell align-[inherit]">
-                    {" "}
-                    <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
-                      52
-                    </span>
-                  </td>
-                  <td className="flex gap-3">
-                    <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <EditIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                    <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                      <Mui.ListItemButton className="!flex !justify-center !items-center">
-                        <HighlightOffIcon sx={{ fontSize: 18 }} />
-                      </Mui.ListItemButton>
-                    </button>
-                  </td>
-                </tr>
+                {category &&
+                  category.map((val, key) => (
+                    <tr key={key} className="hover table-row align-middle">
+                      <th className="table-cell align-[inherit]">{key + 1}</th>
+                      <td className="table-cell align-[inherit]">{val.name}</td>
+                      <td className="table-cell align-[inherit]">
+                        <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                          {val.products.length}
+                        </span>
+                      </td>
+                      <td className="flex gap-3">
+                        <button
+                          className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                          onClick={() => {
+                            setData({
+                              name: val.name,
+                              description: val.description,
+                              id: val._id,
+                            });
+                            document.getElementById("my_modal_1").showModal();
+                          }}
+                        >
+                          <Mui.ListItemButton className="!flex !justify-center !items-center">
+                            <EditIcon sx={{ fontSize: 18 }} />
+                          </Mui.ListItemButton>
+                        </button>
+                        <button
+                          className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                          onClick={() => {
+                            let chk = window.confirm(
+                              "Attention! You want to delete this data!"
+                            );
+                            if (chk === true) handleDelete(val._id);
+                          }}
+                        >
+                          <Mui.ListItemButton className="!flex !justify-center !items-center">
+                            <HighlightOffIcon sx={{ fontSize: 18 }} />
+                          </Mui.ListItemButton>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
