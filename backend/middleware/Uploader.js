@@ -13,6 +13,7 @@ const Uploader = function (sub_folder, file_type, max_file_size, err_msg) {
             cb(null, U_FOLDER);
         },
         filename: (req, file, cb) => {
+            
             const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1E9)
             const fileExt = path.extname(file.originalname);
             const fileName = file.originalname.replace(fileExt, "").toLowerCase().split(" ").join("-") + "-" + uniqueSuffix;

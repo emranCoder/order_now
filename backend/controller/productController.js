@@ -20,6 +20,7 @@ const addProduct = async (req, res) => {
 
         res.status(200).json({ message: "Product added Successfully!", id: addProduct._id });
     } catch (error) {
+
         res.status(500).send({
             err: "Bad request!"
         });
@@ -67,7 +68,7 @@ const updateProduct = async (req, res) => {
                 err: "Server is down!"
             });
         }
-        res.status(200).json({ mess: "You got a update!" });
+        res.status(200).json({ message: "You got a update!" });
     } catch (error) {
         res.status(500).send({
             err: "Bad request!"
@@ -84,17 +85,16 @@ const removeProduct = async (req, res) => {
             });
         }
         const fileName = product.image;
-        if (!(fileName === "default-avatar.png")) {
+        if (!(fileName === "default-product.png")) {
             const fileDest = '../public/uploads/products/';
 
             fs.unlink(path.join(__dirname, fileDest + fileName), (err) => {
-                if (err) {
-                    res.status(404).json({ err: err });
-                }
+
             });
         }
-        res.status(200).json({ mess: "Deleted Successfully!" });
+        res.status(200).json({ message: "Deleted Successfully!" });
     } catch (error) {
+
         res.status(500).send({
             err: "Bad Request!"
         });

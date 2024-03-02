@@ -16,20 +16,6 @@ export default function Category() {
   const closeBtn = useRef(null);
 
   useEffect(() => {
-    const getCategory = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/category/all"
-        );
-        if (response && response.status === 200) {
-          setCategory(response.data.category);
-        }
-      } catch (error) {
-        if (error.message === "Network Error")
-          return console.error(error.message);
-        console.log(error.response.data.message);
-      }
-    };
     getCategory();
   }, [success]);
 
@@ -78,6 +64,21 @@ export default function Category() {
   };
   const handleSuccess = () => {
     setSuccess(null);
+  };
+
+  const getCategory = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/category/all"
+      );
+      if (response && response.status === 200) {
+        setCategory(response.data.category);
+      }
+    } catch (error) {
+      if (error.message === "Network Error")
+        return console.error(error.message);
+      console.log(error.response.data.message);
+    }
   };
 
   return (
