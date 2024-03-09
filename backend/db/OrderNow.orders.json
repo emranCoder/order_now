@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "659e2a6770d8d71c9ba9758d"
+  },
+  "products": [
+    {
+      "$oid": "6593b8f73d27a6ce94264c0c"
+    },
+    {
+      "$oid": "6593b9043d27a6ce94264c0e"
+    },
+    {
+      "$oid": "65964831c07070fec44bb838"
+    }
+  ],
+  "orderNumber": "GS65LKTR6d",
+  "orderPrice": "2500",
+  "paymentMethod": "bkash",
+  "paymentStatus": false,
+  "orderDate": {
+    "$date": "2024-01-10T05:25:59.101Z"
+  },
+  "createdAt": {
+    "$date": "2024-01-10T05:25:59.104Z"
+  },
+  "updatedAt": {
+    "$date": "2024-01-10T05:25:59.104Z"
+  },
+  "__v": 0
+}]

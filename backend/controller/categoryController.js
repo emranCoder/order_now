@@ -65,7 +65,7 @@ const updateCategory = async (req, res) => {
                 err: "Server is down!"
             });
         }
-        res.status(200).json({ message: "You got a update!" });
+        res.status(200).json({ message: "You got an update!" });
     } catch (error) {
         res.status(500).send({
             err: "Bad request!"

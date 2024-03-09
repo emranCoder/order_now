@@ -1,0 +1,79 @@
+[{
+  "_id": {
+    "$oid": "65e2c7bfd2382006fb2c359a"
+  },
+  "name": "Sample Products",
+  "description": "This is a sample product.",
+  "price": 19.99,
+  "discount": 12,
+  "category": "Cake",
+  "wishlist": false,
+  "comments": [],
+  "image": "default-product.png",
+  "createdAt": {
+    "$date": "2024-03-02T06:31:27.289Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T06:31:27.289Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e2c7c0d2382006fb2c35b0"
+  },
+  "name": "Sample Products",
+  "description": "This is a sample product.",
+  "price": 19.99,
+  "discount": 12,
+  "category": "Cake",
+  "wishlist": false,
+  "comments": [],
+  "image": "default-product.png",
+  "createdAt": {
+    "$date": "2024-03-02T06:31:28.689Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T06:31:28.689Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e2c7c0d2382006fb2c35b4"
+  },
+  "name": "Sample Products",
+  "description": "This is a sample product.",
+  "price": 19.99,
+  "discount": 12,
+  "category": "Cake",
+  "wishlist": false,
+  "comments": [],
+  "image": "default-product.png",
+  "createdAt": {
+    "$date": "2024-03-02T06:31:28.985Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T06:31:28.985Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e3069e9e4e48245b4b2b63"
+  },
+  "name": "asgasggagadg",
+  "description": "adgag",
+  "price": 243,
+  "category": "Soups",
+  "wishlist": false,
+  "comments": [],
+  "image": "27cakerex-plzm-superjumbo-1709377182576-119554325.jpg",
+  "createdAt": {
+    "$date": "2024-03-02T10:59:42.587Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:42.587Z"
+  },
+  "__v": 0
+}]

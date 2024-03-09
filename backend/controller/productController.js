@@ -52,7 +52,7 @@ const getProduct = async (req, res) => {
         if (!products) {
             return res.status(404).json({ err: "False Attempted!" });
         }
-        res.status(200).json({ products: products });
+        res.status(200).json({ product: products });
 
     } catch (error) {
         res.status(500).send({ err: "Bad request!" });
@@ -60,16 +60,33 @@ const getProduct = async (req, res) => {
 }
 const updateProduct = async (req, res) => {
     try {
-        const { id, ...bodyData } = { ...req.body };
+        const { id, oldImg, ...bodyData } = { ...req.body };
 
-        const product = await Product.findByIdAndUpdate(id, bodyData);
+        let newData = bodyData;
+
+        if (req.files && req.files.length > 0) {
+
+            const fileName = oldImg;
+            if (!(fileName === "default-product.png")) {
+                const fileDest = '../public/uploads/products/';
+
+                fs.unlink(path.join(__dirname, fileDest + fileName), (err) => {
+
+                });
+            }
+            newData = { ...bodyData, image: req.files[0].filename, };
+        }
+
+        const product = await Product.findByIdAndUpdate(id, newData);
+
         if (!product) {
             return res.status(500).send({
                 err: "Server is down!"
             });
         }
-        res.status(200).json({ message: "You got a update!" });
+        res.status(200).json({ message: "You got an update!", data: product });
     } catch (error) {
+        console.log(error)
         res.status(500).send({
             err: "Bad request!"
         });

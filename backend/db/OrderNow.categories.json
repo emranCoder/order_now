@@ -1,0 +1,96 @@
+[{
+  "_id": {
+    "$oid": "65e175d9d3a7bf94de7fb36e"
+  },
+  "name": "Appetizers/Snacks",
+  "description": "An appetizer is part of a meal that's served before the main course.",
+  "image": "default-product.png",
+  "products": [],
+  "createdAt": {
+    "$date": "2024-03-01T06:29:45.473Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-01T06:29:45.473Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e17610d3a7bf94de7fb370"
+  },
+  "name": "Soups",
+  "description": "Soup is a primarily liquid food, generally served warm or hot (but may be cool or cold), that is made by combining ingredients of meat or vegetables with stock, milk, or water.",
+  "image": "default-product.png",
+  "products": [],
+  "createdAt": {
+    "$date": "2024-03-01T06:30:40.219Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-01T06:30:40.219Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e17682d3a7bf94de7fb372"
+  },
+  "name": "Salads",
+  "description": "The BASE or UNDERLINER of the salad is usually a layer of greens. The BODY of the salad is the main ingredient.",
+  "image": "default-product.png",
+  "products": [],
+  "createdAt": {
+    "$date": "2024-03-01T06:32:34.480Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-01T06:32:34.480Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e17782d3a7bf94de7fb374"
+  },
+  "name": "Sandwiches",
+  "description": "A sandwich is a food typically consisting of vegetables, sliced cheese or meat, placed on or between slices of bread, or more generally any dish wherein ",
+  "image": "default-product.png",
+  "products": [],
+  "createdAt": {
+    "$date": "2024-03-01T06:36:50.307Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-01T06:36:50.307Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e1779ed3a7bf94de7fb376"
+  },
+  "name": "Hot Entrees",
+  "description": "We take great care in crafting each of our delicious entrees with the finest ingredients. Scroll down to see a selection of poultry.",
+  "image": "default-product.png",
+  "products": [],
+  "createdAt": {
+    "$date": "2024-03-01T06:37:18.570Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-01T06:37:18.570Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e177c6d3a7bf94de7fb378"
+  },
+  "name": "Biryani",
+  "description": "Biryani (/bɜːrˈjɑːni/) is a mixed rice dish most popular in South Asia.",
+  "image": "default-product.png",
+  "products": [],
+  "createdAt": {
+    "$date": "2024-03-01T06:37:58.535Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-01T06:37:58.535Z"
+  },
+  "__v": 0
+}]

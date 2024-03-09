@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "658fe3b42403938995866297"
+  },
+  "fName": "John",
+  "lName": "Doe",
+  "username": "exampleuser",
+  "mobile": "+8801111111111",
+  "email": "example@example.com",
+  "pwd": "$2b$12$VjDP/P6cMvQa9dLgueW/zee17Mlj0t8dDTtbZG5ZYWUy7TBdTqmG.",
+  "city": "N/A",
+  "country": "N/A",
+  "addr": "N/A",
+  "dateOfBirth": {
+    "$date": "1990-01-01T00:00:00.000Z"
+  },
+  "role": "user",
+  "avatar": "default-avatar.png",
+  "auth": [
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImV4YW1wbGV1c2VyXzY1OGZlM2I0MjQwMzkzODk5NTg2NjI5NyIsImlhdCI6MTcwMzkyODg2MiwiZXhwIjoxNzA0MDE1MjYyfQ.K98wHY44ROhsc8wQk5tA0afW90EwkG23EHaksckFLSc",
+      "logIn": {
+        "$numberLong": "1703928862812"
+      },
+      "logOut": null
+    }
+  ],
+  "createdAt": {
+    "$date": "2023-12-30T09:32:36.501Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-30T09:34:22.813Z"
+  },
+  "__v": 0
+}]

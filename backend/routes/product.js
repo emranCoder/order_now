@@ -8,7 +8,7 @@ const { productValidates, productValidation, imageValidation } = require('../mid
 router.post('/', imageUpload, productValidates, productValidation, imageValidation, addProduct);
 router.get('/all', getAllProduct);
 router.get('/:id', getProduct);
-router.put('/', updateProduct);
+router.put('/', imageUpload, productValidation, imageValidation, updateProduct);
 router.delete('/', removeProduct);
 
 

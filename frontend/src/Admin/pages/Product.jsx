@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Toast from "../Alert/Toast";
 import Animation from "../spinner/Animation";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 export default function Product() {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -121,9 +121,9 @@ export default function Product() {
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
-              <div className="tooltip" data-tip="Add Product">
+              <div className="tooltip " data-tip="Add Product">
                 <button
-                  className="bg-transparent btn-sm btn btn-circle  mr-5 border-dotted border-slate-500  border-2 rounded-full text-slate-500 cursor-pointer overflow-hidden flex justify-center !content-center"
+                  className="bg-transparent btn-sm btn btn-circle   mr-5 border-dotted border-slate-500  border-2 rounded-full text-slate-500 cursor-pointer overflow-hidden flex justify-center !content-center"
                   onClick={() =>
                     document.getElementById("my_modal_1").showModal()
                   }
@@ -244,7 +244,13 @@ export default function Product() {
                             </div>
                           </div>
                           <div>
-                            <div className="font-bold">{val.name}</div>
+                            <Link
+                              to="/viewproduct"
+                              state={val._id}
+                              className="font-bold"
+                            >
+                              {val.name}
+                            </Link>
                           </div>
                         </div>
                       </td>
@@ -256,15 +262,19 @@ export default function Product() {
                       </td>
                       <td>
                         <span className="uppercase px-3 py-1 text-red-800 font-medium text-xs bg-opacity-40 bg-red-200 rounded-full">
-                          0%
+                          {val.discount} %
                         </span>
                       </td>
                       <td className="flex gap-3">
-                        <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
+                        <Link
+                          to="/viewproduct"
+                          state={val._id}
+                          className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                        >
                           <Mui.ListItemButton className="!flex !justify-center !items-center">
                             <EditIcon sx={{ fontSize: 18 }} />
                           </Mui.ListItemButton>
-                        </button>
+                        </Link>
                         <button
                           onClick={() => {
                             let chk = window.confirm(

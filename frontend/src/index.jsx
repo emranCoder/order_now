@@ -28,6 +28,7 @@ import ContactUs from "./component/ContactUs";
 import Profile from "./User/Profile";
 import ChangePwd from "./User/ChangePwd";
 import Blog from "./component/Blog";
+import ViewProduct from "./Admin/pages/ViewProduct";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,6 +51,7 @@ const router = createBrowserRouter(
         <Route path="staff" element={<Staffs />} />
         <Route path="setting" element={<Setting />} />
         <Route path="user" element={<Customer />} />
+        <Route path="viewproduct" element={<ViewProduct />} />
       </Route>
       <Route path="/login" element={<Login />} />
     </Route>

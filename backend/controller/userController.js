@@ -67,7 +67,7 @@ const updateUser = async (req, res) => {
                 err: "Server is down!"
             });
         }
-        res.status(200).json({ mess: "You got a update!" });
+        res.status(200).json({ mess: "You got an update!" });
     } catch (error) {
         res.status(500).send({
             err: "Bad request!"
