@@ -8,6 +8,11 @@ const orderSchema = new mongoose.Schema({
             required: true,
         },
     ],
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        default: null,
+    },
     orderNumber: {
         type: String,
         default: null,
@@ -19,6 +24,10 @@ const orderSchema = new mongoose.Schema({
     paymentMethod: {
         type: String,
         default: null,
+    },
+    orderStatus: {
+        type: String,
+        default: "Pending"
     },
     paymentStatus: {
         type: Boolean,
