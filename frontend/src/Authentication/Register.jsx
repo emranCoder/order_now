@@ -245,11 +245,11 @@ export default function Login() {
                   <div className="col-lg-4 pl-1 flex items-center">
                     <LocalizationProvider
                       dateAdapter={AdapterDayjs}
-                      className="w-full "
+                      className="w-full"
                     >
                       <DemoContainer
                         components={["DatePicker"]}
-                        className="w-full "
+                        className="w-full"
                       >
                         <DatePicker
                           type="date"
