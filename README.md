@@ -50,4 +50,4 @@ If nodemon is not installed on your system then globally must be installed. Open
 
 ## Authors
 
-- [@emranCoder](https://www.github.com/emranCoder)
+- [@emrancoder](https://www.github.com/emranCoder)
