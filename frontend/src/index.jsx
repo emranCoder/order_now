@@ -23,12 +23,14 @@ import PaymentStatus from "./Admin/pages/PaymentStatus";
 import Staffs from "./Admin/pages/Staffs";
 import Setting from "./Admin/pages/Setting";
 import Customer from "./Admin/pages/Customer";
-import Login from "./Authentication/Login";
 import ContactUs from "./component/ContactUs";
 import Profile from "./User/Profile";
 import ChangePwd from "./User/ChangePwd";
 import Blog from "./component/Blog";
 import ViewProduct from "./Admin/pages/ViewProduct";
+import Login from "./Authentication/Login";
+import Register from "./Authentication/Register";
+import Credential from "./Authentication/Credential";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +56,8 @@ const router = createBrowserRouter(
         <Route path="viewproduct" element={<ViewProduct />} />
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/registration" element={<Register />} />
+      <Route path="/credential" element={<Credential />} />
     </Route>
   )
 );

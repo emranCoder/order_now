@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Info from "./Info";
-import { Link } from "react-router-dom";
 
-export default function Login() {
+
+export default function Credential() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -69,13 +69,13 @@ export default function Login() {
             <h3 className="text-3xl font-semibold text-slate-800 ">Login</h3>
             <p className="my-2 text-slate-500">
               Don't have an account?
-              <Link
-                to="/registration"
+              <a
+                href="#"
                 className="font-semibold text-slate-600 hover:text-slate-800 hover:underline"
               >
                 {" "}
                 Register
-              </Link>
+              </a>
             </p>
             <form
               onSubmit={handleSubmit}
