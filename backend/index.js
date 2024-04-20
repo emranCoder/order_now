@@ -4,6 +4,7 @@ const path = require('path');
 const db = require('./config/db');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
+const staffAuthRoutes = require('./routes/staffAuth');
 const loginRoutes = require('./routes/login');
 const productRoutes = require('./routes/product');
 const categoryRoutes = require('./routes/Category');
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(options));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/staff/auth', staffAuthRoutes);
 app.use('/api/login', loginRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/category', categoryRoutes);

@@ -26,7 +26,9 @@ export default function Staffs() {
         <div className="container overflow-hidden">
           <div className="staff-box ">
             <div className="head flex justify-between content-center">
-              <h3 className="text-2xl font-semibold text-slate-600">Product</h3>
+              <h3 className="text-2xl font-semibold text-slate-600">
+                My Staffs
+              </h3>
               <label className="input mr-3  w-2/5 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-800  items-center gap-2">
                 <input
                   type="text"
@@ -35,7 +37,7 @@ export default function Staffs() {
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
-              <div className="tooltip" data-tip="Add Product">
+              <div className="tooltip" data-tip="Add Staffs">
                 <button
                   className="bg-transparent btn-sm btn btn-circle  mr-5 border-dotted border-slate-500  border-2 rounded-full text-slate-500 cursor-pointer overflow-hidden flex justify-center !content-center"
                   onClick={() =>
@@ -108,7 +110,7 @@ export default function Staffs() {
                         type="file"
                         name="staffImage"
                         id="fileInput"
-                        placeholder="Upload Product Image"
+                        placeholder="Upload Staff Image"
                         className="file-input w-full file-input-sm  hidden"
                         accept="image/*"
                         onChange={(e) => {

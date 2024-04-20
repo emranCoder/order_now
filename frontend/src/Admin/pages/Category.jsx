@@ -13,6 +13,7 @@ export default function Category() {
   const [error, setError] = useState(null);
   const [category, setCategory] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [edit, setEdit] = useState(false);
   const closeBtn = useRef(null);
 
   useEffect(() => {
@@ -120,7 +121,9 @@ export default function Category() {
 
             <dialog id="my_modal_1" className="modal">
               <div className="modal-box">
-                <h3 className="font-bold text-lg">New Category!</h3>
+                <h3 className="font-bold text-lg">
+                  {(!edit && "New") || "Edit"} Category!
+                </h3>
                 <p className="pt-4 ">
                   Press ESC key or click the button below to close
                 </p>
@@ -168,6 +171,9 @@ export default function Category() {
                       </button>
                       <button
                         ref={closeBtn}
+                        onClick={() => {
+                          setEdit(false);
+                        }}
                         className="btn rounded-full bg-slate-500 text-white hover:bg-red-500 "
                       >
                         Close
@@ -208,6 +214,7 @@ export default function Category() {
                               description: val.description,
                               id: val._id,
                             });
+                            setEdit(true);
                             document.getElementById("my_modal_1").showModal();
                           }}
                         >
