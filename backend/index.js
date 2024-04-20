@@ -27,6 +27,7 @@ const options = {
 
 app.use('/avatar', express.static(path.join(__dirname, '/public/uploads/avatars')));
 app.use('/products/img', express.static(path.join(__dirname, '/public/uploads/products')));
+app.use('/staff/img', express.static(path.join(__dirname, '/public/uploads/staffs')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(options));

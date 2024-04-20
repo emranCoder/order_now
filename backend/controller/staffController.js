@@ -90,7 +90,7 @@ const updateStaff = async (req, res) => {
                 err: "Server is down!"
             });
         }
-        res.status(200).json({ mess: "You got an update!" });
+        res.status(200).json({ message: "You got an update!" });
     } catch (error) {
 
         res.status(500).send({
@@ -119,7 +119,7 @@ const removeStaff = async (req, res) => {
 
             });
         }
-        res.status(200).json({ mess: "Deleted Successfully!" });
+        res.status(200).json({ message: "Deleted Successfully!" });
     } catch (error) {
 
         res.status(500).send({

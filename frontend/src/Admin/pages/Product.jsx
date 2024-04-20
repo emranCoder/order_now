@@ -16,6 +16,7 @@ export default function Product() {
   const [product, setProduct] = useState(null);
   const [previewFile, setPreviewFIle] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [inputErr, setInputErr] = useState(null);
 
   const closeBtn = useRef(null);
 
@@ -57,9 +58,9 @@ export default function Product() {
         closeBtn.current.click();
       }
     } catch (error) {
-      if (error.message === "Network Error")
-        return console.error(error.message);
-      console.log(error.response.data.message);
+      if (error.response.data.err) {
+        setInputErr(error.response.data.err);
+      }
     }
   };
   const getCategory = async () => {
@@ -149,26 +150,44 @@ export default function Product() {
                     <select
                       onChange={handleOnChange}
                       name="category"
-                      className="select select-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc mb-2"
+                      className={`select select-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc mb-2 ${
+                        inputErr && inputErr.category && "border-red-500"
+                      }`}
                       defaultValue="default"
                       required
                     >
                       <option disabled value="default">
-                        Category
+                        Choose Category
                       </option>
                       {category &&
                         category.map((val, key) => (
                           <option key={key}>{val.name}</option>
                         ))}
                     </select>
+                    {inputErr && inputErr.category && (
+                      <small className="text-red-500">
+                        {inputErr.category.msg}
+                      </small>
+                    )}
                     <input
                       type="text"
                       name="name"
                       placeholder="Product Name"
-                      className="input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc"
+                      className={`input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc ${
+                        inputErr && inputErr.name && "border-red-500"
+                      }`}
                       onChange={handleOnChange}
                     />
-                    <div className="input mt-2 flex items-center input-bordered rounded-lg w-full focus:outline-none focus-within:border-sky-800 !outline-none focus-within:ring-sky-500 focus:ring-1oc">
+                    {inputErr && inputErr.name && (
+                      <small className="text-red-500">
+                        {inputErr.name.msg}
+                      </small>
+                    )}
+                    <div
+                      className={`input mt-2 flex items-center input-bordered rounded-lg w-full focus:outline-none focus-within:border-sky-800 !outline-none focus-within:ring-sky-500 focus:ring-1oc ${
+                        inputErr && inputErr.price && "border-red-500"
+                      }`}
+                    >
                       <input
                         type="text"
                         placeholder="Price"
@@ -178,6 +197,11 @@ export default function Product() {
                       />
                       <span>USD ($)</span>
                     </div>
+                    {inputErr && inputErr.price && (
+                      <small className="text-red-500">
+                        {inputErr.price.msg}
+                      </small>
+                    )}
                     <textarea
                       type="text"
                       name="description"
@@ -260,7 +284,7 @@ export default function Product() {
                       <td>
                         <p>{val.price}$</p>
                       </td>
-                      <td>
+                      <td className="p-0">
                         <span className="uppercase px-3 py-1 text-red-800 font-medium text-xs bg-opacity-40 bg-red-200 rounded-full">
                           {val.discount} %
                         </span>

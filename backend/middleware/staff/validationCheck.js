@@ -8,6 +8,7 @@ const createHttpError = require('http-errors');
 const staffValidates = [
     // Validation checks using express-validator
     check('fullName', 'Name is required').not().isEmpty(),
+    check('wages', 'Salary is required').not().isEmpty(),
     check('nidNo')
         .not()
         .isEmpty()
