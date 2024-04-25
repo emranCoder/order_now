@@ -37,6 +37,25 @@ const addUser = async (req, res) => {
     }
 }
 
+
+const getAllUser = async (req, res) => {
+    try {
+        const queryId = req.params.id;
+        let user = await User.find().select('-pwd -__v -auth');
+
+        if (!user) {
+            return res.status(404).json({ err: "Server is Down!" });
+        }
+        res.status(200).json({ user: user });
+    } catch (error) {
+        res.status(500).send({
+            err: "Bad request!"
+        });
+    }
+}
+
+
+
 const getUser = async (req, res) => {
     try {
         const queryId = req.params.id;
@@ -105,4 +124,4 @@ const removeUser = async (req, res) => {
 
 
 
-module.exports = { addUser, getUser, updateUser, removeUser };
+module.exports = { addUser, getUser, updateUser, removeUser, getAllUser };

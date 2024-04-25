@@ -31,6 +31,7 @@ import ViewProduct from "./Admin/pages/ViewProduct";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import Credential from "./Authentication/Credential";
+import ViewCustomerDetails from "./Admin/pages/ViewCustomerDetails";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +55,7 @@ const router = createBrowserRouter(
         <Route path="setting" element={<Setting />} />
         <Route path="user" element={<Customer />} />
         <Route path="viewproduct" element={<ViewProduct />} />
+        <Route path="/view" element={<ViewCustomerDetails />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/registration" element={<Register />} />

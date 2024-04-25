@@ -40,6 +40,23 @@ const getAllOrder = async (req, res) => {
     }
 }
 
+const getUserOrder = async (req, res) => {
+
+    try {
+
+        const order = await Order.find({ user: req.params.id });
+
+        if (!order) {
+            return res.status(404).json({ err: "False Attempted!" });
+        }
+        res.status(200).json({ order: order });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ err: "Bad request!" });
+    }
+}
+
 const getOrder = async (req, res) => {
 
     try {
@@ -100,4 +117,4 @@ const removeOrder = async (req, res) => {
 }
 
 
-module.exports = { placeOrder, getAllOrder, getOrder, updateOrder, removeOrder };
+module.exports = { placeOrder, getAllOrder, getOrder, updateOrder, getUserOrder, removeOrder };
