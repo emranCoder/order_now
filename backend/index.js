@@ -9,6 +9,7 @@ const loginRoutes = require('./routes/login');
 const productRoutes = require('./routes/product');
 const categoryRoutes = require('./routes/Category');
 const orderRoutes = require('./routes/Order');
+const verifyRoutes = require('./routes/Verify');
 const { errorHandler, notFoundError } = require('./middleware/error_handler');
 
 
@@ -38,6 +39,7 @@ app.use('/api/login', loginRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/order', orderRoutes);
+app.use('/api/verify', verifyRoutes);
 
 
 

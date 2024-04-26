@@ -61,17 +61,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'default-avatar.png',
     },
-    orders: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Order',
-            default: null,
-        }
-    ],
+    verify: {
+        type: String,
+        default: null,
+        expires: 300,
+    }
+    ,
     auth: [
         {
             type: Object,
             default: null,
+            expires: process.env.JWT_EXPIRY
         },
     ]
 }, {

@@ -1,35 +1,21 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-const { hashedPwd } = require('../config/utility');
+const { hashedPwd, generateOTP } = require('../config/utility');
 const path = require('path');
 
 
 const addUser = async (req, res) => {
     try {
-        let uData;
+        ;
         const encPwd = await hashedPwd(req.body.pwd);
-
-        if (req.files && req.files.length > 0) {
-            uData = {
-                ...req.body,
-                avatar: req.files[0].filename,
-                pwd: encPwd,
-            }
-        } else {
-            uData = {
-                ...req.body,
-                pwd: encPwd,
-            }
-        }
+        const uData = { ...req.body, pwd: encPwd, }
 
         const newUser = new User(uData);
         const addUser = await newUser.save();
         if (!addUser) { return res.res.status(500).send({ err: "Unable to add user!" }); }
 
-        const token = jwt.sign({ token: addUser._id }, process.env.JWT_SECRETS, { expiresIn: '2h' });
-
-        res.status(200).json({ message: "User added Successfully!", user: token });
+        res.status(200).json({ message: "Welcome! Enjoy the day." });
     } catch (error) {
         res.status(500).send({
             err: "Bad request!"
@@ -40,7 +26,6 @@ const addUser = async (req, res) => {
 
 const getAllUser = async (req, res) => {
     try {
-        const queryId = req.params.id;
         let user = await User.find().select('-pwd -__v -auth');
 
         if (!user) {

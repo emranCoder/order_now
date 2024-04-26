@@ -43,6 +43,9 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="changepwd" element={<ChangePwd />} />
         <Route path="blog" element={<Blog />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Register />} />
+        <Route path="/credential" element={<Credential />} />
       </Route>
       <Route element={<Admin />}>
         <Route path="dashboard" element={<HomeInfo />} />
@@ -57,9 +60,6 @@ const router = createBrowserRouter(
         <Route path="viewproduct" element={<ViewProduct />} />
         <Route path="/view" element={<ViewCustomerDetails />} />
       </Route>
-      <Route path="/login" element={<Login />} />
-      <Route path="/registration" element={<Register />} />
-      <Route path="/credential" element={<Credential />} />
     </Route>
   )
 );

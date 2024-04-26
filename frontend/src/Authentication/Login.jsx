@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Info from "./Info";
+
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Login(props) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",

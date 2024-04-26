@@ -5,11 +5,14 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import Info from "./Info";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { ClassNames } from "@emotion/react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToast } from "../redux/ToastSlice";
 
-export default function Login() {
+export default function Register() {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -28,6 +31,9 @@ export default function Login() {
     pwd: "",
   });
 
+  const [err, setErr] = useState(null);
+  const navigate = useNavigate();
+
   const validateForm = () => {
     let valid = true;
     const newErrors = {
@@ -44,6 +50,23 @@ export default function Login() {
       valid = false;
     }
 
+    if (!formData.fName) {
+      newErrors.fName = "Field is empty!";
+      valid = false;
+    }
+    if (!formData.lName) {
+      newErrors.lName = "Field is empty!";
+      valid = false;
+    }
+    if (!formData.mobile) {
+      newErrors.mobile = "Field is empty!";
+      valid = false;
+    }
+    if (!formData.dateOfBirth) {
+      newErrors.dateOfBirth = "Field is empty!";
+      valid = false;
+    }
+
     // Password strength check
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!formData.pwd || !passwordRegex.test(formData.pwd)) {
@@ -56,13 +79,28 @@ export default function Login() {
     return valid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Add your login logic here
-      console.log("Login successful");
+      try {
+        let response = await axios.post(
+          "http://localhost:5000/api/auth/createuser",
+          formData
+        );
+
+        if (response && response.status === 200) {
+          dispatch(addToast({ type: "info", msg: response.data.message }));
+          navigate("/login");
+        }
+      } catch (error) {
+        if (error.response.data.err) {
+          setErr(error.response.data.err);
+        }
+        console.log(err);
+      }
+      console.log("Registration successful");
     } else {
-      console.log("Login failed");
+      console.log("Registration failed");
     }
   };
 
@@ -72,6 +110,18 @@ export default function Login() {
       ...formData,
       [name]: value,
     });
+  };
+  const handleBob = (e) => {
+    let { $y, $M, $D } = e;
+    $M = $M + 1;
+    $M = $M < 10 ? "0" + $M : $M;
+    $D = $D < 10 ? "0" + $D : $D;
+    const bob = $y + "-" + $M + "-" + $D;
+    setFormData({
+      ...formData,
+      dateOfBirth: bob,
+    });
+    console.log(formData);
   };
 
   return (
@@ -211,7 +261,7 @@ export default function Login() {
                       fullWidth
                       className="!border-slate-700 "
                       label="Phone NO. (E.g. +8801.....)"
-                      name="tel"
+                      name="mobile"
                       value={formData.mobile}
                       onChange={handleChange}
                       error={Boolean(errors.mobile)}
@@ -257,7 +307,7 @@ export default function Login() {
                           className="!border-slate-700 w-full"
                           label="Date Of Birth"
                           name="dateOfBirth"
-                          onChange={handleChange}
+                          onChange={handleBob}
                           error={Boolean(errors.dateOfBirth)}
                           helperText={errors.dateOfBirth}
                           margin="normal"
@@ -326,9 +376,6 @@ export default function Login() {
                   </div>
                   <div className="col-lg-12">
                     <TextField
-                      onKeyUp={() => {
-                        console.log("s");
-                      }}
                       fullWidth
                       type="password"
                       label="Confirm Password*"

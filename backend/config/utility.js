@@ -50,6 +50,19 @@ const generateString = (length) => {
     return result;
 }
 
+const generateOTP = () => {
+    // Declare a digits variable 
+    // which stores all digits  
+    let digits = '0123456789';
+    let OTP = '';
+    let len = digits.length
+    for (let i = 0; i < 4; i++) {
+        OTP += digits[Math.floor(Math.random() * len)];
+    }
+
+    return OTP;
+}
 
 
-module.exports = { checkPwd, hashedPwd, tokenVerify, generateString };
+
+module.exports = { checkPwd, hashedPwd, tokenVerify, generateString, generateOTP };
