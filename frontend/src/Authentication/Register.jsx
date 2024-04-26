@@ -1,22 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToast } from "../redux/ToastSlice";
+import Loading from "../component/Loading";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const [loader, setLoader] = useState(true);
+  const [conPwd, setConPwd] = useState("");
+  const [err, setErr] = useState(null);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 500);
+  }, [0]);
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
-    email: "",
+    email: state.email,
     mobile: "",
     dateOfBirth: "",
     pwd: "",
@@ -31,8 +42,9 @@ export default function Register() {
     pwd: "",
   });
 
-  const [err, setErr] = useState(null);
-  const navigate = useNavigate();
+  const handleConPwd = (e) => {
+    setConPwd(e.target.value);
+  };
 
   const validateForm = () => {
     let valid = true;
@@ -81,7 +93,12 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (!(conPwd == formData.pwd)) {
+      setFormData({ ...formData, pwd: "" });
+      setConPwd("");
+      setErrors({ ...errors, pwd: true });
+    }
+    if (validateForm() && conPwd === formData.pwd) {
       try {
         let response = await axios.post(
           "http://localhost:5000/api/auth/createuser",
@@ -96,9 +113,7 @@ export default function Register() {
         if (error.response.data.err) {
           setErr(error.response.data.err);
         }
-        console.log(err);
       }
-      console.log("Registration successful");
     } else {
       console.log("Registration failed");
     }
@@ -121,11 +136,11 @@ export default function Register() {
       ...formData,
       dateOfBirth: bob,
     });
-    console.log(formData);
   };
 
   return (
     <div className="container-fluid bg-slate-50 py-10 ">
+      {loader && <Loading />}
       <div className="container-row justify-center content-center flex-start items-center m-auto">
         <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
           {" "}
@@ -223,6 +238,8 @@ export default function Register() {
                   </div>
                   <div className="col-lg-12">
                     <TextField
+                      disabled={formData.email && true}
+                      className="bg-stone-100"
                       fullWidth
                       type="email"
                       label="Email (E.g. abc@gmail.com)"
@@ -376,11 +393,17 @@ export default function Register() {
                   </div>
                   <div className="col-lg-12">
                     <TextField
+                      onChange={handleConPwd}
                       fullWidth
                       type="password"
                       label="Confirm Password*"
                       name="conPwd"
+                      value={conPwd}
                       margin="normal"
+                      error={Boolean(errors.pwd)}
+                      helperText={
+                        Boolean(errors.pwd) && "Please confirm password!"
+                      }
                       sx={{
                         "& legend": { display: "none" },
                         "& fieldset": { top: 0 },

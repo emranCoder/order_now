@@ -15,7 +15,7 @@ const addUser = async (req, res) => {
         const addUser = await newUser.save();
         if (!addUser) { return res.res.status(500).send({ err: "Unable to add user!" }); }
 
-        res.status(200).json({ message: "Welcome! Enjoy the day." });
+        res.status(200).json({ message: "Welcome! Login to continue." });
     } catch (error) {
         res.status(500).send({
             err: "Bad request!"

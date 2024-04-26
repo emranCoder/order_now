@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Info from "./Info";
+import Loading from "../component/Loading";
 
 import { Link } from "react-router-dom";
 
 export default function Login(props) {
+  const [loader, setLoader] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 500);
+  }, [0]);
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -58,6 +66,7 @@ export default function Login(props) {
 
   return (
     <div className="container-fluid bg-slate-50 py-10 h-svh">
+      {loader && <Loading />}
       <div className="container-row justify-center content-center flex-start items-center m-auto">
         <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
           {" "}
@@ -71,7 +80,7 @@ export default function Login(props) {
             <p className="my-2 text-slate-500">
               Don't have an account?
               <Link
-                to="/registration"
+                to="/credential"
                 className="font-semibold text-slate-600 hover:text-slate-800 hover:underline"
               >
                 {" "}

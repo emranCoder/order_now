@@ -1,49 +1,88 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Info from "./Info";
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToast } from "../redux/ToastSlice";
+import Loading from "../component/Loading";
 
 export default function Credential() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [active, setActive] = useState(false);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 500);
+  }, [0]);
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    rememberMe: false,
+    email: "",
+    otp: "",
   });
 
   const [errors, setErrors] = useState({
-    username: "",
-    password: "",
+    email: "",
+    otp: "",
   });
 
-  const validateForm = () => {
+  const validateEmail = () => {
     let valid = true;
-    const newErrors = { username: "", password: "" };
+    const newErrors = { email: "" };
 
-    if (!formData.username) {
-      newErrors.username = "Username is required";
+    if (!formData.email) {
+      newErrors.email = "Email is required";
       valid = false;
     }
-
-    // Password strength check
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-    if (!formData.password || !passwordRegex.test(formData.password)) {
-      newErrors.password =
-        "Password must be at least 6 characters with at least one uppercase and one lowercase letter";
-      valid = false;
-    }
-
     setErrors(newErrors);
     return valid;
   };
+  const validateOtp = () => {
+    let valid = true;
+    const newErrors = { otp: "" };
 
-  const handleSubmit = (e) => {
+    if (!formData.otp) {
+      newErrors.otp = "Field is required";
+      valid = false;
+    }
+    setErrors(newErrors);
+    return valid;
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Add your login logic here
-      console.log("Login successful");
-    } else {
-      console.log("Login failed");
+    if (validateEmail()) {
+      setLoader(true);
+      try {
+        let response;
+        if (!formData.otp && !active) {
+          validateEmail();
+          response = await axios.post(
+            "http://localhost:5000/api/verify/",
+            formData
+          );
+        } else {
+          validateOtp();
+          response = await axios.post(
+            "http://localhost:5000/api/verify/otp",
+            formData
+          );
+          if (response && response.status === 200) {
+            dispatch(
+              addToast({ type: "info", message: response.data.message })
+            );
+            navigate("/registration", { state: formData });
+          }
+        }
+        if (response && response.status === 200) {
+          dispatch(addToast({ type: "success", msg: response.data.message }));
+          setActive(true);
+        }
+        setLoader(false);
+      } catch (error) {}
     }
   };
 
@@ -51,12 +90,13 @@ export default function Credential() {
     const { name, value, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: name === "rememberMe" ? checked : value,
+      [name]: value,
     });
   };
 
   return (
     <div className="container-fluid bg-slate-50 py-10 h-svh">
+      {loader && <Loading />}
       <div className="container-row justify-center content-center flex-start items-center m-auto">
         <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
           {" "}
@@ -66,30 +106,31 @@ export default function Credential() {
         </div>
         <div className="col-lg-5 col-md-9 max-sm:w-full">
           <div className="login-form bg-base-100 max-sm:p-10  p-16 border rounded-xl shadow-lg  ">
-            <h3 className="text-3xl font-semibold text-slate-800 ">Login</h3>
+            <h3 className="text-3xl font-semibold text-slate-800 ">Welcome</h3>
             <p className="my-2 text-slate-500">
-              Don't have an account?
-              <a
-                href="#"
+              Already have an account?
+              <Link
+                to="/login"
                 className="font-semibold text-slate-600 hover:text-slate-800 hover:underline"
               >
                 {" "}
-                Register
-              </a>
+                Login
+              </Link>
             </p>
             <form
               onSubmit={handleSubmit}
               className="flex items-center flex-col mt-5"
             >
               <TextField
+                disabled={(active && true) || false}
                 fullWidth
-                className="!border-slate-700 "
-                label="Username"
-                name="username"
-                value={formData.username}
+                type="email"
+                label="Email (E.g. abc@gmail.com)"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
-                error={Boolean(errors.username)}
-                helperText={errors.username}
+                error={Boolean(errors.email)}
+                helperText={errors.email}
                 margin="normal"
                 sx={{
                   "& legend": { display: "none" },
@@ -97,7 +138,7 @@ export default function Credential() {
                   "& .MuiInputBase-formControl": { borderRadius: "10px" },
                   "& .MuiInputBase-input": {
                     paddingBottom: "10px",
-                    paddingTop: "22px",
+                    paddingTop: "25px",
                   },
                   "& .MuiInputLabel-shrink": {
                     transform: "translate(12px, 9px) scale(0.75)",
@@ -114,48 +155,42 @@ export default function Credential() {
                   },
                 }}
               />
-              <TextField
-                fullWidth
-                type="password"
-                label="Password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                error={Boolean(errors.password)}
-                helperText={errors.password}
-                margin="normal"
-                sx={{
-                  "& legend": { display: "none" },
-                  "& fieldset": { top: 0 },
-                  "& .MuiInputBase-formControl": { borderRadius: "10px" },
-                  "& .MuiInputBase-input": {
-                    paddingBottom: "10px",
-                    paddingTop: "22px",
-                  },
-                  "& .MuiInputLabel-shrink": {
-                    transform: "translate(12px, 9px) scale(0.75)",
-                    paddingBottom: "10px",
-                  },
-                  "& .Mui-focused": {
-                    color: "rgb(2 132 199) !important",
-                  },
-
-                  "& .MuiOutlinedInput-root": {
-                    "&.Mui-focused fieldset": {
-                      borderColor: "rgb(2 132 199)",
+              {active && (
+                <TextField
+                  disabled={active && false}
+                  fullWidth
+                  className="!border-slate-700 "
+                  label="OTP"
+                  name="otp"
+                  value={formData.otp}
+                  onChange={handleChange}
+                  error={Boolean(errors.otp)}
+                  helperText={errors.otp}
+                  margin="normal"
+                  sx={{
+                    "& legend": { display: "none" },
+                    "& fieldset": { top: 0 },
+                    "& .MuiInputBase-formControl": { borderRadius: "10px" },
+                    "& .MuiInputBase-input": {
+                      paddingBottom: "10px",
+                      paddingTop: "22px",
                     },
-                  },
-                }}
-              />
-              <div className="form-control float-end flex-row w-full">
-                <label className="label cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="checkbox checked:!bg-slate-600"
-                  />
-                  <span className="label-text ml-5">Remember me</span>
-                </label>
-              </div>
+                    "& .MuiInputLabel-shrink": {
+                      transform: "translate(12px, 9px) scale(0.75)",
+                      paddingBottom: "10px",
+                    },
+                    "& .Mui-focused": {
+                      color: "rgb(2 132 199) !important",
+                    },
+
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "rgb(2 132 199)",
+                      },
+                    },
+                  }}
+                />
+              )}
               <button
                 type="btn"
                 className="mt-5 rounded-full p-0 font-semibold w-full  bg-slate-700 btn hover:bg-slate-600 text-slate-100 overflow-hidden"
@@ -169,17 +204,9 @@ export default function Credential() {
                     padding: "0px 20px",
                   }}
                 >
-                  Continue
+                  {(active && "Continue") || "GET OTP"}
                 </Mui.ListItemButton>
               </button>
-              <label className="label mt-3">
-                <a
-                  href="#"
-                  className="label-text-alt link link-hover hover:!text-slate-800"
-                >
-                  Forgot password?
-                </a>
-              </label>
             </form>
           </div>
         </div>

@@ -64,14 +64,12 @@ const userSchema = new mongoose.Schema({
     verify: {
         type: String,
         default: null,
-        expires: 300,
     }
     ,
     auth: [
         {
             type: Object,
             default: null,
-            expires: process.env.JWT_EXPIRY
         },
     ]
 }, {

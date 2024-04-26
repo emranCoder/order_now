@@ -20,7 +20,7 @@ module.exports = async (email, subject, text) => {
             subject: subject,
             text: text,
         })
-        console.log(senOTP);
+
         console.log("Email Send successfully!");
     } catch (error) {
         console.log("Email unable to send!");
