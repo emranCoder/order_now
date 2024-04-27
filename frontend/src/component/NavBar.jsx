@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../img/orderNow.png";
+import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
+  const [haveToken, setHaveToken] = useState(false);
+  const { isLoading, user, err } = useSelector((state) => state.user);
+  const token = Cookies.get("auth");
+  useEffect(() => {
+    if (token) {
+      setHaveToken(true);
+    }
+  }, [0]);
+
   return (
     <div className="bg-white border-gray-200 dark:bg-slate-800 shadow-md lg:px-10">
       <div className="container">
@@ -38,7 +49,7 @@ export default function NavBar() {
               className="lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
             >
               <img src={logo} className="h-12" alt="Flowbite Logo" />
-              <span className="self-center font-serif text-2xl font-semibold whitespace-nowrap dark:text-white">
+              <span className="self-center font-serif text-2xl font-semibold whitespace-nowrap dark:text-slate-50">
                 OrderNow
               </span>
             </a>
@@ -49,7 +60,7 @@ export default function NavBar() {
             className="max-lg:flex items-center space-x-3 rtl:space-x-reverse hidden"
           >
             <img src={logo} className="h-9 max-sm:h-12 w-24" alt="logo" />
-            <span className="self-center  max-sm:hidden  text-2xl font-semibold whitespace-nowrap dark:text-white font-serif">
+            <span className="self-center  max-sm:hidden  text-2xl font-semibold whitespace-nowrap dark:text-slate-50 font-serif">
               OrderNow
             </span>
           </a>
@@ -73,40 +84,48 @@ export default function NavBar() {
           </div>
 
           <div className="navbar-end">
-            <a
-              href="/login"
-              className="btn min-h-full  h-full rounded-full hover:bg-slate-600 hover:text-slate-100 border-slate-600 bg-transparent text-slate-600 py-3 px-6"
-            >
-              Login/Registration
-            </a>
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar"
+            {!haveToken && (
+              <a
+                href="/login"
+                className="btn min-h-full  h-full rounded-full hover:bg-slate-600 hover:text-slate-100 border-slate-600 bg-transparent text-slate-600 py-3 px-6"
               >
-                <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                  />
+                Login/Registration
+              </a>
+            )}
+            {haveToken && (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full">
+                    <img
+                      alt="Tailwind CSS Navbar component"
+                      src={
+                        (user &&
+                          `http://localhost:5000/avatar/${user.avatar} `) ||
+                        "default-avatar.png"
+                      }
+                    />
+                  </div>
                 </div>
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[1] border border-slate-100 p-2 shadow-[-5px_4px_31px_-12px] menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <NavLink to="profile">Profile</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="changepwd">Change Password</NavLink>
+                  </li>
+                  <li>
+                    <a>Logout</a>
+                  </li>
+                </ul>
               </div>
-              <ul
-                tabIndex={0}
-                className="mt-3 z-[1] border border-slate-100 p-2 shadow-[-5px_4px_31px_-12px] menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <NavLink to="profile">Profile</NavLink>
-                </li>
-                <li>
-                  <NavLink to="changepwd">Change Password</NavLink>
-                </li>
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
-            </div>
+            )}
           </div>
         </nav>
       </div>

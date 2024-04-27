@@ -83,11 +83,17 @@ const updateProduct = async (req, res) => {
         const { id, oldImg, ...bodyData } = { ...req.body };
 
         let newData = bodyData;
+        const productImg = await Product.findById(id).select("image");
+        if (!productImg) {
+            return res.status(500).send({
+                err: "Server is down!"
+            });
+        }
 
         if (req.files && req.files.length > 0) {
 
             const fileName = oldImg;
-            if (!(fileName === "default-product.png")) {
+            if (!(fileName === "default-product.png") && !(fileName === productImg.image)) {
                 const fileDest = '../public/uploads/products/';
 
                 fs.unlink(path.join(__dirname, fileDest + fileName), (err) => {

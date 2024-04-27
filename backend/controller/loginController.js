@@ -7,13 +7,14 @@ const login = async (req, res) => {
     try {
         const { username, pwd } = { ...req.body };
 
-        const user = await User.findOne({ $or: [{ username: username }, { mobile: username }, { email: username }] }).select('pwd auth');
+        const user = await User.findOne({ $or: [{ username: username }, { mobile: username }, { email: username }] }).select('pwd auth fName avatar');
         if (!user) {
             return res.status(404).send({
                 err: "Please try to login with your username & password!",
             });
         }
         const userPwd = user.pwd;
+        const userFname = user.fName;
         const userId = user._id;
         const value = username + "_" + userId;
         const token = await checkPwd(pwd, userPwd, value);
@@ -36,7 +37,8 @@ const login = async (req, res) => {
                 err: "Authentication failed!",
             });
         }
-        res.status(200).json({ token: authToken.token, id: userId });
+
+        res.status(200).json({ message: `Hi! ${userFname}`, token: authToken.token, user: user });
     } catch (error) {
         res.status(500).send({
             err: "Bad request!"

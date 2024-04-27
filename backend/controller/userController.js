@@ -43,13 +43,9 @@ const getAllUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const queryId = req.params.id;
-        let user;
-        if (queryId === "auth") {
-            user = await User.findById(req.uID).select('-pwd -__v -auth');
-        } else {
-            user = await User.findById(queryId).select('-pwd -__v -auth');
-        }
+        const queryId = req.uID;
+        const user = await User.findById(queryId).select('-pwd -__v -auth');
+
         if (!user) {
             return res.status(404).json({ err: "False Attempted!" });
         }
@@ -63,16 +59,38 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const { id, ...bodyData } = { ...req.body };
+        const { id, oldImg, ...bodyData } = { ...req.body };
+        let newData = bodyData;
 
-        const user = await User.findByIdAndUpdate(id, bodyData);
+        const userImg = await User.findById(id).select('avatar');
+        if (!userImg) {
+            return res.status(500).send({
+                err: "Server is down!"
+            });
+        }
+
+        if (req.files && req.files.length > 0) {
+
+            const fileName = oldImg;
+            if (!(fileName === "default-product.png") && !(req.files[0].filename === userImg.avatar)) {
+                const fileDest = '../public/uploads/avatars/';
+
+                fs.unlink(path.join(__dirname, fileDest + fileName), (err) => {
+
+                });
+            }
+            newData = { ...bodyData, avatar: req.files[0].filename, };
+        }
+
+        const user = await User.findByIdAndUpdate(id, newData).select('-pwd -__v -auth');
         if (!user) {
             return res.status(500).send({
                 err: "Server is down!"
             });
         }
-        res.status(200).json({ mess: "You got an update!" });
+        res.status(200).json({ message: "Update Successfully!", user: user });
     } catch (error) {
+
         res.status(500).send({
             err: "Bad request!"
         });
@@ -98,7 +116,7 @@ const removeUser = async (req, res) => {
                 }
             });
         }
-        res.status(200).json({ mess: "Deleted Successfully!" });
+        res.status(200).json({ message: "Deleted Successfully!" });
     } catch (error) {
         res.status(500).send({
             err: "Bad Request!"

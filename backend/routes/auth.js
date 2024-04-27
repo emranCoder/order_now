@@ -9,7 +9,7 @@ const authCheck = require('../middleware/authHandler');
 router.post('/createuser', userValidates, addUser);
 
 //ROUTE 2: Ge a User using:  GET "/api/auth/getuser". Login Required
-router.get('/getuser/:id', getUser);
+router.get('/user', authCheck, getUser);
 
 
 //ROUTE 3: Update a User using:  PUT "/api/auth/updateuser". login required Auth

@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Info from "./Info";
-import Loading from "../component/Loading";
-
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToast } from "../redux/ToastSlice";
+import Loading from "../component/Loading";
+import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function Login(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [err, setErr] = useState(null);
   const [loader, setLoader] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
@@ -15,19 +23,19 @@ export default function Login(props) {
   }, [0]);
 
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+    username: "emranalam645@gmail.com",
+    pwd: "Emran@1234",
     rememberMe: false,
   });
 
   const [errors, setErrors] = useState({
     username: "",
-    password: "",
+    pwd: "",
   });
 
   const validateForm = () => {
     let valid = true;
-    const newErrors = { username: "", password: "" };
+    const newErrors = { username: "", pwd: "" };
 
     if (!formData.username) {
       newErrors.username = "Username is required";
@@ -35,10 +43,10 @@ export default function Login(props) {
     }
 
     // Password strength check
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-    if (!formData.password || !passwordRegex.test(formData.password)) {
-      newErrors.password =
-        "Password must be at least 6 characters with at least one uppercase and one lowercase letter";
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!formData.pwd || !passwordRegex.test(formData.pwd)) {
+      newErrors.pwd =
+        "Password must be at least 8 characters with at least one uppercase and one lowercase letter";
       valid = false;
     }
 
@@ -46,10 +54,28 @@ export default function Login(props) {
     return valid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Add your login logic here
+      try {
+        let response = await axios.post(
+          "http://localhost:5000/api/login/",
+          formData
+        );
+
+        if (response && response.status === 200) {
+          const { message, user, token } = response.data;
+          dispatch(addToast({ type: "info", msg: message }));
+          Cookies.set("id", user._id, process.env.REACT_AUTH_EXP);
+          Cookies.set("auth", token, process.env.REACT_AUTH_EXP);
+          window.location.replace("/");
+        }
+      } catch (error) {
+        if (error.response.data.err) {
+          setErr(error.response.data.err);
+        }
+      }
+
       console.log("Login successful");
     } else {
       console.log("Login failed");
@@ -94,7 +120,7 @@ export default function Login(props) {
               <TextField
                 fullWidth
                 className="!border-slate-700 "
-                label="Username"
+                label="Email"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
@@ -128,11 +154,11 @@ export default function Login(props) {
                 fullWidth
                 type="password"
                 label="Password"
-                name="password"
-                value={formData.password}
+                name="pwd"
+                value={formData.pwd}
                 onChange={handleChange}
-                error={Boolean(errors.password)}
-                helperText={errors.password}
+                error={Boolean(errors.pwd)}
+                helperText={errors.pwd}
                 margin="normal"
                 sx={{
                   "& legend": { display: "none" },

@@ -32,20 +32,40 @@ import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
 import Credential from "./Authentication/Credential";
 import ViewCustomerDetails from "./Admin/pages/ViewCustomerDetails";
+import Cookies from "js-cookie";
+import Page404 from "./component/Page404";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
+const token = Cookies.get("auth");
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route element={<App />}>
+      <Route
+        path="/"
+        element={
+          <Provider store={store}>
+            <App />{" "}
+          </Provider>
+        }
+      >
         <Route path="/" element={<OrderBox />} />
         <Route path="contactus" element={<ContactUs />} />
         <Route path="profile" element={<Profile />} />
         <Route path="profile" element={<Profile />} />
         <Route path="changepwd" element={<ChangePwd />} />
         <Route path="blog" element={<Blog />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<Register />} />
-        <Route path="/credential" element={<Credential />} />
+        <Route path="/login" element={(!token && <Login />) || <Page404 />} />
+
+        <Route
+          path="/registration"
+          element={(!token && <Register />) || <Page404 />}
+        />
+        <Route
+          path="/credential"
+          element={(!token && <Credential />) || <Page404 />}
+        />
       </Route>
       <Route element={<Admin />}>
         <Route path="dashboard" element={<HomeInfo />} />

@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import NavBar from "./component/NavBar";
 import { Outlet } from "react-router-dom";
 import Footer from "./component/Footer";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 import AlertError from "./component/AlertError";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "./redux/AuthSlice";
 
 function App() {
-  return (
-    <Provider store={store}>
-      <div className="bg-gray-100 ">
-        <NavBar />
+  const dispatch = useDispatch();
+  const { isLoading, user, err } = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [0]);
 
-        <AlertError />
-        <Outlet />
-        <Footer />
-      </div>
-    </Provider>
+  return (
+    <div className="bg-gray-100 ">
+      <NavBar />
+
+      <AlertError />
+      <Outlet />
+      <Footer />
+    </div>
   );
 }
 

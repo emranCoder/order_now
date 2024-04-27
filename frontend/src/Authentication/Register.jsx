@@ -24,6 +24,7 @@ export default function Register() {
       setLoader(false);
     }, 500);
   }, [0]);
+
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -80,10 +81,10 @@ export default function Register() {
     }
 
     // Password strength check
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     if (!formData.pwd || !passwordRegex.test(formData.pwd)) {
       newErrors.pwd =
-        "Password must be at least 6 characters with at least one uppercase and one lowercase letter";
+        "Password must be at least 8 characters with at least one uppercase and one lowercase letter";
       valid = false;
     }
 
@@ -110,7 +111,7 @@ export default function Register() {
           navigate("/login");
         }
       } catch (error) {
-        if (error.response.data.err) {
+        if (error && error.response.data.err) {
           setErr(error.response.data.err);
         }
       }
