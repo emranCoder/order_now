@@ -5,8 +5,6 @@
 /.pnp
 .pnp.js
 
-# dotenv environment variables file
-*.env
 
 # testing
 /coverage
@@ -16,7 +14,7 @@
 
 # misc
 .DS_Store
-.env*
+.env
 .env.local
 .env.development.local
 .env.test.local

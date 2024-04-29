@@ -39,7 +39,6 @@ export default function FoodItem() {
       size: x,
       price: newPrice,
       total: y,
-      NumberOfProduct: 1,
     };
     delete data._id;
     dispatch(addCart(data));
@@ -49,7 +48,6 @@ export default function FoodItem() {
     bottom: false,
   });
 
-  console.log(cartProduct);
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&

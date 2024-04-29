@@ -9,43 +9,38 @@ const CartSLice = createSlice({
   },
   reducers: {
     addCart: (state, action) => {
-      const { total, size, data } = action.payload;
+      const { total, size, ...data } = action.payload;
       state.size = size;
       state.total = total;
-      const existingProduct = state.cartProduct.find(
-        (item) => item.id === data.id
-      );
-      if (existingProduct) {
-        // If product already exists in cart, increase its frequency
-        state = {
-          ...state,
-          cartProduct: state.cartProduct.map((item) =>
-            item.id === data.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          ),
-        };
+      const istExist = state.cartProduct.find((item) => item.id === data.id);
+      if (istExist) {
+        state.total += data.price;
+        istExist.qty += 1;
       } else {
-        // If product doesn't exist in cart, add it
-        state = {
-          ...state,
-          cart: [...state.cartProduct, { ...action.payload.data, quantity: 1 }],
-        };
+        state.cartProduct.push({ ...data, qty: 1 });
       }
     },
-    updateCart: (state, action) => {
-      state = [
-        {
-          ...state,
-          cartProduct: state.cartProduct.filter(
-            (item) => item.id !== action.payload
-          ),
-        },
-      ];
+    decQty: (state, action) => {
+      const istExist = state.cartProduct.find(
+        (item) => item.id === action.payload
+      );
+      if (istExist) {
+        state.total -= istExist.price > 0 ? istExist.price : 0;
+        istExist.qty = istExist.qty > 0 ? istExist.qty - 1 : 0;
+      }
+    },
+    incQty: (state, action) => {
+      const istExist = state.cartProduct.find(
+        (item) => item.id === action.payload
+      );
+      if (istExist) {
+        state.total += istExist.price > 0 ? istExist.price : 0;
+        istExist.qty = istExist.qty > 0 ? istExist.qty + 1 : 0;
+      }
     },
   },
 });
 
-export const { addCart, updateCart } = CartSLice.actions;
+export const { addCart, decQty, incQty } = CartSLice.actions;
 
 export default CartSLice.reducer;
