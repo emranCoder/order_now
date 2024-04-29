@@ -1,54 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "../redux/CartSlice";
 
 export default function CheckOut(props) {
-  const test = () => (
-    <div className="border-slate-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center">
-      <img
-        className="block rounded-l-lg h-20  mx-0 shrink-0 "
-        src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-        alt="Woman's Face"
-      />
+  const { size, cartProduct, total } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-      <div className="ml-3 text-left ">
-        <p className="text-lg m-0  mt-3  my-1 text-slate-900">
-          Vegetables Salad{" "}
-        </p>
-        <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-      </div>
-      <div className="relative flex items-center max-w-[5rem] ml-5">
-        <button
-          type="button"
-          id="decrement-button"
-          data-input-counter-decrement="quantity-input"
-          className="btn btn-sm rounded-none rounded-l-lg bg-slate-700  text-white dark:bg-gray-700 hover:bg-slate-600  border border-gray-300  p-2  focus:bg-slate-600 focus:ring-slate-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
-        >
-          <span>-</span>
-        </button>
-        <input
-          type="text"
-          id="quantity-input"
-          data-input-counter
-          aria-describedby="helper-text-explanation"
-          className="text-white border-x-0 p-0 bg-slate-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-slate-700 focus:border-slate-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-slate-700 dark:focus:border-slate-700 outline-none  block"
-          placeholder="100"
-          defaultValue={100}
-          disabled={true}
-          required
-        />
+  const [data, setData] = useState(null);
+  const [frequency, setFrequency] = useState(0);
+  useEffect(() => {
+    const data = newSortData();
+    setData(data);
+  }, [0]);
+  const newSortData = () => {
+    const frequencyMap = cartProduct.reduce((acc, obj) => {
+      const key = JSON.stringify(obj); // Convert object to string for comparison
+      acc[key] = (acc[key] || 0) + 1; // Increment frequency or initialize at 1
+      return acc;
+    }, {});
 
-        <button
-          type="button"
-          id="increment-button"
-          data-input-counter-increment="quantity-input"
-          className="btn btn-sm rounded-none rounded-r-lg bg-slate-700  text-white dark:bg-gray-700 hover:bg-slate-600  border border-gray-300 py-0 p-2  focus:bg-slate-600 focus:ring-slate-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
-        >
-          <span>+</span>
-        </button>
-      </div>
-    </div>
-  );
+    // Convert the frequency map into an array of objects
+    return Object.keys(frequencyMap).map((key) => ({
+      value: JSON.parse(key), // Convert string back to object
+      frequency: frequencyMap[key],
+    }));
+  };
+
+  const handleIncrement = (value) => {
+    const updatedFrequency = data.map((item) => {
+      if (JSON.stringify(item.value) === JSON.stringify(value)) {
+        return { ...item, frequency: item.frequency + 1 };
+      }
+      return item;
+    });
+    console.log(updatedFrequency);
+    setData(updatedFrequency);
+  };
+
+  const handleDecrement = (value) => {
+    const updatedFrequency = data.map((item) => {
+      if (JSON.stringify(item.value) === JSON.stringify(value)) {
+        return { ...item, frequency: Math.max(0, item.frequency - 1) };
+      }
+      return item;
+    });
+    setData(updatedFrequency);
+  };
+
+  const removeFromCart = (value) => {
+    const updatedFrequency = data.filter(
+      (item) => JSON.stringify(item.value) !== JSON.stringify(value)
+    );
+    console.log(data);
+    setData(updatedFrequency);
+  };
+
   return (
     <div className="container-fluid">
       <div className="container-row lg:px-10">
@@ -71,15 +79,71 @@ export default function CheckOut(props) {
               <div className="col-lg-8 col-md-6  max-sm:w-full max-md:w-full pb-10">
                 <div className="container-fluid md:border-r">
                   <div className="container-row grid justify-center lg:grid-cols-2 gap-y-2  md:grid-cols-1  rounded-lg overflow-y-auto h-52 max-sm:h-40">
-                    {test()}
-                    {test()}
-                    {test()}
-                    {test()}
-                    {test()}
-                    {test()}
-                    {test()}
-                    {test()}
-                    {test()}
+                    {data &&
+                      data.map((val, key) => (
+                        <div
+                          key={key}
+                          className="border-slate-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center"
+                        >
+                          <img
+                            className="block rounded-l-lg h-20  mx-0 shrink-0 "
+                            src={`http://localhost:5000/products/img/${
+                              (val && val.value.image) || "default-product.png"
+                            }`}
+                            alt="Woman's Face"
+                          />
+
+                          <div className="ml-3 text-left ">
+                            <p className="text-lg m-0  mt-3  my-1 text-slate-900">
+                              {val.value.name}
+                            </p>
+                            <p className="my-1 font-semibold text-slate-900">
+                              {val.value.price}
+                            </p>
+                          </div>
+                          <div className="relative flex items-center max-w-[5rem] ml-5">
+                            <button
+                              onClick={() => {
+                                if (val.frequency === 0) {
+                                  removeFromCart(val.value);
+                                }
+
+                                handleDecrement(val.value);
+                              }}
+                              type="button"
+                              id="decrement-button"
+                              data-input-counter-decrement="quantity-input"
+                              className="btn btn-sm rounded-none rounded-l-lg bg-slate-700  text-white dark:bg-gray-700 hover:bg-slate-600  border border-gray-300  p-2  focus:bg-slate-600 focus:ring-slate-100  focus:ring-2 focus:outline-none flex items-center  border-r-0"
+                            >
+                              <span>-</span>
+                            </button>
+                            <input
+                              type="text"
+                              id="quantity-input"
+                              data-input-counter
+                              aria-describedby="helper-text-explanation"
+                              className="text-white border-x-0 p-0 bg-slate-700 border-slate-300 border-t border-b btn-sm text-center  text-sm focus:ring-slate-700 focus:border-slate-700  w-full  dark:bg-slate-700 dark:border-gray-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-slate-700 dark:focus:border-slate-700 outline-none  block"
+                              placeholder="20"
+                              value={val.frequency}
+                              disabled={true}
+                              required
+                            />
+
+                            <button
+                              onClick={() => {
+                                if (val.frequency < 20)
+                                  handleIncrement(val.value);
+                              }}
+                              type="button"
+                              id="increment-button"
+                              data-input-counter-increment="quantity-input"
+                              className="btn btn-sm rounded-none rounded-r-lg bg-slate-700  text-white dark:bg-gray-700 hover:bg-slate-600  border border-gray-300 py-0 p-2  focus:bg-slate-600 focus:ring-slate-100  focus:ring-2 focus:outline-none flex items-center border-l-0"
+                            >
+                              <span>+</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>

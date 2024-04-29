@@ -20,7 +20,7 @@ export default function Profile() {
   useEffect(() => {
     dispatch(fetchUser());
     setTimeout(() => {
-      setLoader(false);
+      setLoader(isLoading);
     }, 500);
   }, [0]);
   const handleOnChange = (e) => {
@@ -29,7 +29,6 @@ export default function Profile() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (update || previewFile) {
       setLoader(true);
       let userUpdate = new FormData(e.target);
@@ -53,6 +52,7 @@ export default function Profile() {
           dispatch(addToast({ type: "success", msg: message }));
           setUpdate(null);
           dispatch(fetchUser());
+          setLoader(false);
         }
       } catch (error) {
         if (error && error.response.data) {
@@ -61,7 +61,6 @@ export default function Profile() {
         }
       }
     }
-    setLoader(false);
   };
 
   return (

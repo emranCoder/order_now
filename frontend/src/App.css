@@ -653,13 +653,13 @@ body {
 }
 
 .navbar-ul li:hover {
-    color: rgb(220, 38, 38) !important;
+    color: rgb(153 27 27) !important;
     transition: 0.5s;
 
 }
 
 .navbar-ul .active>li {
-    color: rgb(220, 38, 38);
+    color: rgb(153 27 27);
 }
 
 .box-right {
