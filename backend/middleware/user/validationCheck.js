@@ -10,7 +10,7 @@ const userValidates = [
     check('fName', 'First name is required').not().isEmpty().isAlpha("en-US", { ignore: " " }),
     check('lName', 'Last name is required').not().isEmpty().isAlpha("en-US", { ignore: " " }),
     check('email')
-        .isEmail().trim()
+        .isEmail()
         .withMessage('Invalid email format')
         .custom(async (data) => {
             try {

@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDispatch, useSelector } from "react-redux";
-import { decQty, incQty } from "../redux/CartSlice";
+import { decQty, incQty, removeProduct } from "../redux/CartSlice";
 
 export default function CheckOut(props) {
-  const { size, cartProduct, total } = useSelector((state) => state.cart);
+  const { cartProduct, total, subTotal } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
-  const removeFromCart = (value) => {};
 
   return (
     <div className="container-fluid">
@@ -38,27 +36,29 @@ export default function CheckOut(props) {
                           key={key}
                           className="border-slate-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center"
                         >
-                          <img
-                            className="block rounded-l-lg h-20  mx-0 shrink-0 "
-                            src={`http://localhost:5000/products/img/${
-                              (val && val.image) || "default-product.png"
-                            }`}
-                            alt="Woman's Face"
-                          />
+                          <div className="w-24">
+                            <img
+                              className="block rounded-l-lg  h-20  mx-0 shrink-0 "
+                              src={`http://localhost:5000/products/img/${
+                                (val && val.image) || "default-product.png"
+                              }`}
+                              alt="Woman's Face"
+                            />
+                          </div>
 
                           <div className="ml-3 text-left ">
                             <p className="text-lg m-0  mt-3  my-1 text-slate-900">
                               {val.name}
                             </p>
                             <p className="my-1 font-semibold text-slate-900">
-                              {val.price}
+                              {val.currentPrice}$
                             </p>
                           </div>
                           <div className="relative flex items-center max-w-[5rem] ml-5">
                             <button
                               onClick={() => {
-                                if (val.frequency === 0) {
-                                  removeFromCart(val);
+                                if (val.qty === 0) {
+                                  dispatch(removeProduct(val.id));
                                 }
                                 dispatch(decQty(val.id));
                               }}
@@ -103,11 +103,16 @@ export default function CheckOut(props) {
                   <div className="w-full ">
                     <div className="w-full border-b">
                       <span>Subtotal: </span>
-                      <span className="float-right">100 $</span>
+                      <span className="float-right">
+                        {/^-?[0-9]+$/.test(subTotal)
+                          ? subTotal
+                          : subTotal.toFixed(2)}{" "}
+                        $
+                      </span>
                     </div>
                     <div className="w-full border-b">
                       <span>Discount:</span>
-                      <span className="float-right">0.0 %</span>
+                      <span className="float-right">{subTotal - total} $</span>
                     </div>
                     <div className="w-full border-b">
                       <span>Tax: </span>
@@ -115,19 +120,21 @@ export default function CheckOut(props) {
                     </div>
                     <div className="w-full">
                       <span>Total: </span>
-                      <span className="float-right">110 $</span>
+                      <span className="float-right">
+                        {/^-?[0-9]+$/.test(total) ? total : total.toFixed(2)} $
+                      </span>
                     </div>
-                    <div className="flex justify-center w-full my-5">
+                    {/* <div className="flex justify-center w-full my-5">
                       <input
                         className="border-spacing-0 w-full inline-block p-2 outline-none border-slate-600 focus:border-slate-700 border no-underline rounded-l-md"
-                        placeholder="kupon code"
+                        placeholder="Cupon Code"
                         inputprops={{ "aria-label": "search" }}
                       />
                       <button className="p-2 m-0 text-sm inline-block  text-white font-semibold bg-slate-700 rounded-l-none rounded-md border border-slate-700 hover:text-red hover:bg-slate-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-700 focus:ring-offset-2">
                         <KeyboardArrowRightIcon />
                       </button>
-                    </div>
-                    <div className="w-full">
+                    </div> */}
+                    <div className="w-full my-5">
                       <button className=" w-full py-2 text-sm text-slate-700 font-semibold rounded-full border border-slate-700 focus:outline-none focus:ring-2 hover:text-white  hover:border-slate-300 hover:bg-slate-700   focus:ring-slate-300 focus:bg-slate-700 focus:text-white   focus:ring-offset-2 ease-out duration-300">
                         Check Out
                       </button>

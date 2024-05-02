@@ -53,11 +53,11 @@ export default function Credential() {
     return valid;
   };
   const handleSubmit = async (e) => {
+    let response;
     e.preventDefault();
     if (validateEmail()) {
       setLoader(true);
       try {
-        let response;
         if (!formData.otp && !active) {
           validateEmail();
           response = await axios.post(
@@ -65,24 +65,37 @@ export default function Credential() {
             formData
           );
         } else {
-          validateOtp();
-          response = await axios.post(
-            "http://localhost:5000/api/verify/otp",
-            formData
-          );
-          if (response && response.status === 200) {
-            dispatch(
-              addToast({ type: "info", message: response.data.message })
+          if (validateOtp()) {
+            response = await axios.post(
+              "http://localhost:5000/api/verify/otp",
+              formData
             );
-            navigate("/registration", { state: formData });
+            if (response && response.status === 200) {
+              dispatch(addToast({ type: "info", msg: response.data.message }));
+              navigate("/registration", { state: formData });
+            }
           }
+          if (response && response.status === 200) {
+            dispatch(addToast({ type: "success", msg: response.data.message }));
+            setActive(true);
+          }
+          setLoader(false);
         }
-        if (response && response.status === 200) {
-          dispatch(addToast({ type: "success", msg: response.data.message }));
-          setActive(true);
+      } catch (error) {
+        if (error && error.response) {
+          if (error.response.data) {
+            if (error.response.data.err.email) {
+              const err = error.response.data.err.email.msg;
+              setErrors({ email: err });
+            } else {
+              dispatch(
+                addToast({ type: "error", msg: error.response.data.err })
+              );
+            }
+          }
+          setLoader(false);
         }
-        setLoader(false);
-      } catch (error) {}
+      }
     }
   };
 
@@ -159,6 +172,9 @@ export default function Credential() {
                 <TextField
                   disabled={active && false}
                   fullWidth
+                  onKeyPress={(e) => {
+                    if (!/\d/.test(e.key)) e.preventDefault();
+                  }}
                   className="!border-slate-700 "
                   label="OTP"
                   name="otp"

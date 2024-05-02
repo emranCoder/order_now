@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Drawer } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import logo from "../img/orderNow.png";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+import CheckOut from "./CheckOut";
 
 export default function NavBar() {
   const [haveToken, setHaveToken] = useState(false);
@@ -13,6 +15,20 @@ export default function NavBar() {
       setHaveToken(true);
     }
   }, [0]);
+
+  const [drawerActive, setDrawerActive] = useState({
+    bottom: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    if (anchor === "bottom") setDrawerActive({ bottom: open });
+  };
 
   return (
     <div className="bg-white border-gray-200 dark:bg-slate-800 shadow-md lg:px-10">
@@ -78,7 +94,7 @@ export default function NavBar() {
                 <li className="nav-link">Contact Us</li>
               </NavLink>
               <li className="nav-link">
-                <a>Cart</a>
+                <span onClick={toggleDrawer("bottom", true)}>Cart</span>
               </li>
             </ul>
           </div>
@@ -128,6 +144,13 @@ export default function NavBar() {
             )}
           </div>
         </nav>
+        <Drawer
+          anchor={"bottom"}
+          open={drawerActive["bottom"]}
+          onClose={toggleDrawer("bottom", false)}
+        >
+          <CheckOut closeBtn={toggleDrawer("bottom", false)} />
+        </Drawer>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const User = require('../../models/User');
 const createHttpError = require('http-errors');
 
-const emailValidation = [
+const emailValidate = [
     // Validation checks using express-validator
     check('email')
         .isEmail().trim()
@@ -10,6 +10,7 @@ const emailValidation = [
         .custom(async (data) => {
             try {
                 const user = await User.findOne({ email: data });
+
                 if (user) {
                     throw createHttpError("Email already use!");
                 }
@@ -20,4 +21,16 @@ const emailValidation = [
 ];
 
 
-module.exports = { emailValidation };
+const emailValidation = (req, res, next) => {
+    const errors = validationResult(req);
+    const allErrors = errors.mapped();
+    if (Object.keys(allErrors).length === 0) {
+        next();
+    } else {
+        res.status(500).json({ err: allErrors });
+    }
+}
+
+
+
+module.exports = { emailValidate, emailValidation };

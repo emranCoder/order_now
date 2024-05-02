@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Loading from "../component/Loading";
 
 export default function Blog() {
+  const [loader, setLoader] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 500);
+  }, [0]);
+
   const items = () => (
     <div className="card rounded-none card-side bg-base-100 border-b pb-2 mb-8">
       <div className="avatar">
@@ -33,6 +41,7 @@ export default function Blog() {
   );
   return (
     <section className="order-section p-5 ">
+      {loader && <Loading />}
       <div className="container  rounded-xl px-10 py-10 max-sm:p-5 max-md:px-5 bg-white">
         <div className="container-row">
           <div className="col-lg-8">

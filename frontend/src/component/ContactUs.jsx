@@ -1,14 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Loading from "../component/Loading";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 
 export default function ContactUs() {
+  const [loader, setLoader] = useState(true);
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    setTimeout(() => {
+      setLoader(false);
+    }, 500);
+  }, [0]);
+
   return (
     <section className="order-section p-5 ">
+      {loader && <Loading />}
       <div className="container  rounded-xl px-10 py-10 max-sm:p-5 max-md:px-5 bg-white">
         <div className="container-row justify-center">
           <div className="col-lg-12 mb-5">

@@ -6,28 +6,20 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import CheckOut from "./CheckOut";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart } from "../redux/CartSlice";
+import axios from "axios";
 
 export default function FoodItem() {
   const [isVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
-  const [product, setProduct] = useState([
-    {
-      _id: "65e2c7c0d2382006fb2c35b4",
-      name: "Sample Products",
-      description: "This is a sample product.",
-      price: 19.99,
-      discount: 0,
-      category: "Cake",
-      wishlist: false,
-      comments: [],
-      image: "default-product.png",
-      createdAt: "2024-03-02T06:31:28.985Z",
-      updatedAt: "2024-03-09T11:34:08.326Z",
-      __v: 0,
-    },
-  ]);
   const dispatch = useDispatch();
   const { size, cartProduct, total } = useSelector((state) => state.cart);
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    getProduct();
+    window.addEventListener("scroll", listenToScroll);
+    return () => window.removeEventListener("scroll", listenToScroll);
+  }, [0]);
 
   const handleAddToCart = (data) => {
     let x = size + 1;
@@ -37,7 +29,7 @@ export default function FoodItem() {
       ...data,
       id: data._id,
       size: x,
-      price: newPrice,
+      currentPrice: newPrice,
       total: y,
     };
     delete data._id;
@@ -60,15 +52,10 @@ export default function FoodItem() {
     if (anchor === "bottom") setDrawerActive({ bottom: open });
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", listenToScroll);
-    return () => window.removeEventListener("scroll", listenToScroll);
-  }, []);
-
   const listenToScroll = () => {
     let scrollHeight = document.body.scrollHeight;
     let heightToHideFrom = 200;
-    console.log(scrollHeight);
+
     const winScroll =
       document.body.scrollTop || document.documentElement.scrollTop;
     setHeight(winScroll);
@@ -79,6 +66,20 @@ export default function FoodItem() {
       setIsVisible(true);
     }
   };
+
+  const getProduct = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/product/all");
+      if (response && response.status === 200) {
+        setProduct(response.data.products);
+      }
+    } catch (error) {
+      if (error.message === "Network Error")
+        return console.error(error.message);
+      console.log(error.response.data.message);
+    }
+  };
+
   return (
     <div className="justify-center mt-3">
       <div className="grid lg:grid-cols-4  md:grid-cols-3 sm:grid-cols-1 gap-3">
@@ -89,19 +90,21 @@ export default function FoodItem() {
               className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] "
             >
               <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-                <img
-                  className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-                  src={`http://localhost:5000/products/img/${
-                    (val && val.image) || "default-product.png"
-                  }`}
-                  alt="Woman's Face"
-                />
+                <div className="mask mask-squircle z-10">
+                  <img
+                    className="block   h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
+                    src={`http://localhost:5000/products/img/${
+                      (val && val.image) || "default-product.png"
+                    }`}
+                    alt="Woman's Face"
+                  />
+                </div>
                 <div className="max-sm:ml-3 text-center max-sm:text-left ">
                   <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
                     {val.name}
                   </p>
                   <p className="my-1 font-semibold text-slate-900">
-                    {val.price - (val.discount * val.price) / 100}
+                    {val.price - (val.discount * val.price) / 100}$
                   </p>
                 </div>
                 <button
