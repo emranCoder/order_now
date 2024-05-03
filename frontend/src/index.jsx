@@ -36,6 +36,7 @@ import Cookies from "js-cookie";
 import Page404 from "./component/Page404";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import AdminCredential from "./Authentication/AdminCredential";
 
 const token = Cookies.get("auth");
 
@@ -52,9 +53,11 @@ const router = createBrowserRouter(
       >
         <Route path="/" element={<OrderBox />} />
         <Route path="contactus" element={<ContactUs />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="changepwd" element={<ChangePwd />} />
+        <Route path="profile" element={(token && <Profile />) || <Page404 />} />
+        <Route
+          path="changepwd"
+          element={(token && <ChangePwd />) || <Page404 />}
+        />
         <Route path="blog" element={<Blog />} />
         <Route path="/login" element={(!token && <Login />) || <Page404 />} />
 
@@ -80,6 +83,7 @@ const router = createBrowserRouter(
         <Route path="viewproduct" element={<ViewProduct />} />
         <Route path="/view" element={<ViewCustomerDetails />} />
       </Route>
+      <Route path="/admin-login" element={<AdminCredential />} />
     </Route>
   )
 );

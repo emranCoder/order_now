@@ -3,6 +3,7 @@ import * as Mui from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function AllOrders() {
   const [page, setPage] = useState(2);
@@ -24,7 +25,11 @@ export default function AllOrders() {
 
   const getOrder = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/order/all");
+      const response = await axios.get("http://localhost:5000/api/order/all", {
+        headers: {
+          token: Cookies.get("auth-token"),
+        },
+      });
       if (response && response.status === 200) {
         setOrder(response.data.order);
       }

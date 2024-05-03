@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
 import Toast from "../Alert/Toast";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function Category() {
   const [data, setData] = useState();
@@ -34,11 +35,24 @@ export default function Category() {
     try {
       let response;
       if (data && data.id) {
-        response = await axios.put("http://localhost:5000/api/category/", data);
+        response = await axios.put(
+          "http://localhost:5000/api/category/",
+          data,
+          {
+            headers: {
+              token: Cookies.get("auth-token"),
+            },
+          }
+        );
       } else {
         response = await axios.post(
           "http://localhost:5000/api/category/",
-          data
+          data,
+          {
+            headers: {
+              token: Cookies.get("auth-token"),
+            },
+          }
         );
       }
       if (response && response.status === 200) {
@@ -56,7 +70,15 @@ export default function Category() {
   const handleDelete = async (delId) => {
     let id = { id: delId };
     const response = await axios
-      .delete("http://localhost:5000/api/category/", { data: id })
+      .delete(
+        "http://localhost:5000/api/category/",
+        { data: id },
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
+      )
       .catch((error) => console.error(error.response.data.err));
     console.log(response);
     if (response && response.status === 200) {

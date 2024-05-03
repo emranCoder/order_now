@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 export default function Customer() {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -20,7 +21,12 @@ export default function Customer() {
   const getCustomer = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/auth/getuser"
+        "http://localhost:5000/api/auth/getuser",
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
       );
       if (response && response.status === 200) {
         setCustomer(response.data.user);

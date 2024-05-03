@@ -8,6 +8,7 @@ import Animation from "../spinner/Animation";
 import axios from "axios";
 import Toast from "../Alert/Toast";
 import defaultImg from "../../img/default-avatar.png";
+import Cookies from "js-cookie";
 
 export default function Staffs() {
   const [page, setPage] = useState(2);
@@ -54,6 +55,7 @@ export default function Staffs() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              token: Cookies.get("auth-token"),
             },
           }
         );
@@ -64,6 +66,7 @@ export default function Staffs() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              token: Cookies.get("auth-token"),
             },
           }
         );
@@ -86,7 +89,12 @@ export default function Staffs() {
   const getStaff = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/staff/auth/getstaff"
+        "http://localhost:5000/api/staff/auth/getstaff",
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
       );
       if (response && response.status === 200) {
         setStaff(response.data.staff);
@@ -101,7 +109,15 @@ export default function Staffs() {
   const handleDelete = async (delId) => {
     let id = { id: delId };
     const response = await axios
-      .delete("http://localhost:5000/api/staff/auth/removestaff", { data: id })
+      .delete(
+        "http://localhost:5000/api/staff/auth/removestaff",
+        { data: id },
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
+      )
       .catch((error) => console.error(error.response.data.err));
     if (response && response.status === 200) {
       setSuccess({ type: "del", msg: response.data.message });

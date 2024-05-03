@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Toast from "../Alert/Toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function ViewProduct(props) {
   const [previewFile, setPreviewFIle] = useState(null);
@@ -56,6 +57,7 @@ export default function ViewProduct(props) {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            token: Cookies.get("auth-token"),
           },
         }
       );
@@ -74,7 +76,12 @@ export default function ViewProduct(props) {
   const getProduct = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/product/${state}`
+        `http://localhost:5000/api/product/${state}`,
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
       );
       if (response && response.status === 200) {
         setProduct(response.data.product);

@@ -18,8 +18,9 @@ router.put('/updateuser', authCheck, avatarUpload, avatarValidation, updateUser)
 //ROUTE 4: Delete a User using:  DELETE "/api/auth/deleteuser".login required Auth
 router.delete('/deleteuser', authCheck, removeUser);
 
-//ROUTE 5: Ge a User using:  GET "/api/auth/getuser". Login Required
+//ROUTE 5: Get a User using:  GET "/api/auth/getuser". Login Required
 router.get('/getuser', getAllUser);
+
 
 
 

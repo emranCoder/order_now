@@ -6,6 +6,7 @@ import Toast from "../Alert/Toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import Cookies from "js-cookie";
 
 export default function ViewCustomerDetails() {
   const [previewFile, setPreviewFIle] = useState(null);
@@ -27,7 +28,12 @@ export default function ViewCustomerDetails() {
   const getCustomer = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/auth/getuser/${state}`
+        `http://localhost:5000/api/auth/getuser/${state}`,
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
       );
       if (response && response.status === 200) {
         setCustomer(response.data.user);
@@ -42,7 +48,12 @@ export default function ViewCustomerDetails() {
   const getOrder = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/order/user/${state}`
+        `http://localhost:5000/api/order/user/${state}`,
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
       );
       if (response && response.status === 200) {
         setOrder(response.data.order);

@@ -8,6 +8,8 @@ import Toast from "../Alert/Toast";
 import Animation from "../spinner/Animation";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+
 export default function Product() {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -49,6 +51,7 @@ export default function Product() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            token: Cookies.get("auth-token"),
           },
         }
       );
@@ -66,7 +69,12 @@ export default function Product() {
   const getCategory = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/category/all"
+        "http://localhost:5000/api/category/all",
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
       );
       if (response && response.status === 200) {
         setCategory(response.data.category);
@@ -94,7 +102,15 @@ export default function Product() {
   const handleDelete = async (delId) => {
     let id = { id: delId };
     const response = await axios
-      .delete("http://localhost:5000/api/product/", { data: id })
+      .delete(
+        "http://localhost:5000/api/product/",
+        { data: id },
+        {
+          headers: {
+            token: Cookies.get("auth-token"),
+          },
+        }
+      )
       .catch((error) => console.error(error.response.data.err));
     if (response && response.status === 200) {
       setSuccess({ type: "del", msg: response.data.message });

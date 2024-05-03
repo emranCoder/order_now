@@ -51,7 +51,6 @@ const authCheck = async (req, res, next) => {
     }
     req.uID = id;
 
-
     next();
 }
 
