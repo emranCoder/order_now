@@ -17,11 +17,14 @@ export default function Admin() {
 
   const getUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/user/", {
-        headers: {
-          token: token,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:5000/${process.env.API_KEY}/api/auth/user/`,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
       if (response && response.status === 200) {
         const { role } = response.data.user;
         if (role === "admin") {

@@ -11,7 +11,7 @@ export default function OrderBox() {
     setTimeout(() => {
       setLoader(false);
     }, 500);
-  }, []);
+  }, [0]);
 
   return (
     <section className="order-section py-5">

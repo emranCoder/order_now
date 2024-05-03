@@ -33,7 +33,7 @@ export default function HomeInfo() {
   const getProductFrequency = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/product/all",
+        `http://localhost:5000/${process.env.API_KEY}/api/product/all`,
         {
           headers: {
             token: Cookies.get("auth"),
@@ -49,11 +49,14 @@ export default function HomeInfo() {
   };
   const getOrderFrequency = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/order/all", {
-        headers: {
-          token: Cookies.get("auth"),
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:5000/${process.env.API_KEY}/api/order/all`,
+        {
+          headers: {
+            token: Cookies.get("auth"),
+          },
+        }
+      );
       if (response && response.status === 200) {
         response.data.order.sort(
           (a, b) => new Date(b.orderDate) - new Date(a.orderDate)
@@ -68,7 +71,7 @@ export default function HomeInfo() {
   const getUserFrequency = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/auth/getuser",
+        `http://localhost:5000/${process.env.API_KEY}/api/auth/getuser`,
         {
           headers: {
             token: Cookies.get("auth"),

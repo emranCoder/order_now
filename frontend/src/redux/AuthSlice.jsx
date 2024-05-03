@@ -4,11 +4,14 @@ import Cookies from "js-cookie";
 
 const token = Cookies.get("auth");
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-  const response = await axios.get("http://localhost:5000/api/auth/user", {
-    headers: {
-      token: token,
-    },
-  });
+  const response = await axios.get(
+    `http://localhost:5000/${process.env.API_KEY}/api/auth/user`,
+    {
+      headers: {
+        token: token,
+      },
+    }
+  );
   return response.data.user;
 });
 

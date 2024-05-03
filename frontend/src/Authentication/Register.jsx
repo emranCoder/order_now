@@ -102,7 +102,7 @@ export default function Register() {
     if (validateForm() && conPwd === formData.pwd) {
       try {
         let response = await axios.post(
-          "http://localhost:5000/api/auth/createuser",
+          `http://localhost:5000/${process.env.API_KEY}/api/auth/createuser`,
           formData
         );
 
@@ -115,8 +115,6 @@ export default function Register() {
           setErr(error.response.data.err);
         }
       }
-    } else {
-      console.log("Registration failed");
     }
   };
 

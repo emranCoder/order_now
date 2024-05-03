@@ -14,26 +14,10 @@ export default function ViewProduct(props) {
   const [product, setProduct] = useState(null);
   const [success, setSuccess] = useState(null);
   const { state } = useLocation();
-  // const state = {
-  //   _id: "65e3069e9e4e48245b4b2b63",
-  //   name: "asgasggagadg",
-  //   description: "adgag",
-  //   price: 243,
-  //   category: "Soups",
-  //   wishlist: false,
-  //   comments: [],
-  //   image: "27cakerex-plzm-superjumbo-1709377182576-119554325.jpg",
-  //   createdAt: "2024-03-02T10:59:42.587Z",
-  //   updatedAt: "2024-03-02T10:59:42.587Z",
-  // };
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // setPreviewFIle(
-    //   "https://st4.depositphotos.com/10614052/25239/i/450/depositphotos_252391082-stock-photo-sweet-chocolate-cake-on-wooden.jpg"
-    // );
-
     if (state === null) navigate("/product");
 
     getProduct();
@@ -52,7 +36,7 @@ export default function ViewProduct(props) {
 
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/product/",
+        `http://localhost:5000/${process.env.API_KEY}/api/product/`,
         newData,
         {
           headers: {
@@ -76,7 +60,7 @@ export default function ViewProduct(props) {
   const getProduct = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/product/${state}`,
+        `http://localhost:5000/${process.env.API_KEY}/api/product/${state}`,
         {
           headers: {
             token: Cookies.get("auth"),

@@ -3,6 +3,7 @@ const createHttpError = require("http-errors");
 //404 not found error
 const notFoundError = (req, res, next) => {
     next(createHttpError(400, "Site is not found!"));
+    if (req.params.key === process.env.API_KEY) next(createHttpError(400, "Site is not found!"));
 }
 
 //default error handlers

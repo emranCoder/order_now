@@ -50,7 +50,7 @@ export default function Staffs() {
         staffUpload.append("id", edit._id);
         staffUpload.append("oldImg", edit.image);
         response = await axios.put(
-          "http://localhost:5000/api/staff/auth/updatestaff",
+          `http://localhost:5000/${process.env.API_KEY}/api/staff/auth/updatestaff`,
           staffUpload,
           {
             headers: {
@@ -61,7 +61,7 @@ export default function Staffs() {
         );
       } else {
         response = await axios.post(
-          "http://localhost:5000/api/staff/auth/addstaff",
+          `http://localhost:5000/${process.env.API_KEY}/api/staff/auth/addstaff`,
           staffUpload,
           {
             headers: {
@@ -89,7 +89,7 @@ export default function Staffs() {
   const getStaff = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/staff/auth/getstaff",
+        `http://localhost:5000/${process.env.API_KEY}/api/staff/auth/getstaff`,
         {
           headers: {
             token: Cookies.get("auth"),
@@ -110,7 +110,7 @@ export default function Staffs() {
     let id = { id: delId };
     const response = await axios
       .delete(
-        "http://localhost:5000/api/staff/auth/removestaff",
+        ` http://localhost:5000/${process.env.API_KEY}/api/staff/auth/removestaff`,
         { data: id },
         {
           headers: {

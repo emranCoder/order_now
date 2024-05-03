@@ -16,7 +16,6 @@ export default function Profile() {
   const [loader, setLoader] = useState(true);
   const dispatch = useDispatch();
   const { isLoading, user, err } = useSelector((state) => state.user);
-
   useEffect(() => {
     dispatch(fetchUser());
     setTimeout(() => {
@@ -37,7 +36,7 @@ export default function Profile() {
 
       try {
         const response = await axios.put(
-          "http://localhost:5000/api/auth/updateuser",
+          `http://localhost:5000/${process.env.API_KEY}/api/auth/updateuser`,
           userUpdate,
           {
             headers: {

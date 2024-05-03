@@ -69,7 +69,9 @@ export default function FoodItem() {
 
   const getProduct = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/product/all");
+      const response = await axios.get(
+        `http://localhost:5000/${process.env.API_KEY}/api/product/all`
+      );
       if (response && response.status === 200) {
         setProduct(response.data.products);
       }

@@ -6,13 +6,8 @@ const login = async (req, res) => {
 
     try {
         const { username, pwd } = { ...req.body };
-        const { form } = req.headers;
-
-        const userRole = form == "admin-credential" ? "admin" : "user";
-
         const user = await User.findOne({
-            $or: [{ username: username }, { mobile: username }, { email: username }],
-            $and: [{ role: userRole }]
+            $or: [{ username: username }, { mobile: username }, { email: username }]
         }).select('pwd auth fName avatar');
 
         if (!user) {
@@ -45,12 +40,12 @@ const login = async (req, res) => {
             });
         }
         const userData = await User.findOne({
-            $or: [{ username: username }, { mobile: username }, { email: username }],
-            $and: [{ role: userRole }]
+            $or: [{ username: username }, { mobile: username }, { email: username }]
         }).select('-pwd -_v');
 
         res.status(200).json({ message: `Hi! ${userFname}`, token: authToken.token, user: userData });
     } catch (error) {
+        console.log(error)
         res.status(500).send({
             err: "Bad request!"
         });

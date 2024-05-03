@@ -32,14 +32,13 @@ app.use('/staff/img', express.static(path.join(__dirname, '/public/uploads/staff
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(options));
-
-app.use('/api/auth', authRoutes);
-app.use('/api/staff/auth', staffAuthRoutes);
-app.use('/api/login', loginRoutes);
-app.use('/api/product', productRoutes);
-app.use('/api/category', categoryRoutes);
-app.use('/api/order', orderRoutes);
-app.use('/api/verify', verifyRoutes);
+app.use('/:key/api/auth', authRoutes);
+app.use('/:key/api/staff/auth', staffAuthRoutes);
+app.use('/:key/api/login', loginRoutes);
+app.use('/:key/api/product', productRoutes);
+app.use('/:key/api/category', categoryRoutes);
+app.use('/:key/api/order', orderRoutes);
+app.use('/:key/api/verify', verifyRoutes);
 
 
 
