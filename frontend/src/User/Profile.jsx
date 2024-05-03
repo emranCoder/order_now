@@ -65,9 +65,10 @@ export default function Profile() {
 
   return (
     (user && (
-      <section className="order-section p-5 ">
+      <section className="order-section ">
         {loader && <Loading />}
         <form
+          className="p-5 "
           encType="multipart/form-data"
           method="dialog"
           onSubmit={handleSubmit}

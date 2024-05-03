@@ -27,12 +27,15 @@ const getAllOrder = async (req, res) => {
 
     try {
 
-        const orders = await Order.find().populate('user', 'fName lName');
+        const orders = await Order.find().
+            sort({ orderDate: '1' }).populate('user', 'fName lName');
 
         if (!orders) {
             return res.status(404).json({ err: "False Attempted!" });
         }
-        res.status(200).json({ order: orders });
+        let x = 0;
+        orders.map((val, key) => (x += parseFloat(val.orderPrice)))
+        res.status(200).json({ order: orders, total: x });
 
     } catch (error) {
 
