@@ -3,11 +3,12 @@ import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Loading from "../component/Loading";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function AdminCredential() {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [err, setErr] = useState(null);
   const [loader, setLoader] = useState(true);
 
@@ -15,6 +16,11 @@ export default function AdminCredential() {
     setTimeout(() => {
       setLoader(false);
     }, 500);
+    if (state) {
+      setErr(state);
+      Cookies.remove("auth");
+      Cookies.remove("id");
+    }
   }, [0]);
 
   const [formData, setFormData] = useState({
@@ -55,25 +61,36 @@ export default function AdminCredential() {
       try {
         let response = await axios.post(
           "http://localhost:5000/api/login/",
-          formData
+          formData,
+          {
+            headers: {
+              form: "admin-credential",
+            },
+          }
         );
 
         if (response && response.status === 200) {
           const { message, user, token } = response.data;
-          Cookies.set("id", user._id, process.env.REACT_AUTH_EXP);
-          Cookies.set("auth-token", token, process.env.REACT_AUTH_EXP);
-          Cookies.set("auth", token, process.env.REACT_AUTH_EXP);
-          window.location.replace("/dashboard");
+          if (user.role === "admin") {
+            Cookies.set("id", user._id, process.env.REACT_AUTH_EXP);
+            Cookies.set("auth", token, process.env.REACT_AUTH_EXP);
+
+            window.location.replace("/dashboard");
+          } else {
+            setErr("Wrong Credential.");
+          }
         }
       } catch (error) {
         if (error.response.data.err) {
-          setErr(error.response.data.err);
+          console.log(error.response.data);
+
+          if (
+            error.response.data.err ===
+            "Please try to login with your username & password!"
+          )
+            setErr(error.response.data.err);
         }
       }
-
-      console.log("Login successful");
-    } else {
-      console.log("Login failed");
     }
   };
 
@@ -99,10 +116,12 @@ export default function AdminCredential() {
           <div className="login-form bg-base-100 max-sm:p-10  p-16 border rounded-xl shadow-lg  ">
             <h3 className="text-3xl font-semibold text-slate-800 ">Welcome</h3>
             <p className="my-2 text-slate-500">Login to Continue</p>
+
             <form
               onSubmit={handleSubmit}
               className="flex items-center flex-col mt-5"
             >
+              <span className="text-red-600">{err}</span>
               <TextField
                 fullWidth
                 className="!border-slate-700 "

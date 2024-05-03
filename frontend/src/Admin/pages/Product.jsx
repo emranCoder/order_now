@@ -51,7 +51,7 @@ export default function Product() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
@@ -72,7 +72,7 @@ export default function Product() {
         "http://localhost:5000/api/category/all",
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
@@ -107,7 +107,7 @@ export default function Product() {
         { data: id },
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       )

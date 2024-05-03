@@ -55,7 +55,7 @@ export default function Staffs() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              token: Cookies.get("auth-token"),
+              token: Cookies.get("auth"),
             },
           }
         );
@@ -66,7 +66,7 @@ export default function Staffs() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              token: Cookies.get("auth-token"),
+              token: Cookies.get("auth"),
             },
           }
         );
@@ -92,7 +92,7 @@ export default function Staffs() {
         "http://localhost:5000/api/staff/auth/getstaff",
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
@@ -114,7 +114,7 @@ export default function Staffs() {
         { data: id },
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       )

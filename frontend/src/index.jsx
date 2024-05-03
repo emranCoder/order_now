@@ -70,7 +70,13 @@ const router = createBrowserRouter(
           element={(!token && <Credential />) || <Page404 />}
         />
       </Route>
-      <Route element={<Admin />}>
+      <Route
+        element={
+          <Provider store={store}>
+            <Admin />
+          </Provider>
+        }
+      >
         <Route path="dashboard" element={<HomeInfo />} />
         <Route path="category" element={<Category />} />
         <Route path="Product" element={<Product />} />

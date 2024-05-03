@@ -13,26 +13,30 @@ export default function Admin() {
   });
 
   const navigate = useNavigate();
-  const token = Cookies.get("auth-token");
+  const token = Cookies.get("auth");
 
   const getUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/user", {
+      const response = await axios.get("http://localhost:5000/api/auth/user/", {
         headers: {
           token: token,
         },
       });
-      if (response && response.data.user) {
+      if (response && response.status === 200) {
         const { role } = response.data.user;
         if (role === "admin") {
           setVerify(true);
         } else {
-          navigate("/admin-login");
+          navigate("/admin-login", {
+            state: "Please Login with username & password",
+          });
         }
       }
     } catch (error) {
       if (error) {
-        navigate("/admin-login");
+        navigate("/admin-login", {
+          state: "Please Login with username & password",
+        });
       }
     }
   };

@@ -44,6 +44,7 @@ const getAllUser = async (req, res) => {
 const getUser = async (req, res) => {
     try {
         const queryId = req.uID;
+
         const user = await User.findById(queryId).select('-pwd -__v -auth');
 
         if (!user) {

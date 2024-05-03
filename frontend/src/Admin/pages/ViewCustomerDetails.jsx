@@ -27,14 +27,13 @@ export default function ViewCustomerDetails() {
 
   const getCustomer = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/auth/getuser/${state}`,
-        {
-          headers: {
-            token: Cookies.get("auth-token"),
-          },
-        }
-      );
+      const response = await axios.get(`http://localhost:5000/api/auth/user`, {
+        headers: {
+          token: Cookies.get("auth"),
+          id: state,
+          form: "Admin",
+        },
+      });
       if (response && response.status === 200) {
         setCustomer(response.data.user);
       }
@@ -51,7 +50,7 @@ export default function ViewCustomerDetails() {
         `http://localhost:5000/api/order/user/${state}`,
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
@@ -64,9 +63,6 @@ export default function ViewCustomerDetails() {
       }
     }
   };
-
-  console.log(order);
-
   return (
     customer && (
       <Animation>
@@ -126,6 +122,11 @@ export default function ViewCustomerDetails() {
                       </thead>
                       <tbody>
                         {/* row 1 */}
+                        {order && order.length <= 0 && (
+                          <tr>
+                            <td>No Data</td>
+                          </tr>
+                        )}
                         {order &&
                           order.map((val, key) => (
                             <tr className="hover ">
@@ -163,55 +164,6 @@ export default function ViewCustomerDetails() {
                               </td>
                             </tr>
                           ))}
-
-                        {/* row 2 */}
-                        <tr className="hover">
-                          <td>Hart Hagerty</td>
-                          <td>Desktop Support Technician</td>
-
-                          <td>
-                            <span className="uppercase px-3 py-1 text-green-800 font-medium text-xs bg-opacity-40 bg-green-200 rounded-full">
-                              Delivered
-                            </span>
-                          </td>
-                          <td>Purple</td>
-                          <td className="flex gap-3">
-                            <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                              <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                <EditIcon sx={{ fontSize: 18 }} />
-                              </Mui.ListItemButton>
-                            </button>
-                            <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                              <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                <HighlightOffIcon sx={{ fontSize: 18 }} />
-                              </Mui.ListItemButton>
-                            </button>
-                          </td>
-                        </tr>
-                        {/* row 3 */}
-                        <tr className="hover">
-                          <td>Brice Swyre</td>
-                          <td>Tax Accountant</td>
-
-                          <td>
-                            <span className="uppercase px-3 py-1 text-red-800 font-medium text-xs bg-opacity-40 bg-red-200 rounded-full">
-                              refunded
-                            </span>
-                          </td>
-                          <td>Red</td>
-                          <td className="flex gap-3">
-                            <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                              <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                <EditIcon sx={{ fontSize: 18 }} />
-                              </Mui.ListItemButton>
-                            </button>
-                            <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                              <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                <HighlightOffIcon sx={{ fontSize: 18 }} />
-                              </Mui.ListItemButton>
-                            </button>
-                          </td>
-                        </tr>
                       </tbody>
                     </table>
                   </div>

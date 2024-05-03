@@ -40,7 +40,7 @@ export default function Category() {
           data,
           {
             headers: {
-              token: Cookies.get("auth-token"),
+              token: Cookies.get("auth"),
             },
           }
         );
@@ -50,7 +50,7 @@ export default function Category() {
           data,
           {
             headers: {
-              token: Cookies.get("auth-token"),
+              token: Cookies.get("auth"),
             },
           }
         );
@@ -75,7 +75,7 @@ export default function Category() {
         { data: id },
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       )

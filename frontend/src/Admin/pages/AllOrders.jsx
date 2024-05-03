@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 export default function AllOrders() {
   const [page, setPage] = useState(2);
@@ -27,7 +28,7 @@ export default function AllOrders() {
     try {
       const response = await axios.get("http://localhost:5000/api/order/all", {
         headers: {
-          token: Cookies.get("auth-token"),
+          token: Cookies.get("auth"),
         },
       });
       if (response && response.status === 200) {
@@ -75,8 +76,11 @@ export default function AllOrders() {
                     order.map((val, key) => (
                       <tr className="hover " key={key}>
                         <td>{val.orderNumber}</td>
-                        <td>
-                          {val.user && val.user.fName + " " + val.user.lName}
+                        <td className="hover:text-sky-900 ">
+                          <Link to="/view" state={val.user._id}>
+                            {" "}
+                            {val.user && val.user.fName + " " + val.user.lName}
+                          </Link>
                         </td>
                         <td>
                           <span
@@ -91,7 +95,23 @@ export default function AllOrders() {
                             {val.orderStatus}
                           </span>
                         </td>
-                        <td>{val.orderDate}</td>
+                        <td>
+                          <span className="text-stone-500">
+                            {new Date(val.orderDate).toLocaleDateString(
+                              "en-GB",
+                              {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              }
+                            )}
+                            ,{" "}
+                          </span>
+                          {new Date(val.orderDate).toLocaleTimeString("en-us", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </td>
                       </tr>
                     ))}
                 </tbody>

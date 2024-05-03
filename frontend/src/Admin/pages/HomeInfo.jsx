@@ -10,6 +10,7 @@ import Animation from "../spinner/Animation";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 export default function HomeInfo() {
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function HomeInfo() {
         "http://localhost:5000/api/product/all",
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
@@ -50,7 +51,7 @@ export default function HomeInfo() {
     try {
       const response = await axios.get("http://localhost:5000/api/order/all", {
         headers: {
-          token: Cookies.get("auth-token"),
+          token: Cookies.get("auth"),
         },
       });
       if (response && response.status === 200) {
@@ -70,16 +71,14 @@ export default function HomeInfo() {
         "http://localhost:5000/api/auth/getuser",
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
       if (response && response.status === 200) {
         setUserFrequency(response.data.user.length);
       }
-    } catch (error) {
-      if (error) console.log(error.response.data);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -365,39 +364,51 @@ export default function HomeInfo() {
                         </tr>
                       </thead>
                       <tbody>
-                        {/* row 1 */}
-                        <tr className="hover">
-                          <td>Cy Ganderton</td>
-                          <td>Quality Control Specialist</td>
-                          <td>Blue</td>
-                          <td>
-                            <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
-                              pending
-                            </span>
-                          </td>
-                        </tr>
-                        {/* row 2 */}
-                        <tr className="hover">
-                          <td>Hart Hagerty</td>
-                          <td>Desktop Support Technician</td>
-                          <td>Purple</td>
-                          <td>
-                            <span className="uppercase px-3 py-1 text-green-800 font-medium text-xs bg-opacity-40 bg-green-200 rounded-full">
-                              Delivered
-                            </span>
-                          </td>
-                        </tr>
-                        {/* row 3 */}
-                        <tr className="hover">
-                          <td>Brice Swyre</td>
-                          <td>Tax Accountant</td>
-                          <td>Red</td>
-                          <td>
-                            <span className="uppercase px-3 py-1 text-red-800 font-medium text-xs bg-opacity-40 bg-red-200 rounded-full">
-                              refunded
-                            </span>
-                          </td>
-                        </tr>
+                        {orderFrequency &&
+                          orderFrequency.slice(0, 4).map((val, key) => (
+                            <tr className="hover">
+                              <td>{val.orderNumber}</td>
+                              <td className="hover:text-sky-900 ">
+                                <Link to="/view" state={val.user._id}>
+                                  {val.user &&
+                                    val.user.fName + " " + val.user.lName}
+                                </Link>
+                              </td>
+                              <td>
+                                <span className="text-slate-500">
+                                  {new Date(val.orderDate).toLocaleDateString(
+                                    "en-GB",
+                                    {
+                                      day: "numeric",
+                                      month: "short",
+                                      year: "numeric",
+                                    }
+                                  )}
+                                  ,{" "}
+                                </span>
+                                {new Date(val.orderDate).toLocaleTimeString(
+                                  "en-us",
+                                  {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  }
+                                )}
+                              </td>
+                              <td>
+                                <span
+                                  className={`uppercase px-3 py-1  font-medium text-xs bg-opacity-30  rounded-full ${
+                                    val.orderStatus == "Pending"
+                                      ? "text-orange-800 bg-orange-200"
+                                      : val.orderStatus === "Refunded"
+                                      ? "text-red-800 bg-red-200 "
+                                      : "text-green-800 bg-green-200"
+                                  }`}
+                                >
+                                  {val.orderStatus}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>

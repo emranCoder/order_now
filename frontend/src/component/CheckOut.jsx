@@ -114,17 +114,13 @@ export default function CheckOut(props) {
                       <span>Discount:</span>
                       <span className="float-right">{subTotal - total} $</span>
                     </div>
-                    <div className="w-full border-b">
-                      <span>Tax: </span>
-                      <span className="float-right">1.5 %</span>
-                    </div>
                     <div className="w-full">
                       <span>Total: </span>
                       <span className="float-right">
                         {/^-?[0-9]+$/.test(total) ? total : total.toFixed(2)} $
                       </span>
                     </div>
-                    {/* <div className="flex justify-center w-full my-5">
+                    <div className="flex justify-center w-full my-5">
                       <input
                         className="border-spacing-0 w-full inline-block p-2 outline-none border-slate-600 focus:border-slate-700 border no-underline rounded-l-md"
                         placeholder="Cupon Code"
@@ -133,7 +129,7 @@ export default function CheckOut(props) {
                       <button className="p-2 m-0 text-sm inline-block  text-white font-semibold bg-slate-700 rounded-l-none rounded-md border border-slate-700 hover:text-red hover:bg-slate-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-700 focus:ring-offset-2">
                         <KeyboardArrowRightIcon />
                       </button>
-                    </div> */}
+                    </div>
                     <div className="w-full my-5">
                       <button className=" w-full py-2 text-sm text-slate-700 font-semibold rounded-full border border-slate-700 focus:outline-none focus:ring-2 hover:text-white  hover:border-slate-300 hover:bg-slate-700   focus:ring-slate-300 focus:bg-slate-700 focus:text-white   focus:ring-offset-2 ease-out duration-300">
                         Check Out

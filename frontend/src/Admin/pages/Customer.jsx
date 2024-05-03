@@ -24,7 +24,7 @@ export default function Customer() {
         "http://localhost:5000/api/auth/getuser",
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );

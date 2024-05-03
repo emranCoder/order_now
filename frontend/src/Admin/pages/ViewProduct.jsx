@@ -57,7 +57,7 @@ export default function ViewProduct(props) {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
@@ -79,7 +79,7 @@ export default function ViewProduct(props) {
         `http://localhost:5000/api/product/${state}`,
         {
           headers: {
-            token: Cookies.get("auth-token"),
+            token: Cookies.get("auth"),
           },
         }
       );
