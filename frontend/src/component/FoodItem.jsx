@@ -7,16 +7,19 @@ import CheckOut from "./CheckOut";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart } from "../redux/CartSlice";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { fetchProduct } from "../redux/ProductFetch";
 
 export default function FoodItem() {
   const [isVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
   const dispatch = useDispatch();
   const { size, cartProduct, total } = useSelector((state) => state.cart);
-  const [product, setProduct] = useState(null);
-
+  const { isLoading, product, err, category } = useSelector(
+    (state) => state.product
+  );
   useEffect(() => {
-    getProduct();
+    dispatch(fetchProduct());
     window.addEventListener("scroll", listenToScroll);
     return () => window.removeEventListener("scroll", listenToScroll);
   }, [0]);
@@ -67,60 +70,47 @@ export default function FoodItem() {
     }
   };
 
-  const getProduct = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/product/all`
-      );
-      if (response && response.status === 200) {
-        setProduct(response.data.products);
-      }
-    } catch (error) {
-      if (error.message === "Network Error")
-        return console.error(error.message);
-      console.log(error.response.data.message);
-    }
-  };
-
   return (
     <div className="justify-center mt-3">
       <div className="grid lg:grid-cols-4  md:grid-cols-3 sm:grid-cols-1 gap-3">
         {product &&
-          product.map((val, key) => (
-            <div
-              key={key}
-              className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] "
-            >
-              <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-                <div className="mask mask-squircle z-10">
-                  <img
-                    className="block   h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-                    src={`http://localhost:5000/products/img/${
-                      (val && val.image) || "default-product.png"
-                    }`}
-                    alt="Woman's Face"
-                  />
+          product
+            .filter((val) => val.category === category)
+            .map((val, key) => (
+              <div
+                key={key}
+                className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] "
+              >
+                <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
+                  <div className="mask mask-squircle z-10">
+                    <img
+                      className="block   h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
+                      src={`http://localhost:5000/products/img/${
+                        (val && val.image) || "default-product.png"
+                      }`}
+                      alt="Woman's Face"
+                    />
+                  </div>
+                  <div className="max-sm:ml-3 text-center max-sm:text-left ">
+                    <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
+                      {val.name}
+                    </p>
+                    <p className="my-1 font-semibold text-slate-900">
+                      {val.price - (val.discount * val.price) / 100}$
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      handleAddToCart(val);
+                    }}
+                    className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white"
+                  >
+                    <span className="max-sm:hidden">Add To Cart</span>
+                    <AddShoppingCartIcon />
+                  </button>
                 </div>
-                <div className="max-sm:ml-3 text-center max-sm:text-left ">
-                  <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                    {val.name}
-                  </p>
-                  <p className="my-1 font-semibold text-slate-900">
-                    {val.price - (val.discount * val.price) / 100}$
-                  </p>
-                </div>
-                <button
-                  onClick={() => {
-                    handleAddToCart(val);
-                  }}
-                  className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white"
-                >
-                  <span className="max-sm:hidden">Add To Cart</span>
-                  <AddShoppingCartIcon />
-                </button>
               </div>
-            </div>
-          ))}
+            ))}
         <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
           <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
             <img

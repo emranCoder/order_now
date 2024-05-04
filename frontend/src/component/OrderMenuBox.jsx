@@ -8,10 +8,13 @@ import { GiCookie } from "react-icons/gi";
 import { LuSoup, LuSalad, LuSandwich } from "react-icons/lu";
 import { FaHotjar, FaPlateWheat } from "react-icons/fa6";
 import axios from "axios";
-
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setCategory } from "../redux/ProductFetch";
 export default function OrderMenuBox() {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [category, setCategory] = useState(0);
+  const [category, setCategories] = useState(0);
+  const dispatch = useDispatch();
   const [icon, setIcon] = useState([
     <GiCookie />,
     <LuSoup />,
@@ -32,15 +35,20 @@ export default function OrderMenuBox() {
   const getCategory = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/category/all`
+        `http://localhost:5000/${process.env.API_KEY}/api/category/all`,
+        {
+          headers: {
+            token: Cookies.get("auth"),
+          },
+        }
       );
       if (response && response.status === 200) {
-        setCategory(response.data.category);
+        setCategories(response.data.category);
+        dispatch(setCategory(response.data.category[0].name));
       }
     } catch (error) {
       if (error.message === "Network Error")
         return console.error(error.message);
-      console.log(error.response.data.message);
     }
   };
 
@@ -63,7 +71,10 @@ export default function OrderMenuBox() {
                       ? "bg-slate-600 rounded-lg text-white"
                       : ""
                   }
-                  onClick={(event) => handleListItemClick(event, key)}
+                  onClick={(event) => {
+                    handleListItemClick(event, key);
+                    dispatch(setCategory(val.name));
+                  }}
                 >
                   <a>
                     {icon[key]}

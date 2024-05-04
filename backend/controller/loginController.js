@@ -55,7 +55,7 @@ const login = async (req, res) => {
 const logout = async (req, res, next) => {
 
     try {
-        const qId = req.body.id;
+        const qId = req.uID;
         if (!(req.uID === qId)) {
             return res.status(404).send({
                 err: "False Attempted!"

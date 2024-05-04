@@ -3,11 +3,16 @@ import { Drawer } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import logo from "../img/orderNow.png";
 import Cookies from "js-cookie";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckOut from "./CheckOut";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { addToast } from "../redux/ToastSlice";
 
 export default function NavBar() {
   const [haveToken, setHaveToken] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isLoading, user, err } = useSelector((state) => state.user);
   const token = Cookies.get("auth");
   useEffect(() => {
@@ -28,6 +33,31 @@ export default function NavBar() {
       return;
     }
     if (anchor === "bottom") setDrawerActive({ bottom: open });
+  };
+
+  const logOut = async () => {
+    const token = Cookies.get("auth");
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/${process.env.API_KEY}/api/login/logout`,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        dispatch(addToast({ type: "info", msg: response.data.mess }));
+        Cookies.remove("auth");
+        Cookies.remove("id");
+        window.location.replace("/?true=forget");
+      }
+    } catch (error) {
+      console.log(error.response);
+      if (error.message === "Network Error")
+        return console.error(error.message);
+      console.log(error.response.data.message);
+    }
   };
 
   return (
@@ -137,7 +167,13 @@ export default function NavBar() {
                     <NavLink to="changepwd">Change Password</NavLink>
                   </li>
                   <li>
-                    <a>Logout</a>
+                    <a
+                      onClick={() => {
+                        logOut();
+                      }}
+                    >
+                      Logout
+                    </a>
                   </li>
                 </ul>
               </div>

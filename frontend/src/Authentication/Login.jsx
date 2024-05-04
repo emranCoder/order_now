@@ -75,10 +75,6 @@ export default function Login(props) {
           setErr(error.response.data.err);
         }
       }
-
-      console.log("Login successful");
-    } else {
-      console.log("Login failed");
     }
   };
 
