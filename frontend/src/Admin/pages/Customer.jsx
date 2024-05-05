@@ -21,7 +21,7 @@ export default function Customer() {
   const getCustomer = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/auth/getuser`,
+        `http://localhost:5000/api/auth/getuser`,
         {
           headers: {
             token: Cookies.get("auth"),
@@ -38,7 +38,6 @@ export default function Customer() {
     }
   };
 
-  console.log(customer);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

@@ -36,7 +36,7 @@ export default function Category() {
       let response;
       if (data && data.id) {
         response = await axios.put(
-          `http://localhost:5000/${process.env.API_KEY}/api/category/`,
+          `http://localhost:5000/api/category/`,
           data,
           {
             headers: {
@@ -46,7 +46,7 @@ export default function Category() {
         );
       } else {
         response = await axios.post(
-          `http://localhost:5000/${process.env.API_KEY}/api/category/`,
+          `http://localhost:5000/api/category/`,
           data,
           {
             headers: {
@@ -71,7 +71,7 @@ export default function Category() {
     let id = { id: delId };
     const response = await axios
       .delete(
-        `http://localhost:5000/${process.env.API_KEY}/api/category/`,
+        `http://localhost:5000/api/category/`,
         { data: id },
         {
           headers: {
@@ -92,7 +92,7 @@ export default function Category() {
   const getCategory = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/category/all`
+        `http://localhost:5000/api/category/all`
       );
       if (response && response.status === 200) {
         setCategory(response.data.category);

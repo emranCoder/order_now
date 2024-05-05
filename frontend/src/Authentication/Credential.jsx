@@ -61,13 +61,13 @@ export default function Credential() {
         if (!formData.otp && !active) {
           validateEmail();
           response = await axios.post(
-            `http://localhost:5000/${process.env.API_KEY}/api/verify/`,
+            `http://localhost:5000/api/verify/`,
             formData
           );
         } else {
           if (validateOtp()) {
             response = await axios.post(
-              `http://localhost:5000/${process.env.API_KEY}/api/verify/otp`,
+              `http://localhost:5000/api/verify/otp`,
               formData
             );
             if (response && response.status === 200) {

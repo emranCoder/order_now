@@ -102,7 +102,7 @@ export default function Register() {
     if (validateForm() && conPwd === formData.pwd) {
       try {
         let response = await axios.post(
-          `http://localhost:5000/${process.env.API_KEY}/api/auth/createuser`,
+          `http://localhost:5000/api/auth/createuser`,
           formData
         );
 

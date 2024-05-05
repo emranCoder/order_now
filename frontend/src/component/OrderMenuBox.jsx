@@ -35,7 +35,7 @@ export default function OrderMenuBox() {
   const getCategory = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/category/all`,
+        `http://localhost:5000/api/category/all`,
         {
           headers: {
             token: Cookies.get("auth"),

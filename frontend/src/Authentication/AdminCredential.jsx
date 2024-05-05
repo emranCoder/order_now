@@ -60,7 +60,7 @@ export default function AdminCredential() {
     if (validateForm()) {
       try {
         let response = await axios.post(
-          `http://localhost:5000/${process.env.API_KEY}/api/login/`,
+          `http://localhost:5000/api/login/`,
           formData,
           {
             headers: {
@@ -72,8 +72,8 @@ export default function AdminCredential() {
         if (response && response.status === 200) {
           const { message, user, token } = response.data;
           if (user.role === "admin") {
-            Cookies.set("id", user._id, process.env.REACT_AUTH_EXP);
-            Cookies.set("auth", token, process.env.REACT_AUTH_EXP);
+            Cookies.set("id", user._id, process.env.REACT_APP_AUTH_EXP);
+            Cookies.set("auth", token, process.env.REACT_APP_AUTH_EXP);
 
             window.location.replace("/dashboard");
           } else {
@@ -121,7 +121,6 @@ export default function AdminCredential() {
               onSubmit={handleSubmit}
               className="flex items-center flex-col mt-5"
             >
-              <span className="text-red-600">{err}</span>
               <TextField
                 fullWidth
                 className="!border-slate-700 "

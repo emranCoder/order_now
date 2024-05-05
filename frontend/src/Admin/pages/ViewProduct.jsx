@@ -36,7 +36,7 @@ export default function ViewProduct(props) {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/${process.env.API_KEY}/api/product/`,
+        `http://localhost:5000/api/product/`,
         newData,
         {
           headers: {
@@ -60,7 +60,7 @@ export default function ViewProduct(props) {
   const getProduct = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/product/${state}`,
+        `http://localhost:5000/api/product/${state}`,
         {
           headers: {
             token: Cookies.get("auth"),

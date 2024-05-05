@@ -17,7 +17,7 @@ export default function HomeInfo() {
     getProductFrequency();
     getOrderFrequency();
     getUserFrequency();
-  }, [0]);
+  }, []);
 
   const [productFrequency, setProductFrequency] = useState(0);
   const [orderFrequency, setOrderFrequency] = useState(0);
@@ -33,7 +33,7 @@ export default function HomeInfo() {
   const getProductFrequency = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/product/all`,
+        `http://localhost:5000/api/product/all`,
         {
           headers: {
             token: Cookies.get("auth"),
@@ -49,14 +49,11 @@ export default function HomeInfo() {
   };
   const getOrderFrequency = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/order/all`,
-        {
-          headers: {
-            token: Cookies.get("auth"),
-          },
-        }
-      );
+      const response = await axios.get(`http://localhost:5000/api/order/all`, {
+        headers: {
+          token: Cookies.get("auth"),
+        },
+      });
       if (response && response.status === 200) {
         response.data.order.sort(
           (a, b) => new Date(b.orderDate) - new Date(a.orderDate)
@@ -71,7 +68,7 @@ export default function HomeInfo() {
   const getUserFrequency = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/auth/getuser`,
+        `http://localhost:5000/api/auth/getuser`,
         {
           headers: {
             token: Cookies.get("auth"),
@@ -369,7 +366,7 @@ export default function HomeInfo() {
                       <tbody>
                         {orderFrequency &&
                           orderFrequency.slice(0, 4).map((val, key) => (
-                            <tr className="hover">
+                            <tr key={key} className="hover">
                               <td>{val.orderNumber}</td>
                               <td className="hover:text-sky-900 ">
                                 <Link to="/view" state={val.user._id}>
@@ -387,23 +384,23 @@ export default function HomeInfo() {
                                       year: "numeric",
                                     }
                                   )}
-                                  ,{" "}
                                 </span>
-                                {new Date(val.orderDate).toLocaleTimeString(
-                                  "en-us",
-                                  {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  }
-                                )}
+                                {", " +
+                                  new Date(val.orderDate).toLocaleTimeString(
+                                    "en-us",
+                                    {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    }
+                                  )}
                               </td>
                               <td>
                                 <span
                                   className={`uppercase px-3 py-1  font-medium text-xs bg-opacity-30  rounded-full ${
-                                    val.orderStatus == "Pending"
+                                    val.orderStatus === "Pending"
                                       ? "text-orange-800 bg-orange-200"
                                       : val.orderStatus === "Refunded"
-                                      ? "text-red-800 bg-red-200 "
+                                      ? "text-red-800 bg-red-200"
                                       : "text-green-800 bg-green-200"
                                   }`}
                                 >

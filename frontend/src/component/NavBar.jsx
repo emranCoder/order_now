@@ -39,7 +39,7 @@ export default function NavBar() {
     const token = Cookies.get("auth");
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/login/logout`,
+        `http://localhost:5000/api/login/logout`,
         {
           headers: {
             token: token,
@@ -158,7 +158,7 @@ export default function NavBar() {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] border border-slate-100 p-2 shadow-[-5px_4px_31px_-12px] menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                  className="mt-3 border border-slate-100 p-2 shadow-[-5px_4px_31px_-12px] menu menu-sm dropdown-content bg-base-100 rounded-box w-52 z-[13]"
                 >
                   <li>
                     <NavLink to="profile">Profile</NavLink>

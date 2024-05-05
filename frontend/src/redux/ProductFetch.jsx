@@ -6,14 +6,11 @@ const token = Cookies.get("auth");
 export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
   async () => {
-    const response = await axios.get(
-      `http://localhost:5000/${process.env.API_KEY}/api/product/all`,
-      {
-        headers: {
-          token: token,
-        },
-      }
-    );
+    const response = await axios.get(`http://localhost:5000/api/product/all`, {
+      headers: {
+        token: token,
+      },
+    });
     return response.data.products;
   }
 );

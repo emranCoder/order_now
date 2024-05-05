@@ -28,14 +28,11 @@ export default function CurrentOrder() {
 
   const getOrder = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/order/all`,
-        {
-          headers: {
-            token: Cookies.get("auth"),
-          },
-        }
-      );
+      const response = await axios.get(`http://localhost:5000/api/order/all`, {
+        headers: {
+          token: Cookies.get("auth"),
+        },
+      });
       if (response && response.status === 200) {
         setOrder(response.data.order);
       }

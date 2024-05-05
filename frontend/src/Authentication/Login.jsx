@@ -54,20 +54,19 @@ export default function Login(props) {
     return valid;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (validateForm()) {
       try {
         let response = await axios.post(
-          `http://localhost:5000/${process.env.API_KEY}/api/login/`,
+          `http://localhost:5000/api/login/`,
           formData
         );
 
         if (response && response.status === 200) {
           const { message, user, token } = response.data;
           dispatch(addToast({ type: "info", msg: message }));
-          Cookies.set("id", user._id, process.env.REACT_AUTH_EXP);
-          Cookies.set("auth", token, process.env.REACT_AUTH_EXP);
+          Cookies.set("id", user._id, process.env.REACT_APP_AUTH_EXP);
+          Cookies.set("auth", token, process.env.REACT_APP_AUTH_EXP);
           window.location.replace("/");
         }
       } catch (error) {
@@ -110,7 +109,7 @@ export default function Login(props) {
               </Link>
             </p>
             <form
-              onSubmit={handleSubmit}
+              onSubmit={(event) => event.preventDefault()}
               className="flex items-center flex-col mt-5"
             >
               <TextField
@@ -189,6 +188,9 @@ export default function Login(props) {
                 </label>
               </div>
               <button
+                onClick={() => {
+                  handleSubmit();
+                }}
                 type="btn"
                 className="mt-5 rounded-full p-0 font-semibold w-full  bg-slate-700 btn hover:bg-slate-600 text-slate-100 overflow-hidden"
               >

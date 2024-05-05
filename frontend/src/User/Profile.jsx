@@ -36,7 +36,7 @@ export default function Profile() {
 
       try {
         const response = await axios.put(
-          `http://localhost:5000/${process.env.API_KEY}/api/auth/updateuser`,
+          `http://localhost:5000/api/auth/updateuser`,
           userUpdate,
           {
             headers: {

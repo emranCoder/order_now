@@ -46,7 +46,7 @@ export default function Product() {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/${process.env.API_KEY}/api/product/`,
+        `http://localhost:5000/api/product/`,
         productUpload,
         {
           headers: {
@@ -69,7 +69,7 @@ export default function Product() {
   const getCategory = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/category/all`,
+        `http://localhost:5000/api/category/all`,
         {
           headers: {
             token: Cookies.get("auth"),
@@ -88,9 +88,7 @@ export default function Product() {
 
   const getProduct = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/product/all`
-      );
+      const response = await axios.get(`http://localhost:5000/api/product/all`);
       if (response && response.status === 200) {
         setProduct(response.data.products);
       }
@@ -105,7 +103,7 @@ export default function Product() {
     let id = { id: delId };
     const response = await axios
       .delete(
-        `http://localhost:5000/${process.env.API_KEY}/api/product/`,
+        `http://localhost:5000/api/product/`,
         { data: id },
         {
           headers: {

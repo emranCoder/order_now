@@ -27,16 +27,13 @@ export default function ViewCustomerDetails() {
 
   const getCustomer = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/auth/user`,
-        {
-          headers: {
-            token: Cookies.get("auth"),
-            id: state,
-            form: "Admin",
-          },
-        }
-      );
+      const response = await axios.get(`http://localhost:5000/api/auth/user`, {
+        headers: {
+          token: Cookies.get("auth"),
+          id: state,
+          form: "Admin",
+        },
+      });
       if (response && response.status === 200) {
         setCustomer(response.data.user);
       }
@@ -50,7 +47,7 @@ export default function ViewCustomerDetails() {
   const getOrder = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/${process.env.API_KEY}/api/order/user/${state}`,
+        `http://localhost:5000/api/order/user/${state}`,
         {
           headers: {
             token: Cookies.get("auth"),
