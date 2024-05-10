@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-const { hashedPwd, generateOTP } = require('../config/utility');
+const { hashedPwd, generateOTP, checkPwd } = require('../config/utility');
 const path = require('path');
 
 
@@ -60,15 +60,30 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const { id, oldImg, ...bodyData } = { ...req.body };
+        const { id, oldImg, currentPwd, conPwd, ...bodyData } = { ...req.body };
         let newData = bodyData;
+        if (!(conPwd === newData.pwd)) return res.status(404).send({ mess: "Passwords do NOT match!" });
+        if ((currentPwd === newData.pwd)) return res.status(404).send({ mess: "Current Password & new password are same!" });
 
-        const userImg = await User.findById(id).select('avatar');
+        if (bodyData.pwd && currentPwd) {
+            const encPwd = await hashedPwd(bodyData.pwd);
+            newData = { pwd: encPwd }
+        }
+
+        const userImg = await User.findById(id).select('avatar pwd username');
         if (!userImg) {
             return res.status(500).send({
                 err: "Server is down!"
             });
         }
+        if (currentPwd) {
+            const value = userImg.username + "_" + id;
+            const token = await checkPwd(currentPwd, userImg.pwd, value);
+            if (!token) return res.status(404).send({
+                mess: "Passwords do NOT match!",
+            });
+        }
+
 
         if (req.files && req.files.length > 0) {
 

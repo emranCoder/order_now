@@ -116,8 +116,8 @@ export default function NavBar() {
                 <li className="nav-link">Home</li>
               </NavLink>
 
-              <NavLink to="blog">
-                <li className="nav-link">Blog</li>
+              <NavLink to="news">
+                <li className="nav-link">News</li>
               </NavLink>
 
               <NavLink to="contactus">

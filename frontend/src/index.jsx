@@ -26,7 +26,7 @@ import Customer from "./Admin/pages/Customer";
 import ContactUs from "./component/ContactUs";
 import Profile from "./User/Profile";
 import ChangePwd from "./User/ChangePwd";
-import Blog from "./component/Blog";
+import News from "./component/News";
 import ViewProduct from "./Admin/pages/ViewProduct";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
@@ -58,7 +58,7 @@ const router = createBrowserRouter(
           path="changepwd"
           element={(token && <ChangePwd />) || <Page404 />}
         />
-        <Route path="blog" element={<Blog />} />
+        <Route path="news" element={<News />} />
         <Route path="/login" element={(!token && <Login />) || <Page404 />} />
 
         <Route

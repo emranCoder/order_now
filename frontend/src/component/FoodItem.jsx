@@ -96,6 +96,11 @@ export default function FoodItem() {
                       {val.name}
                     </p>
                     <p className="my-1 font-semibold text-slate-900">
+                      {val.discount > 0 && (
+                        <span className="line-through mr-2 text-slate-500 font-normal">
+                          {val.price}$
+                        </span>
+                      )}
                       {val.price - (val.discount * val.price) / 100}$
                     </p>
                   </div>

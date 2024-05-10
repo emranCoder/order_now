@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../component/Loading";
+import Loading from "./Loading";
 
-export default function Blog() {
+export default function News() {
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -55,26 +55,26 @@ export default function Blog() {
           </div>
           <div className="col-lg-4">
             <h5 className="mb-8 text-red-800 font-semibold uppercase font-serif">
-              Recipe Collections
+              News Collections
             </h5>
             <ul className="">
               <li className="bg-base-200 mb-1 p-2 font-serif hover:text-red-800 hover:bg-base-300  px-5 cursor-pointer text-slate-700">
                 <span className="mr-5 rounded-full !bg-red-800 text-white btn-circle btn btn-xs border-none">
                   1
                 </span>
-                <a>Item 1</a> <span className="float-right mr-5">48</span>
+                <a>Most Viewed</a> <span className="float-right mr-5">48</span>
               </li>
               <li className="bg-base-200 mb-1 p-2 font-serif hover:text-red-800 hover:bg-base-300  px-5 cursor-pointer text-slate-700">
                 <span className="mr-5 rounded-full !bg-red-800 text-white btn-circle btn btn-xs border-none">
                   2
                 </span>
-                <a>Item 2</a> <span className="float-right mr-5">48</span>
+                <a>Latest</a> <span className="float-right mr-5">48</span>
               </li>
               <li className="bg-base-200 mb-1 p-2 font-serif hover:text-red-800 hover:bg-base-300  px-5 cursor-pointer text-slate-700">
                 <span className="mr-5 rounded-full !bg-red-800 text-white btn-circle btn btn-xs border-none">
                   3
                 </span>
-                <a>Item 3</a> <span className="float-right mr-5">48</span>
+                <a>Today</a> <span className="float-right mr-5">48</span>
               </li>
             </ul>
           </div>
