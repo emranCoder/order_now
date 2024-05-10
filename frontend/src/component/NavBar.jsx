@@ -135,7 +135,8 @@ export default function NavBar() {
                 href="/login"
                 className="btn min-h-full  h-full rounded-full hover:bg-slate-600 hover:text-slate-100 border-slate-600 bg-transparent text-slate-600 py-3 px-6"
               >
-                Login/Registration
+                <span className="max-sm:hidden">Login/Registration</span>
+                <span className="hidden max-sm:block">Login</span>
               </a>
             )}
             {haveToken && (

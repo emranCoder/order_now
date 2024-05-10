@@ -15,8 +15,9 @@ const placeOrder = async (req, res) => {
         const addOrder = await newOrder.save();
         if (!addOrder) { return res.res.status(500).send({ err: "Unable to add order!" }); }
 
-        res.status(200).json({ message: "Order added Successfully!", id: addOrder._id });
+        res.status(200).json({ mess: "Order added Successfully!", id: addOrder._id });
     } catch (error) {
+        console.log(error);
         res.status(500).send({
             err: "Bad request!"
         });
@@ -47,7 +48,7 @@ const getUserOrder = async (req, res) => {
 
     try {
 
-        const order = await Order.find({ user: req.params.id });
+        const order = await Order.find({ user: req.params.id }).populate('products');
 
         if (!order) {
             return res.status(404).json({ err: "False Attempted!" });

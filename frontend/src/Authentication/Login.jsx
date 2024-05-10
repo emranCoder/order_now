@@ -86,7 +86,7 @@ export default function Login(props) {
   };
 
   return (
-    <div className="container-fluid bg-slate-50 py-10 h-svh">
+    <div className="container-fluid bg-slate-50 py-10 ">
       {loader && <Loading />}
       <div className="container-row justify-center content-center flex-start items-center m-auto">
         <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
@@ -95,7 +95,7 @@ export default function Login(props) {
             OrderNow
           </h3>
         </div>
-        <div className="col-lg-5 col-md-9 max-sm:w-full">
+        <div className="col-lg-5 col-md-9 max-sm:w-full mb-10">
           <div className="login-form bg-base-100 max-sm:p-10  p-16 border rounded-xl shadow-lg  ">
             <h3 className="text-3xl font-semibold text-slate-800 ">Login</h3>
             <p className="my-2 text-slate-500">
@@ -217,7 +217,7 @@ export default function Login(props) {
             </form>
           </div>
         </div>
-        <div className="col-lg-6 lg:block hidden">
+        <div className="col-lg-6  col-sm-6 ">
           <Info />
         </div>
       </div>

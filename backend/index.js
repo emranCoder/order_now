@@ -16,7 +16,6 @@ const { errorHandler, notFoundError } = require('./middleware/error_handler');
 
 const app = express()
 dotenv.config();
-
 const options = {
     "Access-Control-Allow-Origin": `http://localhost:${process.env.PORT}/`,
     origin: '*',
@@ -40,7 +39,6 @@ app.use('/api/product', productRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/verify', verifyRoutes);
-
 
 
 

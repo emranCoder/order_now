@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema({
     },
     paymentMethod: {
         type: String,
-        default: null,
+        default: "cash",
     },
     orderStatus: {
         type: String,

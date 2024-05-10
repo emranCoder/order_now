@@ -207,6 +207,19 @@ export default function ViewProduct(props) {
                         </p>
                         <table className="w-fit">
                           <tbody>
+                            {!edit && (
+                              <tr>
+                                <td className="font-semibold">
+                                  <span>Category</span>
+                                </td>
+                                <td className=" px-3">:</td>
+                                <td>
+                                  <span className="font-semibold text-slate-600">
+                                    {product.category}
+                                  </span>
+                                </td>
+                              </tr>
+                            )}
                             <tr>
                               <td className="font-semibold">
                                 <span>Price</span>

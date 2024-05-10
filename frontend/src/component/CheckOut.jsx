@@ -3,17 +3,51 @@ import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDispatch, useSelector } from "react-redux";
 import { decQty, incQty, removeProduct } from "../redux/CartSlice";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { addToast } from "../redux/ToastSlice";
+import Login from "../Authentication/Login";
 
 export default function CheckOut(props) {
   const { cartProduct, total, subTotal } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const token = Cookies.get("auth");
+
+  const handleCheckout = async () => {
+    const id = Cookies.get("id");
+    const data = {
+      orderPrice: total,
+      products: cartProduct.map((el) => el.id),
+      user: id,
+    };
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/order/`,
+        data,
+
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        dispatch(addToast({ type: "info", msg: response.data.mess }));
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 1000);
+      }
+    } catch (error) {
+      if (error.message === "Network Error") console.error(error.message);
+    }
+  };
 
   return (
     <div className="container-fluid">
       <div className="container-row lg:px-10">
         <div className="col-lg-12 col-md-12 col-sm-12 max-sm:pt-4 pt-8  w-full">
           <div className="flex justify-between">
-            <h3 className="capitalize font-medium text-2xl mb-5 text-slate-800 max-sm:px-3 ">
+            <h3 className="capitalize font-medium text-2xl mb-5 text-slate-800 max-sm:px-3 max-sm:w-full">
               Order Details:
             </h3>
             <button
@@ -24,7 +58,7 @@ export default function CheckOut(props) {
             </button>
           </div>
         </div>
-        <div className="col-lg-12 col-md-12 col-sm-12 checkout-box  sm:px-3">
+        <div className="col-lg-12 col-md-12 col-sm-12 checkout-box  sm:px-3 max-sm:w-full">
           <div className="container ">
             <div className="container-row">
               <div className="col-lg-8 col-md-6  max-sm:w-full max-md:w-full pb-10">
@@ -131,7 +165,13 @@ export default function CheckOut(props) {
                       </button>
                     </div>
                     <div className="w-full my-5">
-                      <button className=" w-full py-2 text-sm text-slate-700 font-semibold rounded-full border border-slate-700 focus:outline-none focus:ring-2 hover:text-white  hover:border-slate-300 hover:bg-slate-700   focus:ring-slate-300 focus:bg-slate-700 focus:text-white   focus:ring-offset-2 ease-out duration-300">
+                      <button
+                        onClick={() => {
+                          if (token) handleCheckout();
+                          else window.location.replace("/login");
+                        }}
+                        className=" w-full py-2 text-sm text-slate-700 font-semibold rounded-full border border-slate-700 focus:outline-none focus:ring-2 hover:text-white  hover:border-slate-300 hover:bg-slate-700   focus:ring-slate-300 focus:bg-slate-700 focus:text-white   focus:ring-offset-2 ease-out duration-300"
+                      >
                         Check Out
                       </button>
                     </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Info() {
   return (
-    <div className=" p-16 dtl-login">
+    <div className=" p-16 dtl-login lg:block hidden">
       <h3 className="text-[50px] font-bold font-serif text-slate-800">
         OrderNow
       </h3>

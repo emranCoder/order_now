@@ -7,27 +7,71 @@ import KeyIcon from "@mui/icons-material/Key";
 import PasswordIcon from "@mui/icons-material/Password";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/AuthSlice";
+import Cookies from "js-cookie";
+import axios from "axios";
+import Toast from "../Alert/Toast";
 
 const countryName = ["Bangladesh"];
 
 export default function Setting() {
-  const [previewFile, setPreviewFIle] = useState(null);
   const dispatch = useDispatch();
+  const [previewFile, setPreviewFIle] = useState(null);
   const { isLoading, user, err } = useSelector((state) => state.user);
+  const [msg, setMsg] = useState(null);
 
   useEffect(() => {
     dispatch(fetchUser());
   }, [0]);
+
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
+    let userUpdate = new FormData(e.target);
+    userUpdate.append("id", user._id);
+    userUpdate.append("oldImg", user.avatar);
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/auth/updateuser`,
+        userUpdate,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: Cookies.get("auth"),
+          },
+        }
+      );
+
+      if (response && response.status === 200) {
+        const { message, user } = response.data;
+        setMsg(message);
+        dispatch(fetchUser());
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     user && (
       <Animation>
         <div className="rounded-xl border shadow-lg mb-28 p-10 max-sm:px-0 px-5 max-sm:py-5">
           <div className="container overflow-hidden">
+            {msg && (
+              <Toast
+                msg={{ msg: msg }}
+                control={() => {
+                  setMsg(null);
+                }}
+              />
+            )}
             <div className="setting-box lg:pt-0 p-5">
               <h3 className="text-2xl font-semibold text-slate-600">Profile</h3>
               <div className="container mt-12">
-                <div className="container-row  md:justify-center">
+                <form
+                  onSubmit={handleUpdateUser}
+                  className="container-row  md:justify-center"
+                  encType="multipart/form-data"
+                  method="dialog"
+                >
                   <div className="col-lg-4 max-sm:w-full pr-1 lg:border-r">
                     <div className="avt-box flex flex-col items-center">
                       <div className="avatar">
@@ -70,7 +114,7 @@ export default function Setting() {
                           </label>
                           <input
                             type="file"
-                            name="staffImage"
+                            name="avatar"
                             id="fileInput"
                             placeholder="Upload Image"
                             className="file-input w-full file-input-sm  hidden"
@@ -149,6 +193,7 @@ export default function Setting() {
                             <input
                               defaultValue={user.mobile}
                               type="text"
+                              name="mobile"
                               placeholder="Phone Number*"
                               className="w-full "
                               required
@@ -162,6 +207,7 @@ export default function Setting() {
                           <input
                             defaultValue={user.city}
                             type="text"
+                            name="city"
                             placeholder="Type city"
                             className="input input-md py-2 input-bordered w-full focus-within:outline-none focus-within:border-sky-800 hover:bg-slate-50"
                             required
@@ -174,7 +220,7 @@ export default function Setting() {
 
                           <select
                             className="select select-bordered   rounded-lg w-full focus:outline-none focus:border-sky-800 hover:bg-slate-50 focus:ring-sky-800 focus:ring-1oc"
-                            name="staffRole"
+                            name="country"
                             defaultValue={user.country}
                           >
                             <option disabled value="1">
@@ -211,7 +257,7 @@ export default function Setting() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
                 <div className="divider"></div>
                 <div className="container-row lg:justify-normal  md:justify-center mt-8">
                   <h3 className="text-2xl font-semibold text-slate-600 mb-5">
