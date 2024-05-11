@@ -249,7 +249,7 @@ export default function Profile() {
                 </div>
                 <button
                   type="submit"
-                  className="text-slate-50 bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
+                  className="text-slate-50 bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800 max-sm:w-max"
                 >
                   Submit
                 </button>
@@ -261,7 +261,7 @@ export default function Profile() {
         <div className="container rounded-xl px-10 py-16 max-sm:p-5 max-md:px-5 bg-white">
           <h3 className="text-3xl text-center text-slate-600">Order History</h3>
           <div className="overflow-x-auto mt-10 border rounded-lg">
-            <table className="table table-zebra  text-slate-800 table-fixed max-sm:w-max">
+            <table className="table table-zebra  text-slate-800 table-fixed ">
               {/* head */}
               <thead>
                 <tr className="bg-base-300 text-slate-600 uppercase text-sm ">

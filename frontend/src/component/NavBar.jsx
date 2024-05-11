@@ -8,6 +8,7 @@ import CheckOut from "./CheckOut";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { addToast } from "../redux/ToastSlice";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function NavBar() {
   const [haveToken, setHaveToken] = useState(false);
@@ -23,6 +24,7 @@ export default function NavBar() {
 
   const [drawerActive, setDrawerActive] = useState({
     bottom: false,
+    left: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -33,6 +35,7 @@ export default function NavBar() {
       return;
     }
     if (anchor === "bottom") setDrawerActive({ bottom: open });
+    if (anchor === "left") setDrawerActive({ left: open });
   };
 
   const logOut = async () => {
@@ -60,6 +63,38 @@ export default function NavBar() {
     }
   };
 
+  const SideBar = (
+    <div>
+      <li className="nav-link w-full flex justify-end  mt-4">
+        <button
+          className="btn btn-circle mr-3 btn-sm border-slate-100 bg-transparent "
+          onClick={toggleDrawer("left", false)}
+        >
+          <CloseIcon className="!font-bold" sx={{ fontSize: 16 }} />
+        </button>
+      </li>
+      <ul
+        className="cursor-pointer navbar-ul main-nav  pr-2 pl-5 "
+        onClick={toggleDrawer("left", false)}
+      >
+        <NavLink to="/">
+          <li className="nav-link my-5 !pr-16">Home</li>
+        </NavLink>
+
+        <NavLink to="news">
+          <li className="nav-link my-5 !pr-16">News</li>
+        </NavLink>
+
+        <NavLink to="contactus">
+          <li className="nav-link my-5 !pr-16">Contact Us</li>
+        </NavLink>
+        <li className="nav-link my-5 !pr-16">
+          <span onClick={toggleDrawer("bottom", true)}>Cart</span>
+        </li>
+      </ul>
+    </div>
+  );
+
   return (
     <div className="bg-white border-gray-200 dark:bg-slate-800 shadow-md lg:px-10">
       <div className="container">
@@ -71,6 +106,7 @@ export default function NavBar() {
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="navbar-user"
               aria-expanded="false"
+              onClick={toggleDrawer("left", true)}
             >
               <span className="sr-only">Open main menu</span>
               <svg
@@ -187,6 +223,13 @@ export default function NavBar() {
           onClose={toggleDrawer("bottom", false)}
         >
           <CheckOut closeBtn={toggleDrawer("bottom", false)} />
+        </Drawer>
+        <Drawer
+          anchor={"left"}
+          open={drawerActive["left"]}
+          onClose={toggleDrawer("left", false)}
+        >
+          {SideBar}
         </Drawer>
       </div>
     </div>
