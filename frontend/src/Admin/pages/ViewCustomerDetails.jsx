@@ -117,7 +117,6 @@ export default function ViewCustomerDetails() {
                           <th>Customer</th>
                           <th>Status</th>
                           <th>Date</th>
-                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -149,18 +148,6 @@ export default function ViewCustomerDetails() {
                                 {new Date(val.orderDate).toLocaleDateString(
                                   "en-US"
                                 )}
-                              </td>
-                              <td className="flex gap-3">
-                                <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                                  <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                    <EditIcon sx={{ fontSize: 18 }} />
-                                  </Mui.ListItemButton>
-                                </button>
-                                <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                                  <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                    <HighlightOffIcon sx={{ fontSize: 18 }} />
-                                  </Mui.ListItemButton>
-                                </button>
                               </td>
                             </tr>
                           ))}

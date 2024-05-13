@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Mui from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import CheckIcon from "@mui/icons-material/Check";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
 import axios from "axios";
@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 export default function CurrentOrder() {
+  const [edit, setEdit] = useState(false);
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState(null);
@@ -41,7 +42,7 @@ export default function CurrentOrder() {
         return console.error(error.message);
     }
   };
-
+  const handleSubmit = () => {};
   return (
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
@@ -111,17 +112,27 @@ export default function CurrentOrder() {
                               }
                             )}
                           </td>
-                          <td className="flex gap-3">
-                            <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                              <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                <EditIcon sx={{ fontSize: 18 }} />
-                              </Mui.ListItemButton>
-                            </button>
-                            <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                              <Mui.ListItemButton className="!flex !justify-center !items-center">
-                                <HighlightOffIcon sx={{ fontSize: 18 }} />
-                              </Mui.ListItemButton>
-                            </button>
+                          <td className="flex gap-5 justify  ">
+                            <div className="tooltip" data-tip="Delivered">
+                              <button
+                                onClick={() => {}}
+                                className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                              >
+                                <Mui.ListItemButton className="!flex !justify-center !items-center">
+                                  <CheckIcon sx={{ fontSize: 18 }} />
+                                </Mui.ListItemButton>
+                              </button>
+                            </div>
+                            <div className="tooltip" data-tip="Refunded">
+                              <button
+                                onClick={() => {}}
+                                className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                              >
+                                <Mui.ListItemButton className="!flex !justify-center !items-center">
+                                  <SyncAltIcon sx={{ fontSize: 18 }} />
+                                </Mui.ListItemButton>
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}

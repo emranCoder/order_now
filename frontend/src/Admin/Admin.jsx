@@ -5,8 +5,11 @@ import { useNavigate, Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../redux/AuthSlice";
 
 export default function Admin() {
+  const dispatch = useDispatch();
   const [verify, setVerify] = useState(null);
   useEffect(() => {
     getUserData();
@@ -26,6 +29,7 @@ export default function Admin() {
         const { role } = response.data.user;
         if (role === "admin") {
           setVerify(true);
+          dispatch(fetchUser());
         } else {
           navigate("/admin-login", {
             state: "Please Login with username & password",

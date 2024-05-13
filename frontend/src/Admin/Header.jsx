@@ -15,8 +15,10 @@ import { NavLink } from "react-router-dom";
 import logo from "../img/orderNow.png";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const { isLoading, user, err } = useSelector((state) => state.user);
   const [drawerActive, setDrawerActive] = useState({
     left: false,
     bottom: false,
@@ -163,8 +165,11 @@ export default function Header() {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  alt="loading"
+                  src={
+                    (user && `http://localhost:5000/avatar/${user.avatar}`) ||
+                    "default-avatar.png"
+                  }
                 />
               </div>
             </div>
