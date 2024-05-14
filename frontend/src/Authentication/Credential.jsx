@@ -53,20 +53,24 @@ export default function Credential() {
     return valid;
   };
   const handleSubmit = async (e) => {
-    let response;
     e.preventDefault();
     if (validateEmail()) {
       setLoader(true);
       try {
         if (!formData.otp && !active) {
           validateEmail();
-          response = await axios.post(
+          const response = await axios.post(
             `http://localhost:5000/api/verify/`,
             formData
           );
+          if (response && response.status === 200) {
+            dispatch(addToast({ type: "success", msg: response.data.message }));
+            setActive(true);
+            setLoader(false);
+          }
         } else {
           if (validateOtp()) {
-            response = await axios.post(
+            const response = await axios.post(
               `http://localhost:5000/api/verify/otp`,
               formData
             );
@@ -75,11 +79,6 @@ export default function Credential() {
               navigate("/registration", { state: formData });
             }
           }
-          if (response && response.status === 200) {
-            dispatch(addToast({ type: "success", msg: response.data.message }));
-            setActive(true);
-          }
-          setLoader(false);
         }
       } catch (error) {
         if (error && error.response) {
