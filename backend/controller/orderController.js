@@ -29,7 +29,7 @@ const getAllOrder = async (req, res) => {
     try {
 
         const orders = await Order.find().
-            sort({ orderDate: '1' }).populate('user', 'fName lName');
+            sort({ orderDate: '1' }).populate('user', 'fName lName').populate("products");
 
         if (!orders) {
             return res.status(404).json({ err: "False Attempted!" });

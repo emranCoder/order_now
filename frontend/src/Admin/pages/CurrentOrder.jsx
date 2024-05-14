@@ -13,6 +13,7 @@ export default function CurrentOrder() {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState(null);
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
     getOrder();
@@ -47,6 +48,60 @@ export default function CurrentOrder() {
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
         <div className="container overflow-hidden">
+          <dialog id="view_product" className="modal">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Order Info!</h3>
+              <p className="py-4">Product List</p>
+              <div className="modal-action">
+                <form method="dialog" className="w-full">
+                  <div className="grid grid-cols-2 gap-3">
+                    {product &&
+                      product.map((val, key) => (
+                        <div
+                          key={key}
+                          className=" bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] "
+                        >
+                          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2   flex-col items-center content-center justify-center">
+                            <div className="mask mask-squircle z-10">
+                              <img
+                                className="block   h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
+                                src={`http://localhost:5000/products/img/${
+                                  (val && val.image) || "default-product.png"
+                                }`}
+                                alt="Woman's Face"
+                              />
+                            </div>
+                            <div className="max-sm:ml-3 text-center max-sm:text-left ">
+                              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
+                                {val.name}
+                              </p>
+                              <p className="my-1 font-semibold text-slate-900">
+                                {val.discount > 0 && (
+                                  <span className="line-through mr-2 text-slate-500 font-normal">
+                                    {val.price}$
+                                  </span>
+                                )}
+                                {val.price - (val.discount * val.price) / 100}$
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    {!product && (
+                      <p className="flex justify-center my-5">
+                        "Product Not Found"
+                      </p>
+                    )}
+                  </div>
+                  <div className="w-full flex justify-end mt-5">
+                    <button className="btn  rounded-full bg-transparent text-slate-700 border-slate-700 border hover:bg-red-500  hover:text-slate-50">
+                      Close
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </dialog>
           <div className="all-order-box content-center">
             <div className="flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">
@@ -79,7 +134,19 @@ export default function CurrentOrder() {
                       .filter((e) => e.orderStatus == "Pending")
                       .map((val, key) => (
                         <tr className="hover ">
-                          <td>{val.orderNumber}</td>
+                          <td>
+                            <span
+                              onClick={() => {
+                                setProduct(val.products);
+                                document
+                                  .getElementById("view_product")
+                                  .showModal();
+                              }}
+                              className="cursor-pointer hover:text-emerald-800"
+                            >
+                              {val.orderNumber}
+                            </span>
+                          </td>
                           <td className="hover:text-sky-900 ">
                             <Link to="/view" state={val.user._id}>
                               {" "}

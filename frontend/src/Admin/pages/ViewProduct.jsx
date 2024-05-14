@@ -125,7 +125,8 @@ export default function ViewProduct(props) {
                         <figure
                           className="w-auto  btn h-full !border-none !bg-transparent"
                           onClick={() => {
-                            document.getElementById("fileInput").click();
+                            if (edit)
+                              document.getElementById("fileInput").click();
                           }}
                         >
                           <img
