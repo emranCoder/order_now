@@ -4,6 +4,7 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import CheckIcon from "@mui/icons-material/Check";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
+import Toast from "../Alert/Toast";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
@@ -14,6 +15,8 @@ export default function CurrentOrder() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState(null);
   const [product, setProduct] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getOrder();
@@ -43,11 +46,73 @@ export default function CurrentOrder() {
         return console.error(error.message);
     }
   };
-  const handleSubmit = () => {};
+  const handleDelivered = async (id) => {
+    console.log(id);
+    const updateData = {
+      id: id,
+      orderStatus: "Delivered",
+    };
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/order/`,
+        updateData,
+        {
+          headers: {
+            token: Cookies.get("auth"),
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        setSuccess({ type: "success", msg: response.data.mess });
+      }
+    } catch (error) {
+      if (error.message === "Network Error")
+        return console.error(error.message);
+    }
+  };
+  const handleRefunded = async (id) => {
+    const updateData = {
+      id: id,
+      orderStatus: "Refunded",
+    };
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/order/`,
+        updateData,
+        {
+          headers: {
+            token: Cookies.get("auth"),
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        setSuccess({ type: "success", msg: response.data.mess });
+      }
+    } catch (error) {
+      if (error.message === "Network Error")
+        return console.error(error.message);
+    }
+  };
+  const handleSuccess = () => {
+    setSuccess(null);
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === "Backspace" && !e.target.value.trim().length) {
+      setSearch("");
+    }
+    if (e.target.value.trim().length) {
+      setSearch(e.target.value.trim());
+    }
+  };
+
   return (
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
         <div className="container overflow-hidden">
+          {/* Toast */}
+          {success && <Toast msg={success} control={handleSuccess} />}
+          {/* Toast End */}
           <dialog id="view_product" className="modal">
             <div className="modal-box">
               <h3 className="font-bold text-lg">Order Info!</h3>
@@ -83,6 +148,9 @@ export default function CurrentOrder() {
                                 )}
                                 {val.price - (val.discount * val.price) / 100}$
                               </p>
+                              <p className="font-semibold text-sky-900">
+                                QTY: {val.qty}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -112,6 +180,7 @@ export default function CurrentOrder() {
                   type="text"
                   className="grow max-sm:w-0 "
                   placeholder="Search"
+                  onKeyUpCapture={handleSearch}
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
@@ -131,18 +200,27 @@ export default function CurrentOrder() {
                 <tbody>
                   {order &&
                     order
-                      .filter((e) => e.orderStatus == "Pending")
+                      .filter((item) => {
+                        return search.toLowerCase() === ""
+                          ? item
+                          : item.orderNumber.toLowerCase().includes(search) ||
+                              item._id.toLowerCase().includes(search) ||
+                              item.user.fName.toLowerCase().includes(search) ||
+                              item.user.lName.toLowerCase().includes(search) ||
+                              item.user._id.toLowerCase().includes(search);
+                      })
+                      .sort((e) => e.orderStatus == "Pending")
                       .map((val, key) => (
                         <tr className="hover ">
                           <td>
                             <span
                               onClick={() => {
-                                setProduct(val.products);
+                                setProduct(JSON.parse(val.products));
                                 document
                                   .getElementById("view_product")
                                   .showModal();
                               }}
-                              className="cursor-pointer hover:text-emerald-800"
+                              className="cursor-pointer hover:text-emerald-800 font-semibold text-sky-800"
                             >
                               {val.orderNumber}
                             </span>
@@ -182,7 +260,7 @@ export default function CurrentOrder() {
                           <td className="flex gap-5 justify  ">
                             <div className="tooltip" data-tip="Delivered">
                               <button
-                                onClick={() => {}}
+                                onClick={() => handleDelivered(val._id)}
                                 className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
                               >
                                 <Mui.ListItemButton className="!flex !justify-center !items-center">
@@ -192,7 +270,7 @@ export default function CurrentOrder() {
                             </div>
                             <div className="tooltip" data-tip="Refunded">
                               <button
-                                onClick={() => {}}
+                                onClick={() => handleRefunded(val._id)}
                                 className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
                               >
                                 <Mui.ListItemButton className="!flex !justify-center !items-center">

@@ -13,6 +13,7 @@ export default function Customer() {
   const [success, setSuccess] = useState(null);
   const [customer, setCustomer] = useState(null);
   const [err, setErr] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getCustomer();
@@ -46,6 +47,14 @@ export default function Customer() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const handleSearch = (e) => {
+    if (e.key === "Backspace" && !e.target.value.trim().length) {
+      setSearch("");
+    }
+    if (e.target.value.trim().length) {
+      setSearch(e.target.value.trim());
+    }
+  };
 
   return (
     <Animation>
@@ -61,6 +70,7 @@ export default function Customer() {
                   type="text"
                   className="grow max-sm:w-0 "
                   placeholder="Search"
+                  onKeyUpCapture={handleSearch}
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
@@ -81,50 +91,60 @@ export default function Customer() {
               <tbody>
                 {/* row 1 */}
                 {customer &&
-                  customer.map((val, key) => (
-                    <tr key={key}>
-                      <td>
-                        <div className="flex items-center gap-3">
-                          <div className="avatar">
-                            <div className="mask mask-squircle w-12 h-12">
-                              <img
-                                src={`http://localhost:5000/avatar/${val.avatar}`}
-                                alt="Avatar Tailwind CSS Component"
-                              />
+                  customer
+                    .filter((item) => {
+                      return search.toLowerCase() === ""
+                        ? item
+                        : item._id.toLowerCase().includes(search) ||
+                            item.fName.toLowerCase().includes(search) ||
+                            item.lName.toLowerCase().includes(search) ||
+                            item.email.toLowerCase().includes(search) ||
+                            item.mobile.toLowerCase().includes(search);
+                    })
+                    .map((val, key) => (
+                      <tr key={key}>
+                        <td>
+                          <div className="flex items-center gap-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <img
+                                  src={`http://localhost:5000/avatar/${val.avatar}`}
+                                  alt="Avatar Tailwind CSS Component"
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <Link to="/view" state={val._id}>
+                                <div className="font-bold">
+                                  {val.fName + " " + val.lName}
+                                </div>
+                              </Link>
                             </div>
                           </div>
-                          <div>
-                            <Link to="/view" state={val._id}>
-                              <div className="font-bold">
-                                {val.fName + " " + val.lName}
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p className="text-sm opacity-80"> {val.email}</p>
-                      </td>
-                      <td>
-                        <p>{val.mobile}</p>
-                      </td>
-                      <td>{val.addr}</td>
-                      <td className="flex gap-3">
-                        <Link to="/view" state={val._id}>
-                          <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
+                        </td>
+                        <td>
+                          <p className="text-sm opacity-80"> {val.email}</p>
+                        </td>
+                        <td>
+                          <p>{val.mobile}</p>
+                        </td>
+                        <td>{val.addr}</td>
+                        <td className="flex gap-3">
+                          <Link to="/view" state={val._id}>
+                            <button className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
+                              <Mui.ListItemButton className="!flex !justify-center !items-center">
+                                <VisibilityIcon sx={{ fontSize: 18 }} />
+                              </Mui.ListItemButton>
+                            </button>
+                          </Link>
+                          <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
                             <Mui.ListItemButton className="!flex !justify-center !items-center">
-                              <VisibilityIcon sx={{ fontSize: 18 }} />
+                              <HighlightOffIcon sx={{ fontSize: 18 }} />
                             </Mui.ListItemButton>
                           </button>
-                        </Link>
-                        <button className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden">
-                          <Mui.ListItemButton className="!flex !justify-center !items-center">
-                            <HighlightOffIcon sx={{ fontSize: 18 }} />
-                          </Mui.ListItemButton>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                      </tr>
+                    ))}
                 <tr>
                   <td>
                     <div className="flex items-center gap-3">

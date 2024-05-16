@@ -19,6 +19,7 @@ export default function Product() {
   const [previewFile, setPreviewFIle] = useState(null);
   const [success, setSuccess] = useState(null);
   const [inputErr, setInputErr] = useState(null);
+  const [search, setSearch] = useState("");
 
   const closeBtn = useRef(null);
 
@@ -120,6 +121,15 @@ export default function Product() {
     setSuccess(null);
   };
 
+  const handleSearch = (e) => {
+    if (e.key === "Backspace" && !e.target.value.trim().length) {
+      setSearch("");
+    }
+    if (e.target.value.trim().length) {
+      setSearch(e.target.value.trim());
+    }
+  };
+
   return (
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
@@ -135,6 +145,7 @@ export default function Product() {
                   type="text"
                   className="grow max-sm:w-0 "
                   placeholder="Search"
+                  onKeyUpCapture={handleSearch}
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
@@ -271,66 +282,75 @@ export default function Product() {
                 {/* row 1 */}
 
                 {product &&
-                  product.map((val, key) => (
-                    <tr key={key}>
-                      <td>
-                        <div className="flex items-center gap-3">
-                          <div className="avatar">
-                            <div className="mask mask-squircle w-12 h-12">
-                              <img
-                                src={`http://localhost:5000/products/img/${val.image}`}
-                                alt="Avatar Tailwind CSS Component"
-                              />
+                  product
+                    .filter((item) => {
+                      return search.toLowerCase() === ""
+                        ? item
+                        : item.name.toLowerCase().includes(search) ||
+                            item._id.toLowerCase().includes(search);
+                    })
+                    .map((val, key) => (
+                      <tr key={key}>
+                        <td>
+                          <div className="flex items-center gap-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <img
+                                  src={`http://localhost:5000/products/img/${val.image}`}
+                                  alt="Avatar Tailwind CSS Component"
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <Link
+                                to="/viewproduct"
+                                state={val._id}
+                                className="font-bold"
+                              >
+                                {val.name}
+                              </Link>
                             </div>
                           </div>
-                          <div>
-                            <Link
-                              to="/viewproduct"
-                              state={val._id}
-                              className="font-bold"
-                            >
-                              {val.name}
-                            </Link>
-                          </div>
-                        </div>
-                      </td>
-                      <td className=" max-sm:hidden">
-                        <p className="text-sm opacity-80">{val.description}</p>
-                      </td>
-                      <td>
-                        <p>{val.price}$</p>
-                      </td>
-                      <td className="p-0">
-                        <span className="uppercase px-3 py-1 text-red-800 font-medium text-xs bg-opacity-40 bg-red-200 rounded-full">
-                          {val.discount} %
-                        </span>
-                      </td>
-                      <td className="flex gap-3">
-                        <Link
-                          to="/viewproduct"
-                          state={val._id}
-                          className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
-                        >
-                          <Mui.ListItemButton className="!flex !justify-center !items-center">
-                            <EditIcon sx={{ fontSize: 18 }} />
-                          </Mui.ListItemButton>
-                        </Link>
-                        <button
-                          onClick={() => {
-                            let chk = window.confirm(
-                              "Attention! You want to delete this data!"
-                            );
-                            if (chk === true) handleDelete(val._id);
-                          }}
-                          className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
-                        >
-                          <Mui.ListItemButton className="!flex !justify-center !items-center">
-                            <HighlightOffIcon sx={{ fontSize: 18 }} />
-                          </Mui.ListItemButton>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className=" max-sm:hidden">
+                          <p className="text-sm opacity-80">
+                            {val.description}
+                          </p>
+                        </td>
+                        <td>
+                          <p>{val.price}$</p>
+                        </td>
+                        <td className="p-0">
+                          <span className="uppercase px-3 py-1 text-red-800 font-medium text-xs bg-opacity-40 bg-red-200 rounded-full">
+                            {val.discount} %
+                          </span>
+                        </td>
+                        <td className="flex gap-3">
+                          <Link
+                            to="/viewproduct"
+                            state={val._id}
+                            className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                          >
+                            <Mui.ListItemButton className="!flex !justify-center !items-center">
+                              <EditIcon sx={{ fontSize: 18 }} />
+                            </Mui.ListItemButton>
+                          </Link>
+                          <button
+                            onClick={() => {
+                              let chk = window.confirm(
+                                "Attention! You want to delete this data!"
+                              );
+                              if (chk === true) handleDelete(val._id);
+                            }}
+                            className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                          >
+                            <Mui.ListItemButton className="!flex !justify-center !items-center">
+                              <HighlightOffIcon sx={{ fontSize: 18 }} />
+                            </Mui.ListItemButton>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
               </tbody>
               {/* foot */}
             </table>

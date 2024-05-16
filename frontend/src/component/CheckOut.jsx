@@ -7,17 +7,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { addToast } from "../redux/ToastSlice";
 import Login from "../Authentication/Login";
+import { json } from "react-router-dom";
 
 export default function CheckOut(props) {
   const { cartProduct, total, subTotal } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const token = Cookies.get("auth");
-
   const handleCheckout = async () => {
     const id = Cookies.get("id");
     const data = {
       orderPrice: total,
-      products: cartProduct.map((el) => el.id),
+      products: JSON.stringify(cartProduct),
       user: id,
     };
     try {
@@ -96,7 +96,7 @@ export default function CheckOut(props) {
                           <div className="relative flex items-center max-w-[5rem] ml-5">
                             <button
                               onClick={() => {
-                                if (val.qty === 0) {
+                                if (val.qty === 1) {
                                   dispatch(removeProduct(val.id));
                                 }
                                 dispatch(decQty(val.id));

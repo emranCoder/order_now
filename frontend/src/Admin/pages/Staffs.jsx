@@ -19,6 +19,7 @@ export default function Staffs() {
   const [inputErr, setInputErr] = useState(null);
   const [staff, setStaff] = useState(null);
   const [edit, setEdit] = useState(null);
+  const [search, setSearch] = useState("");
 
   const closeBtn = useRef(null);
 
@@ -128,6 +129,15 @@ export default function Staffs() {
     setSuccess(null);
   };
 
+  const handleSearch = (e) => {
+    if (e.key === "Backspace" && !e.target.value.trim().length) {
+      setSearch("");
+    }
+    if (e.target.value.trim().length) {
+      setSearch(e.target.value.trim());
+    }
+  };
+
   return (
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 max-sm:px-0 px-5 max-sm:py-5">
@@ -170,6 +180,7 @@ export default function Staffs() {
                   type="text"
                   className="grow max-sm:w-0 "
                   placeholder="Search"
+                  onKeyUpCapture={handleSearch}
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
@@ -348,63 +359,74 @@ export default function Staffs() {
               </thead>
               <tbody>
                 {staff &&
-                  staff.map((val, key) => (
-                    <tr key={key}>
-                      <td>
-                        <div className="flex items-center gap-3">
-                          <div className="avatar">
-                            <div className="mask mask-squircle w-12 h-12">
-                              <img
-                                src={`http://localhost:5000/staff/img/${val.avatar}`}
-                                alt="Avatar Tailwind CSS Component"
-                              />
+                  staff
+                    .filter((item) => {
+                      return search.toLowerCase() === ""
+                        ? item
+                        : item._id.toLowerCase().includes(search) ||
+                            item.fullName.toLowerCase().includes(search) ||
+                            item.role.toLowerCase().includes(search) ||
+                            item.mobile.toLowerCase().includes(search);
+                    })
+                    .map((val, key) => (
+                      <tr key={key}>
+                        <td>
+                          <div className="flex items-center gap-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <img
+                                  src={`http://localhost:5000/staff/img/${val.avatar}`}
+                                  alt="Avatar Tailwind CSS Component"
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <div className="font-bold">{val.fullName}</div>
                             </div>
                           </div>
-                          <div>
-                            <div className="font-bold">{val.fullName}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p className="text-sm opacity-80">{val.mobile}</p>
-                      </td>
-                      <td>
-                        <p>{val.role}</p>
-                      </td>
-                      <td>
-                        <span className="uppercase px-3 py-1 text-green-800 font-medium text-xs bg-opacity-40 bg-green-200 rounded-full">
-                          {val.wages} h/USD
-                        </span>
-                      </td>
-                      <td className="flex gap-3">
-                        <button
-                          onClick={() => {
-                            setEdit(val);
-                            setPreviewFIle(
-                              `http://localhost:5000/staff/img/${val.avatar}`
-                            );
-                            document.getElementById("my_modal_1").showModal();
-                          }}
-                          className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
-                        >
-                          <Mui.ListItemButton className="!flex !justify-center !items-center">
-                            <EditIcon sx={{ fontSize: 18 }} />
-                          </Mui.ListItemButton>
-                        </button>
-                        <button
-                          onClick={() => {
-                            setEdit(val._id);
-                            document.getElementById("delete_modal").showModal();
-                          }}
-                          className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
-                        >
-                          <Mui.ListItemButton className="!flex !justify-center !items-center">
-                            <HighlightOffIcon sx={{ fontSize: 18 }} />
-                          </Mui.ListItemButton>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td>
+                          <p className="text-sm opacity-80">{val.mobile}</p>
+                        </td>
+                        <td>
+                          <p>{val.role}</p>
+                        </td>
+                        <td>
+                          <span className="uppercase px-3 py-1 text-green-800 font-medium text-xs bg-opacity-40 bg-green-200 rounded-full">
+                            {val.wages} h/USD
+                          </span>
+                        </td>
+                        <td className="flex gap-3">
+                          <button
+                            onClick={() => {
+                              setEdit(val);
+                              setPreviewFIle(
+                                `http://localhost:5000/staff/img/${val.avatar}`
+                              );
+                              document.getElementById("my_modal_1").showModal();
+                            }}
+                            className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                          >
+                            <Mui.ListItemButton className="!flex !justify-center !items-center">
+                              <EditIcon sx={{ fontSize: 18 }} />
+                            </Mui.ListItemButton>
+                          </button>
+                          <button
+                            onClick={() => {
+                              setEdit(val._id);
+                              document
+                                .getElementById("delete_modal")
+                                .showModal();
+                            }}
+                            className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                          >
+                            <Mui.ListItemButton className="!flex !justify-center !items-center">
+                              <HighlightOffIcon sx={{ fontSize: 18 }} />
+                            </Mui.ListItemButton>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
               </tbody>
               {/* foot */}
             </table>

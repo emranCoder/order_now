@@ -17,7 +17,7 @@ export default function ViewCustomerDetails() {
   const [order, setOrder] = useState(null);
   const { state } = useLocation();
   const navigate = useNavigate();
-
+  const [product, setProduct] = useState(null);
   useEffect(() => {
     if (state === null) navigate("/product");
 
@@ -68,6 +68,64 @@ export default function ViewCustomerDetails() {
       <Animation>
         <div className="rounded-xl border shadow-lg mb-28 p-10 max-sm:px-0 px-5 max-sm:py-5">
           <div className="container overflow-hidden">
+            <dialog id="view_product" className="modal">
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Order Info!</h3>
+                <p className="py-4">Product List</p>
+                <div className="modal-action">
+                  <form method="dialog" className="w-full">
+                    <div className="grid grid-cols-2 gap-3">
+                      {product &&
+                        product.map((val, key) => (
+                          <div
+                            key={key}
+                            className=" bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] "
+                          >
+                            <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2   flex-col items-center content-center justify-center">
+                              <div className="mask mask-squircle z-10">
+                                <img
+                                  className="block   h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
+                                  src={`http://localhost:5000/products/img/${
+                                    (val && val.image) || "default-product.png"
+                                  }`}
+                                  alt="Woman's Face"
+                                />
+                              </div>
+                              <div className="max-sm:ml-3 text-center max-sm:text-left ">
+                                <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
+                                  {val.name}
+                                </p>
+                                <p className="my-1 font-semibold text-slate-900">
+                                  {val.discount > 0 && (
+                                    <span className="line-through mr-2 text-slate-500 font-normal">
+                                      {val.price}$
+                                    </span>
+                                  )}
+                                  {val.price - (val.discount * val.price) / 100}
+                                  $
+                                </p>
+                                <p className="font-semibold text-sky-900">
+                                  QTY: {val.qty}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      {!product && (
+                        <p className="flex justify-center my-5">
+                          "Product Not Found"
+                        </p>
+                      )}
+                    </div>
+                    <div className="w-full flex justify-end mt-5">
+                      <button className="btn  rounded-full bg-transparent text-slate-700 border-slate-700 border hover:bg-red-500  hover:text-slate-50">
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </dialog>
             <div className="view-product">
               <div className="head flex justify-between content-center">
                 <h3 className="text-2xl font-semibold text-slate-600">
@@ -92,17 +150,30 @@ export default function ViewCustomerDetails() {
                       <h2 className="card-title text-3xl">
                         {customer.fName + " " + customer.lName}
                       </h2>
-                      <p className="text-slate-600 text-lg ">
-                        Phone No: {customer.mobile}
+
+                      <p className="text-slate-600 text-md mt-2 ">
+                        <span className="font-semibold text-slate-700 mr-3">
+                          Phone No:
+                        </span>
+                        {customer.mobile}
                       </p>
-                      <p className="text-slate-600 text-lg ">
-                        Email: {customer.email}
+                      <p className="text-slate-600 text-md mt-2 ">
+                        <span className="font-semibold text-slate-700 mr-12">
+                          Email:
+                        </span>
+                        {customer.email}
                       </p>
-                      <p className="text-slate-600 text-lg ">
-                        Country: {customer.country}
+                      <p className="text-slate-600 text-md mt-2 ">
+                        <span className="font-semibold text-slate-700 mr-7">
+                          Country:
+                        </span>
+                        {customer.country}
                       </p>
-                      <p className="text-slate-600 text-lg ">
-                        Address: {customer.addr}
+                      <p className="text-slate-600 text-md mt-2 ">
+                        <span className="font-semibold text-slate-700 mr-7">
+                          Address:
+                        </span>
+                        {customer.addr}
                       </p>
                     </div>
                   </div>
@@ -129,7 +200,19 @@ export default function ViewCustomerDetails() {
                         {order &&
                           order.map((val, key) => (
                             <tr className="hover ">
-                              <td>{val.orderNumber}</td>
+                              <td>
+                                <span
+                                  onClick={() => {
+                                    setProduct(JSON.parse(val.products));
+                                    document
+                                      .getElementById("view_product")
+                                      .showModal();
+                                  }}
+                                  className="cursor-pointer hover:text-emerald-800 font-semibold text-sky-800"
+                                >
+                                  {val.orderNumber}
+                                </span>
+                              </td>
                               <td>{customer.fName + " " + customer.lName}</td>
                               <td>
                                 <span

@@ -16,6 +16,7 @@ export default function Category() {
   const [success, setSuccess] = useState(null);
   const [edit, setEdit] = useState(false);
   const closeBtn = useRef(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getCategory();
@@ -103,6 +104,14 @@ export default function Category() {
       console.log(error.response.data.message);
     }
   };
+  const handleSearch = (e) => {
+    if (e.key === "Backspace" && !e.target.value.trim().length) {
+      setSearch("");
+    }
+    if (e.target.value.trim().length) {
+      setSearch(e.target.value.trim());
+    }
+  };
 
   return (
     <Animation>
@@ -121,6 +130,7 @@ export default function Category() {
                   type="text"
                   className="grow max-sm:w-0 "
                   placeholder="Search"
+                  onKeyUpCapture={handleSearch}
                 />
                 <SearchIcon sx={{ fontSize: 20 }} />
               </label>
@@ -218,48 +228,59 @@ export default function Category() {
               </thead>
               <tbody className="table-row-group box-border">
                 {category &&
-                  category.map((val, key) => (
-                    <tr key={key} className="hover table-row align-middle">
-                      <th className="table-cell align-[inherit]">{key + 1}</th>
-                      <td className="table-cell align-[inherit]">{val.name}</td>
-                      <td className="table-cell align-[inherit]">
-                        <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
-                          {val.products.length}
-                        </span>
-                      </td>
-                      <td className="flex gap-3">
-                        <button
-                          className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
-                          onClick={() => {
-                            setData({
-                              name: val.name,
-                              description: val.description,
-                              id: val._id,
-                            });
-                            setEdit(true);
-                            document.getElementById("my_modal_1").showModal();
-                          }}
-                        >
-                          <Mui.ListItemButton className="!flex !justify-center !items-center">
-                            <EditIcon sx={{ fontSize: 18 }} />
-                          </Mui.ListItemButton>
-                        </button>
-                        <button
-                          className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
-                          onClick={() => {
-                            let chk = window.confirm(
-                              "Attention! You want to delete this data!"
-                            );
-                            if (chk === true) handleDelete(val._id);
-                          }}
-                        >
-                          <Mui.ListItemButton className="!flex !justify-center !items-center">
-                            <HighlightOffIcon sx={{ fontSize: 18 }} />
-                          </Mui.ListItemButton>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  category
+                    .filter((item) => {
+                      return search.toLowerCase() === ""
+                        ? item
+                        : item._id.toLowerCase().includes(search) ||
+                            item.name.toLowerCase().includes(search);
+                    })
+                    .map((val, key) => (
+                      <tr key={key} className="hover table-row align-middle">
+                        <th className="table-cell align-[inherit]">
+                          {key + 1}
+                        </th>
+                        <td className="table-cell align-[inherit]">
+                          {val.name}
+                        </td>
+                        <td className="table-cell align-[inherit]">
+                          <span className="uppercase px-3 py-1 text-orange-800 font-medium text-xs bg-opacity-30 bg-orange-200 rounded-full">
+                            {val.products.length}
+                          </span>
+                        </td>
+                        <td className="flex gap-3">
+                          <button
+                            className="btn btn-sm btn-success text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                            onClick={() => {
+                              setData({
+                                name: val.name,
+                                description: val.description,
+                                id: val._id,
+                              });
+                              setEdit(true);
+                              document.getElementById("my_modal_1").showModal();
+                            }}
+                          >
+                            <Mui.ListItemButton className="!flex !justify-center !items-center">
+                              <EditIcon sx={{ fontSize: 18 }} />
+                            </Mui.ListItemButton>
+                          </button>
+                          <button
+                            className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
+                            onClick={() => {
+                              let chk = window.confirm(
+                                "Attention! You want to delete this data!"
+                              );
+                              if (chk === true) handleDelete(val._id);
+                            }}
+                          >
+                            <Mui.ListItemButton className="!flex !justify-center !items-center">
+                              <HighlightOffIcon sx={{ fontSize: 18 }} />
+                            </Mui.ListItemButton>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
               </tbody>
             </table>
           </div>

@@ -48,7 +48,7 @@ const getUserOrder = async (req, res) => {
 
     try {
 
-        const order = await Order.find({ user: req.params.id }).populate('products');
+        const order = await Order.find({ user: req.params.id });
 
         if (!order) {
             return res.status(404).json({ err: "False Attempted!" });
