@@ -18,6 +18,20 @@ export default function Setting() {
   const [previewFile, setPreviewFIle] = useState(null);
   const { isLoading, user, err } = useSelector((state) => state.user);
   const [msg, setMsg] = useState(null);
+  const id = Cookies.get("id");
+  const [success, setSuccess] = useState(null);
+  const token = Cookies.get("auth");
+  const [info, setInfo] = useState({
+    currentPwd: "",
+    pwd: "",
+    conPwd: "",
+    id: id,
+  });
+  const [error, setError] = useState({
+    currentPwd: "",
+    pwd: "",
+    conPwd: "",
+  });
 
   useEffect(() => {
     dispatch(fetchUser());
@@ -42,11 +56,114 @@ export default function Setting() {
 
       if (response && response.status === 200) {
         const { message, user } = response.data;
-        setMsg(message);
+        setMsg({ msg: message });
         dispatch(fetchUser());
       }
     } catch (error) {
       console.log(error.response);
+    }
+  };
+
+  const formValidate = () => {
+    let valid = true;
+    const error = {
+      currentPwd: "",
+      pwd: "",
+      conPwd: "",
+    };
+    if (!info.currentPwd) {
+      error.currentPwd = "Current Password is required";
+      valid = false;
+    }
+
+    // Password strength check
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!info.pwd || !passwordRegex.test(info.pwd)) {
+      error.pwd =
+        "Password must be at least 8 characters with at least one uppercase and one lowercase letter";
+      valid = false;
+    }
+
+    if (!info.conPwd || !passwordRegex.test(info.conPwd)) {
+      error.conPwd =
+        "Password must be at least 8 characters with at least one uppercase and one lowercase letter";
+      valid = false;
+    }
+    if (!info.pwd) {
+      error.pwd = "Password is required";
+      valid = false;
+    }
+    if (!info.conPwd) {
+      error.conPwd = "Confirm Password is required";
+      valid = false;
+    }
+    if (info.pwd && info.conPwd) {
+      if (!(info.pwd === info.conPwd)) {
+        error.pwd = "Password is not match";
+        error.conPwd = "Confirm Password is not match";
+        setInfo({ ...info, pwd: "", conPwd: "" });
+        valid = false;
+      }
+    }
+    setError(error);
+    return valid;
+  };
+
+  const handleOnChange = (e) => {
+    const { value, name } = e.target;
+    setInfo({ ...info, [name]: value });
+  };
+
+  const logOut = async () => {
+    const token = Cookies.get("auth");
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/login/logout`,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        Cookies.remove("auth");
+        Cookies.remove("id");
+        window.location.replace("/admin-login?true=forget");
+      }
+    } catch (error) {
+      console.log(error.response);
+      if (error.message === "Network Error")
+        return console.error(error.message);
+      console.log(error.response.data.message);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (formValidate()) {
+      try {
+        const response = await axios.put(
+          `http://localhost:5000/api/auth/updateuser`,
+          info,
+          {
+            headers: {
+              token: token,
+            },
+          }
+        );
+
+        if (response && response.status === 200) {
+          const { message, user } = response.data;
+          setMsg({ type: "success", msg: message });
+          logOut();
+        }
+      } catch (error) {
+        if (error && error.response.data) {
+          console.log(error.response.data);
+          if (error.response.data.mess) {
+            setMsg({ type: "del", msg: error.response.data.mess });
+          }
+        }
+      }
     }
   };
 
@@ -57,7 +174,7 @@ export default function Setting() {
           <div className="container overflow-hidden">
             {msg && (
               <Toast
-                msg={{ msg: msg }}
+                msg={msg}
                 control={() => {
                   setMsg(null);
                 }}
@@ -278,9 +395,16 @@ export default function Setting() {
                             type="password"
                             placeholder="Password"
                             className="grow w-full "
+                            onChange={handleOnChange}
+                            name="currentPwd"
                             required
                           />
                         </label>
+                        {error.currentPwd.length > 0 && (
+                          <span className="text-sm text-red-600">
+                            {error.currentPwd}
+                          </span>
+                        )}
                       </div>
                       <div className="col-md-4 px-1 max-sm:w-full max-sm:p-0">
                         <label className="text-slate-700 m-1">
@@ -295,9 +419,16 @@ export default function Setting() {
                             type="password"
                             placeholder="Password"
                             className="grow w-full "
+                            onChange={handleOnChange}
+                            name="pwd"
                             required
                           />
                         </label>
+                        {error.pwd.length > 0 && (
+                          <span className="text-sm text-red-600">
+                            {error.pwd}
+                          </span>
+                        )}
                       </div>
                       <div className="col-md-4 pl-1 max-sm:w-full max-sm:p-0">
                         <label className="text-slate-700 m-1">
@@ -311,10 +442,17 @@ export default function Setting() {
                           <input
                             type="password"
                             placeholder="Password"
+                            name="conPwd"
                             className="grow w-full "
+                            onChange={handleOnChange}
                             required
                           />
                         </label>
+                        {error.conPwd.length > 0 && (
+                          <span className="text-sm text-red-600">
+                            {error.conPwd}
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div className="container-row max-sm:w-full">
@@ -322,6 +460,7 @@ export default function Setting() {
                       <div className="col-md-4 ">
                         <div className="flex justify-end my-5">
                           <button
+                            onClick={handleSubmit}
                             type="btn"
                             className="rounded-lg p-0 font-semibold w-auto bg-slate-800 btn hover:bg-slate-700 text-slate-100 overflow-hidden"
                           >

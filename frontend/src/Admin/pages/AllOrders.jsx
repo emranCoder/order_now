@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import * as Mui from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
+import SyncIcon from "@mui/icons-material/Sync";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import Toast from "../Alert/Toast";
 
 export default function AllOrders() {
   const [page, setPage] = useState(2);
@@ -12,6 +14,7 @@ export default function AllOrders() {
   const [order, setOrder] = useState(null);
   const [product, setProduct] = useState(null);
   const [search, setSearch] = useState("");
+  const [success, setSuccess] = useState(null);
 
   useEffect(() => {
     getOrder();
@@ -50,10 +53,40 @@ export default function AllOrders() {
     }
   };
 
+  const handleOrderStatus = async (id) => {
+    const updateData = {
+      id: id,
+      orderStatus: "Pending",
+    };
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/order/`,
+        updateData,
+        {
+          headers: {
+            token: Cookies.get("auth"),
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        setSuccess({ type: "success", msg: response.data.mess });
+      }
+    } catch (error) {
+      if (error.message === "Network Error")
+        return console.error(error.message);
+    }
+  };
+
+  const handleSuccess = () => {
+    setSuccess(null);
+  };
   return (
     <Animation>
       <div className="rounded-xl border shadow-lg p-10 pt-5 max-sm:px-0 px-5 max-sm:py-5">
         <div className="container overflow-hidden">
+          {/* Toast */}
+          {success && <Toast msg={success} control={handleSuccess} />}
+          {/* Toast End */}
           <div className="all-order-box mt-5 ">
             <div className="flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">
@@ -133,11 +166,12 @@ export default function AllOrders() {
               <table className="table table-zebra  text-slate-800 table-fixed max-sm:w-max">
                 {/* head */}
                 <thead>
-                  <tr className="bg-base-300 text-slate-600 uppercase text-sm ">
+                  <tr className="bg-base-300 text-slate-600 uppercase text-sm justify-center">
                     <th>Order</th>
                     <th>Customer</th>
                     <th>Status</th>
                     <th>Date</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -207,6 +241,25 @@ export default function AllOrders() {
                                 minute: "2-digit",
                               }
                             )}
+                          </td>
+                          <td className="flex justify-center">
+                            <div className="tooltip" data-tip="Revoke Delivery">
+                              <button
+                                onClick={() => {
+                                  if (val.orderStatus === "Delivered")
+                                    handleOrderStatus(val._id);
+                                }}
+                                className={`btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden ${
+                                  val.orderStatus === "Delivered"
+                                    ? ""
+                                    : "btn-disabled"
+                                }`}
+                              >
+                                <Mui.ListItemButton className="!flex !justify-center !items-center">
+                                  <SyncIcon sx={{ fontSize: 18 }} />
+                                </Mui.ListItemButton>
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}

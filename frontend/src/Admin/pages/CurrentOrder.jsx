@@ -47,7 +47,6 @@ export default function CurrentOrder() {
     }
   };
   const handleDelivered = async (id) => {
-    console.log(id);
     const updateData = {
       id: id,
       orderStatus: "Delivered",
