@@ -8,6 +8,7 @@ const Category = require('../models/Category');
 
 const addProduct = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         let productData = req.body;
 
         if (req.files && req.files.length > 0) {
@@ -80,6 +81,7 @@ const getProduct = async (req, res) => {
 }
 const updateProduct = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const { id, oldImg, ...bodyData } = { ...req.body };
 
         let newData = bodyData;
@@ -120,6 +122,7 @@ const updateProduct = async (req, res) => {
 }
 const removeProduct = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const id = req.body.id;
         const product = await Product.findByIdAndDelete(id).select('image -_id');
         if (!product) {

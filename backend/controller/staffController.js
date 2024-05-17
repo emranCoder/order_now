@@ -5,6 +5,7 @@ const path = require('path');
 
 const addStaff = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         let uData = req.body;
         if (req.files && req.files.length > 0) {
             uData = {
@@ -66,6 +67,7 @@ const getStaff = async (req, res) => {
 
 const updateStaff = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const { id, oldImg, ...bodyData } = { ...req.body };
         if (!id) return res.status(500).json({ staff: null });
 
@@ -101,6 +103,7 @@ const updateStaff = async (req, res) => {
 
 const removeStaff = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const id = req.body.id;
         if (!id) return res.status(500).json({ staff: null });
 

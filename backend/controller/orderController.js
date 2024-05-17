@@ -77,6 +77,7 @@ const getOrder = async (req, res) => {
 }
 const updateOrder = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const { id, ...bodyData } = { ...req.body };
 
         const order = await Order.findByIdAndUpdate(id, bodyData);
@@ -94,6 +95,7 @@ const updateOrder = async (req, res) => {
 }
 const removeOrder = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const id = req.body.id;
         const order = await Order.findByIdAndDelete(id).select('image -_id');
 

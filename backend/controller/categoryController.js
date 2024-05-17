@@ -4,6 +4,7 @@ const path = require('path');
 
 const addCategory = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         let productData = req.body;
 
         if (req.files && req.files.length > 0) {
@@ -57,6 +58,7 @@ const getCategory = async (req, res) => {
 }
 const updateCategory = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const { id, ...bodyData } = { ...req.body };
 
         const category = await Category.findByIdAndUpdate(id, bodyData);
@@ -74,6 +76,7 @@ const updateCategory = async (req, res) => {
 }
 const removeCategory = async (req, res) => {
     try {
+        if (!(req.uRole === "admin")) return res.status(500).send({ err: "Server is down!" });
         const id = req.body.id;
         const category = await Category.findByIdAndDelete(id).select('image -_id');
 

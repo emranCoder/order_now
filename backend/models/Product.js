@@ -26,6 +26,10 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    stock: {
+        type: Boolean,
+        default: true,
+    },
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,

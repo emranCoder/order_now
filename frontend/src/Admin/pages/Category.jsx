@@ -71,15 +71,12 @@ export default function Category() {
   const handleDelete = async (delId) => {
     let id = { id: delId };
     const response = await axios
-      .delete(
-        `http://localhost:5000/api/category/`,
-        { data: id },
-        {
-          headers: {
-            token: Cookies.get("auth"),
-          },
-        }
-      )
+      .delete(`http://localhost:5000/api/category/`, {
+        headers: {
+          token: Cookies.get("auth"),
+        },
+        data: id,
+      })
       .catch((error) => console.error(error.response.data.err));
     console.log(response);
     if (response && response.status === 200) {

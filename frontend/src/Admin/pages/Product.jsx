@@ -20,6 +20,7 @@ export default function Product() {
   const [success, setSuccess] = useState(null);
   const [inputErr, setInputErr] = useState(null);
   const [search, setSearch] = useState("");
+  const token = Cookies.get("auth");
 
   const closeBtn = useRef(null);
 
@@ -103,15 +104,14 @@ export default function Product() {
   const handleDelete = async (delId) => {
     let id = { id: delId };
     const response = await axios
-      .delete(
-        `http://localhost:5000/api/product/`,
-        { data: id },
-        {
-          headers: {
-            token: Cookies.get("auth"),
-          },
-        }
-      )
+      .delete(`http://localhost:5000/api/product/`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: Cookies.get("auth"),
+        },
+
+        data: id,
+      })
       .catch((error) => console.error(error.response.data.err));
     if (response && response.status === 200) {
       setSuccess({ type: "del", msg: response.data.message });

@@ -27,20 +27,25 @@ export default function ViewProduct(props) {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = document.querySelector("#form");
-    const newData = new FormData(form);
-    newData.append("id", product._id);
-    newData.append("oldImg", product.image);
-
+  const handleSubmit = async (data) => {
+    let newData;
+    if (data === "stock" || data === "InStock") {
+      newData = {
+        id: product._id,
+        stock: data === "stock" ? false : true,
+      };
+    } else {
+      const form = document.querySelector("#form");
+      newData = new FormData(form);
+      newData.append("id", product._id);
+      newData.append("oldImg", product.image);
+    }
     try {
       const response = await axios.put(
         `http://localhost:5000/api/product/`,
         newData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             token: Cookies.get("auth"),
           },
         }
@@ -280,15 +285,57 @@ export default function ViewProduct(props) {
                                     100}
                               </td>
                             </tr>
+                            <tr className={(edit && "hidden") || ""}>
+                              <td className="font-semibold">
+                                <span>Stock</span>
+                              </td>
+                              <td className=" px-3">:</td>
+                              <td
+                                className={`${
+                                  product.stock
+                                    ? "text-sky-700"
+                                    : "text-rose-700"
+                                }`}
+                              >
+                                {" "}
+                                {product.stock ? "True" : "False"}
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
-                        <button
-                          type="btn"
-                          onClick={handleSubmit}
-                          className="rounded-full w-fit outline-none btn-sm my-5  !border-none bg-slate-800 btn hover:bg-slate-700 text-white"
-                        >
-                          Save Changes
-                        </button>
+                        {edit && (
+                          <button
+                            type="btn"
+                            onClick={() => {
+                              handleSubmit("update");
+                            }}
+                            className="rounded-full w-fit outline-none btn-sm my-5  !border-none bg-slate-800 btn hover:bg-slate-700 text-white"
+                          >
+                            Save Changes
+                          </button>
+                        )}
+                        {!edit && product.stock && (
+                          <button
+                            type="btn"
+                            onClick={() => {
+                              handleSubmit("stock");
+                            }}
+                            className="rounded-full w-fit outline-none btn-sm my-5  !border-none bg-rose-800 btn hover:bg-rose-700 text-white"
+                          >
+                            Mark Unavailable
+                          </button>
+                        )}
+                        {!edit && !product.stock && (
+                          <button
+                            type="btn"
+                            onClick={() => {
+                              handleSubmit("InStock");
+                            }}
+                            className="rounded-full w-fit outline-none btn-sm my-5  !border-none bg-sky-800 btn hover:bg-sky-700 text-white"
+                          >
+                            Mark Available
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

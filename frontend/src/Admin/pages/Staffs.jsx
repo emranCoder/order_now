@@ -110,15 +110,12 @@ export default function Staffs() {
   const handleDelete = async (delId) => {
     let id = { id: delId };
     const response = await axios
-      .delete(
-        ` http://localhost:5000/api/staff/auth/removestaff`,
-        { data: id },
-        {
-          headers: {
-            token: Cookies.get("auth"),
-          },
-        }
-      )
+      .delete(` http://localhost:5000/api/staff/auth/removestaff`, {
+        headers: {
+          token: Cookies.get("auth"),
+        },
+        data: id,
+      })
       .catch((error) => console.error(error.response.data.err));
     if (response && response.status === 200) {
       setSuccess({ type: "del", msg: response.data.message });
@@ -155,16 +152,16 @@ export default function Staffs() {
               </p>
               <div className="modal-action">
                 <form method="dialog" className="grid grid-cols-2 w-full gap-3">
-                  <button className="btn rounded-full bg-transparent border-slate-700 border text-slate-700 hover:bg-slate-700 hover:text-slate-50">
-                    Close
-                  </button>
                   <button
                     onClick={() => {
                       handleDelete(edit);
                     }}
-                    className="btn rounded-full  border-red-500 bg-red-500 border text-slate-50 hover:bg-red-700 "
+                    className="btn rounded-full bg-transparent  border-rose-500  text-rose-500 hover:bg-rose-700 hover:text-slate-50 "
                   >
                     Confirm
+                  </button>
+                  <button className="btn rounded-full  bg-slate-700 border-slate-700 border text-slate-50 hover:bg-slate-800 hover:text-slate-50">
+                    Close
                   </button>
                 </form>
               </div>

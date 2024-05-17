@@ -18,7 +18,7 @@ const authCheck = async (req, res, next) => {
     }
     const token = auth.token;
     const id = token.split("_")[1];
-    const user = await User.findById(id).select('auth ');
+    const user = await User.findById(id).select('auth role');
     const uToken = user.auth[0].token
     if (uToken == null) {
         return res.status(404).send({
@@ -50,6 +50,7 @@ const authCheck = async (req, res, next) => {
         });
     }
     req.uID = id;
+    req.uRole = user.role;
 
     next();
 }
