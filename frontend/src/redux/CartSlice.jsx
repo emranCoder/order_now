@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const CartSLice = createSlice({
   name: "toast",
-  initialState: {
-    size: 0,
-    cartProduct: [],
-    total: 0,
-    subTotal: 0,
-    discount: 0,
-  },
+  initialState: localStorage.getItem("cartProduct")
+    ? JSON.parse(localStorage.getItem("cartProduct"))
+    : {
+        size: 0,
+        cartProduct: [],
+        total: 0,
+        subTotal: 0,
+        discount: 0,
+      },
   reducers: {
     addCart: (state, action) => {
       const { total, size, ...data } = action.payload;
@@ -23,6 +25,7 @@ const CartSLice = createSlice({
       } else {
         state.cartProduct.push({ ...data, qty: 1 });
       }
+      localStorage.setItem("cartProduct", JSON.stringify(state));
     },
     decQty: (state, action) => {
       const istExist = state.cartProduct.find(
@@ -33,6 +36,7 @@ const CartSLice = createSlice({
         state.subTotal -= istExist.price > 0 ? istExist.price : 0;
         istExist.qty = istExist.qty > 0 ? istExist.qty - 1 : 0;
       }
+      localStorage.setItem("cartProduct", JSON.stringify(state));
     },
     incQty: (state, action) => {
       const istExist = state.cartProduct.find(
@@ -43,6 +47,7 @@ const CartSLice = createSlice({
         state.subTotal += istExist.price > 0 ? istExist.price : 0;
         istExist.qty = istExist.qty > 0 ? istExist.qty + 1 : 0;
       }
+      localStorage.setItem("cartProduct", JSON.stringify(state));
     },
     removeProduct: (state, action) => {
       state.size = 0;
@@ -51,6 +56,7 @@ const CartSLice = createSlice({
       state.cartProduct = state.cartProduct.filter(
         (itm) => itm.id !== action.payload
       );
+      localStorage.setItem("cartProduct", JSON.stringify(state));
     },
   },
 });

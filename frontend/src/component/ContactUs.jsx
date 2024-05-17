@@ -6,7 +6,10 @@ import { IoMdMail } from "react-icons/io";
 
 export default function ContactUs() {
   const [loader, setLoader] = useState(true);
+
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     setTimeout(() => {
       setLoader(false);
     }, 500);

@@ -284,6 +284,14 @@ export default function Header() {
                 <span className="font-semibold text-sm">Customers</span>
               </Mui.ListItemButton>
             </NavLink>
+            <NavLink to="coupon">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <ContactsIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">Coupon Code</span>
+              </Mui.ListItemButton>
+            </NavLink>
 
             <div className="my-5">
               <Mui.Divider className="bg-slate-700 " />

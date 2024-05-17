@@ -18,6 +18,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const { isLoading, user, err } = useSelector((state) => state.user);
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchUser());
     setTimeout(() => {
       setLoader(isLoading);

@@ -11,6 +11,7 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 import GroupsIcon from "@mui/icons-material/Groups";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import { NavLink } from "react-router-dom";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 
 export default function SideMenu() {
   return (
@@ -88,6 +89,14 @@ export default function SideMenu() {
               <ContactsIcon fontSize="small" className="icon" />
             </span>
             <span className="font-semibold text-sm">Customers</span>
+          </Mui.ListItemButton>
+        </NavLink>
+        <NavLink to="coupon">
+          <Mui.ListItemButton className="font-thin item-btn">
+            <span className="mr-5">
+              <ConfirmationNumberIcon fontSize="small" className="icon" />
+            </span>
+            <span className="font-semibold text-sm">Coupon Code</span>
           </Mui.ListItemButton>
         </NavLink>
 

@@ -4,6 +4,7 @@ import Loading from "./Loading";
 export default function News() {
   const [loader, setLoader] = useState(true);
   useEffect(() => {
+    window.scrollTo(0, 0);
     setTimeout(() => {
       setLoader(false);
     }, 500);

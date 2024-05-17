@@ -12,19 +12,25 @@ export default function Footer() {
         <footer className="footer p-10 bg-slate-800 text-neutral-content">
           <nav>
             <h6 className="footer-title">Services</h6>
-            <a className="link link-hover">Branding</a>
-            <a className="link link-hover">Design</a>
-            <a className="link link-hover">Marketing</a>
-            <a className="link link-hover">Advertisement</a>
+            <NavLink to="news" className="link link-hover">
+              News
+            </NavLink>
+            <NavLink to="profile" className="link link-hover">
+              Profile
+            </NavLink>
+            <NavLink to="contactus" className="link link-hover">
+              Contact Us
+            </NavLink>
           </nav>
           <nav>
             <h6 className="footer-title">Company</h6>
-            <a className="link link-hover">About us</a>
+            <NavLink to="/" className="link link-hover">
+              Home
+            </NavLink>
             <NavLink to="contactus" className="link link-hover">
               Contact
             </NavLink>
             <a className="link link-hover">Jobs</a>
-            <a className="link link-hover">Press kit</a>
           </nav>
           <nav>
             <h6 className="footer-title">Legal</h6>
@@ -46,13 +52,13 @@ export default function Footer() {
           </aside>
           <nav className="md:place-self-center md:justify-self-end">
             <div className="grid grid-flow-col gap-4 text-3xl">
-              <a>
+              <a className="cursor-pointer hover:animate-pulse">
                 <FaFacebookF />
               </a>
-              <a>
+              <a className="cursor-pointer hover:animate-pulse">
                 <FaYoutube />
               </a>
-              <a>
+              <a className="cursor-pointer hover:animate-pulse">
                 <FaInstagram />
               </a>
             </div>

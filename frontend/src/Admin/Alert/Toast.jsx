@@ -10,7 +10,7 @@ export default function Toast(props) {
   useEffect(() => {
     setTimeout(() => {
       setStart(true);
-    }, 1000);
+    }, 500);
   }, [0]);
   return (
     props.msg && (

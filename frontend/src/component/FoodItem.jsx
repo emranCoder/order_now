@@ -79,7 +79,9 @@ export default function FoodItem() {
             .map((val, key) => (
               <div
                 key={key}
-                className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] "
+                className={`list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ${
+                  val.stock ? "" : "bg-stone-200 hover:bg-stone-200 border-0 "
+                }`}
               >
                 <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
                   <div className="mask mask-squircle z-10">
@@ -106,12 +108,20 @@ export default function FoodItem() {
                   </div>
                   <button
                     onClick={() => {
-                      handleAddToCart(val);
+                      if (val.stock) {
+                        handleAddToCart(val);
+                      }
                     }}
                     className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white"
                   >
-                    <span className="max-sm:hidden">Add To Cart</span>
-                    <AddShoppingCartIcon />
+                    {(val.stock && (
+                      <span className="max-sm:hidden">
+                        Add To Cart
+                        <span className="ml-1">
+                          <AddShoppingCartIcon />
+                        </span>
+                      </span>
+                    )) || <span className="max-sm:hidden">Out Of Stock</span>}
                   </button>
                 </div>
               </div>

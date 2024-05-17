@@ -11,6 +11,7 @@ import { json } from "react-router-dom";
 
 export default function CheckOut(props) {
   const { cartProduct, total, subTotal } = useSelector((state) => state.cart);
+  console.log(cartProduct);
   const dispatch = useDispatch();
   const token = Cookies.get("auth");
   const handleCheckout = async () => {
@@ -162,7 +163,7 @@ export default function CheckOut(props) {
                     <div className="flex justify-center w-full my-5">
                       <input
                         className="border-spacing-0 w-full inline-block p-2 outline-none border-slate-600 focus:border-slate-700 border no-underline rounded-l-md"
-                        placeholder="Cupon Code"
+                        placeholder="Coupon Code"
                         inputprops={{ "aria-label": "search" }}
                       />
                       <button className="p-2 m-0 text-sm inline-block  text-white font-semibold bg-slate-700 rounded-l-none rounded-md border border-slate-700 hover:text-red hover:bg-slate-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-700 focus:ring-offset-2">

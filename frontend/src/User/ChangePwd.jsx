@@ -114,9 +114,9 @@ export default function ChangePwd() {
   };
 
   return (
-    <section className="order-section p-5 ">
+    <section className="order-section">
       {loader && <Loading />}
-      <div className="container rounded-xl px-10 py-16 max-sm:p-5 max-md:px-5 bg-white">
+      <div className="container rounded-xl px-10 py-16 max-sm:p-5 max-md:px-5 bg-white m-5">
         <div className="container-row">
           <div className="col-lg-12">
             <form
