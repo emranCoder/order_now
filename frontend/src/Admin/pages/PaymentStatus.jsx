@@ -230,7 +230,7 @@ export default function PaymentStatus() {
                           <td>
                             {JSON.parse(val.products).length > 1
                               ? JSON.parse(val.products).length + ", Products"
-                              : JSON.parse(val.products).name}
+                              : JSON.parse(val.products)[0].name}
                           </td>
                           <td className="hover:text-sky-900 ">
                             <Link to="/view" state={val.user._id}>
@@ -251,24 +251,28 @@ export default function PaymentStatus() {
                             </span>
                           </td>
                           <td>
-                            <span className="text-stone-500">
-                              {new Date(val.orderDate).toLocaleDateString(
-                                "en-GB",
+                            <span className="text-center grid justify-center">
+                              {" "}
+                              <span className="text-stone-500">
+                                {new Date(val.orderDate).toLocaleDateString(
+                                  "en-GB",
+                                  {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                  }
+                                )}
+                                ,{" "}
+                              </span>
+                              <br />
+                              {new Date(val.orderDate).toLocaleTimeString(
+                                "en-us",
                                 {
-                                  day: "numeric",
-                                  month: "short",
-                                  year: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
                                 }
                               )}
-                              ,{" "}
                             </span>
-                            {new Date(val.orderDate).toLocaleTimeString(
-                              "en-us",
-                              {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              }
-                            )}
                           </td>
                           <td className="flex gap-5 justify  ">
                             <div className="tooltip" data-tip="Paid">

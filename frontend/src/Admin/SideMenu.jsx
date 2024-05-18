@@ -12,8 +12,10 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import { NavLink } from "react-router-dom";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import { useSelector } from "react-redux";
 
 export default function SideMenu() {
+  const { isLoading, user, err } = useSelector((state) => state.user);
   return (
     <nav
       className=" text-slate-400 nav pb-14 lg:block hidden col-lg-3 col-md-3 lg:w-1/5"
@@ -21,8 +23,10 @@ export default function SideMenu() {
     >
       <div className="my-5 text-left px-5 mt-10">
         <div className="item-color rounded-lg px-5 py-3">
-          <h3 className="text-lg font-bold text-white">Admin</h3>
-          <h3>admin@mail.com</h3>
+          <h3 className="text-lg font-bold text-white">
+            {user.fName + " " + user.lName}
+          </h3>
+          <h3>{user.email}</h3>
         </div>
       </div>
       <Mui.Divider className="bg-slate-700" />

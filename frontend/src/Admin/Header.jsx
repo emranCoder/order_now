@@ -10,6 +10,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import CategoryIcon from "@mui/icons-material/Category";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { NavLink } from "react-router-dom";
 import logo from "../img/orderNow.png";
@@ -211,8 +212,10 @@ export default function Header() {
           </div>
           <div className="my-5 text-left px-5 mt-12">
             <div className="item-color rounded-lg px-5 py-3">
-              <h3 className="text-lg font-bold text-white">Admin</h3>
-              <h3>admin@mail.com</h3>
+              <h3 className="text-lg font-bold text-white">
+                {user.fName + " " + user.lName}
+              </h3>
+              <h3>{user.email}</h3>
             </div>
           </div>
           <Mui.Divider className="bg-slate-700" />
@@ -287,7 +290,7 @@ export default function Header() {
             <NavLink to="coupon">
               <Mui.ListItemButton className="font-thin item-btn">
                 <span className="mr-5">
-                  <ContactsIcon fontSize="small" className="icon" />
+                  <ConfirmationNumberIcon fontSize="small" className="icon" />
                 </span>
                 <span className="font-semibold text-sm">Coupon Code</span>
               </Mui.ListItemButton>
