@@ -39,6 +39,7 @@ import store from "./redux/store";
 import AdminCredential from "./Authentication/AdminCredential";
 import CouponCode from "./Admin/pages/CouponCode";
 import ForgetPwd from "./Authentication/ForgetPwd";
+import Message from "./Admin/pages/Message";
 
 const token = Cookies.get("auth");
 
@@ -83,6 +84,7 @@ const router = createBrowserRouter(
         <Route path="category" element={<Category />} />
         <Route path="product" element={<Product />} />
         <Route path="coupon" element={<CouponCode />} />
+        <Route path="message" element={<Message />} />
         <Route path="all-order" element={<AllOrders />} />
         <Route path="current-order" element={<CurrentOrder />} />
         <Route path="payment-status" element={<PaymentStatus />} />

@@ -10,6 +10,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ContactsIcon from "@mui/icons-material/Contacts";
+import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
 import { NavLink } from "react-router-dom";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import { useSelector } from "react-redux";
@@ -101,6 +102,14 @@ export default function SideMenu() {
               <ConfirmationNumberIcon fontSize="small" className="icon" />
             </span>
             <span className="font-semibold text-sm">Coupon Code</span>
+          </Mui.ListItemButton>
+        </NavLink>
+        <NavLink to="message">
+          <Mui.ListItemButton className="font-thin item-btn">
+            <span className="mr-5">
+              <MoveToInboxIcon fontSize="small" className="icon" />
+            </span>
+            <span className="font-semibold text-sm">Message</span>
           </Mui.ListItemButton>
         </NavLink>
 

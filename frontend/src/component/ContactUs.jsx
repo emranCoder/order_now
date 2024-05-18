@@ -3,9 +3,26 @@ import Loading from "../component/Loading";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { addToast } from "../redux/ToastSlice";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export default function ContactUs() {
   const [loader, setLoader] = useState(true);
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,6 +31,62 @@ export default function ContactUs() {
       setLoader(false);
     }, 500);
   }, [0]);
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const validateFormData = () => {
+    let valid = true;
+    const newErrors = { email: "", subject: "", message: "" };
+
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+      valid = false;
+    }
+    if (!formData.subject) {
+      newErrors.subject = "Subject is required";
+      valid = false;
+    }
+    if (!formData.message) {
+      newErrors.message = "Message is required";
+      valid = false;
+    }
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateFormData()) {
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/api/message/`,
+          formData
+        );
+
+        if (response && response.status === 200) {
+          const { mess } = response.data;
+          dispatch(addToast({ type: "info", msg: mess }));
+          setFormData({
+            email: "",
+            subject: "",
+            message: "",
+          });
+        }
+      } catch (error) {
+        if (error.response.data.err) {
+          setFormData({
+            email: "",
+            subject: "",
+            message: "",
+          });
+          dispatch(addToast({ type: "error", msg: error.response.data.err }));
+        }
+      }
+    }
+  };
 
   return (
     <section className="order-section p-5 ">
@@ -59,6 +132,9 @@ export default function ContactUs() {
             <form
               action="#"
               className="space-y-2 p-10 rounded-xl border shadow"
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
             >
               <div>
                 <label
@@ -71,10 +147,16 @@ export default function ContactUs() {
                 <input
                   type="email"
                   placeholder="Email.."
-                  className="input input-bordered w-full input-md text-slate-700 focus-within:border-slate-500 focus-within:outline-none 
-                  bg-gray-50"
+                  className={`input input-bordered w-full input-md text-slate-700 focus-within:border-slate-500 focus-within:outline-none 
+                  bg-gray-50 ${errors.email ? "border-rose-500" : ""}`}
+                  onChange={handleOnChange}
+                  value={formData.email}
+                  name="email"
                   required
                 />
+                {errors.email && (
+                  <small className="text-rose-500">{errors.email}</small>
+                )}
               </div>
               <div>
                 <label
@@ -87,10 +169,16 @@ export default function ContactUs() {
                 <input
                   type="text"
                   placeholder="Subject..."
-                  className="input input-bordered w-full input-md text-slate-700 focus-within:border-slate-500 focus-within:outline-none 
-                  bg-gray-50"
+                  className={`input input-bordered w-full input-md text-slate-700 focus-within:border-slate-500 focus-within:outline-none 
+                  bg-gray-50 ${errors.subject ? "border-rose-500" : ""}`}
+                  onChange={handleOnChange}
+                  value={formData.subject}
+                  name="subject"
                   required
                 />
+                {errors.subject && (
+                  <small className="text-rose-500">{errors.subject}</small>
+                )}
               </div>
               <div className="sm:col-span-2">
                 <label
@@ -100,12 +188,22 @@ export default function ContactUs() {
                   Your message
                 </label>
                 <textarea
-                  className="textarea textarea-bordered w-full text-slate-700 focus-within:border-slate-500 !outline-none bg-gray-50"
+                  className={`textarea textarea-bordered w-full text-slate-700 focus-within:border-slate-500 !outline-none bg-gray-50 ${
+                    errors.message ? "border-rose-500" : ""
+                  }`}
                   rows={3}
                   placeholder="Leave Comment.."
+                  onChange={handleOnChange}
+                  value={formData.message}
+                  name="message"
+                  required
                 ></textarea>
+                {errors.message && (
+                  <small className="text-rose-500">{errors.message}</small>
+                )}
               </div>
               <button
+                onClick={handleSubmit}
                 type="submit"
                 className="btn mt-5  min-h-full  h-full py-3 px-5 rounded-full border-slate-600 bg-transparent hover:bg-slate-800 hover:text-white text-slate-500"
               >

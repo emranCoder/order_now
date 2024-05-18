@@ -163,7 +163,7 @@ export default function PaymentStatus() {
                     )}
                   </div>
                   <div className="w-full flex justify-end mt-5">
-                    <button className="btn  rounded-full bg-transparent text-slate-700 border-slate-700 border hover:bg-red-500  hover:text-slate-50">
+                    <button className="btn  rounded-full bg-transparent text-slate-700 border-slate-700 border hover:bg-rose-600  hover:text-slate-50">
                       Close
                     </button>
                   </div>
@@ -211,9 +211,15 @@ export default function PaymentStatus() {
                               item.user.lName.toLowerCase().includes(search) ||
                               item.user._id.toLowerCase().includes(search);
                       })
-                      .sort((e) => e.orderStatus == "Pending")
+                      .sort((e) => e.paymentStatus == true)
                       .map((val, key) => (
-                        <tr className="hover ">
+                        <tr
+                          className={`hover  ${
+                            val.paymentStatus
+                              ? ""
+                              : "!bg-rose-50 !border-rose-300"
+                          }`}
+                        >
                           <td>
                             <span
                               onClick={() => {
@@ -228,7 +234,8 @@ export default function PaymentStatus() {
                             </span>
                           </td>
                           <td>
-                            {JSON.parse(val.products).length > 1
+                            {JSON.parse(val.products) &&
+                            JSON.parse(val.products).length > 1
                               ? JSON.parse(val.products).length + ", Products"
                               : JSON.parse(val.products)[0].name}
                           </td>

@@ -17,6 +17,7 @@ import logo from "../img/orderNow.png";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
 
 export default function Header() {
   const { isLoading, user, err } = useSelector((state) => state.user);
@@ -293,6 +294,14 @@ export default function Header() {
                   <ConfirmationNumberIcon fontSize="small" className="icon" />
                 </span>
                 <span className="font-semibold text-sm">Coupon Code</span>
+              </Mui.ListItemButton>
+            </NavLink>
+            <NavLink to="message">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <MoveToInboxIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">Message</span>
               </Mui.ListItemButton>
             </NavLink>
 

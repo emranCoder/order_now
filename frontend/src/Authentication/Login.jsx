@@ -66,7 +66,7 @@ export default function Login(props) {
   const handleSubmit = async () => {
     if (validateForm()) {
       try {
-        let response = await axios.post(
+        const response = await axios.post(
           `http://localhost:5000/api/login/`,
           formData
         );

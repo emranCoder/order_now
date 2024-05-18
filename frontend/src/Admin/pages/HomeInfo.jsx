@@ -225,7 +225,7 @@ export default function HomeInfo() {
                         <div className="w-10 rounded">
                           <img
                             alt="null"
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src={`http://localhost:5000/products/img/default-product-1715956746174-672817587.jpeg`}
                           />
                         </div>
                       </div>
@@ -266,7 +266,7 @@ export default function HomeInfo() {
                         <div className="w-10 rounded">
                           <img
                             alt="null"
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src={`http://localhost:5000/products/img/default-product-1715956746174-672817587.jpeg`}
                           />
                         </div>
                       </div>
@@ -307,7 +307,7 @@ export default function HomeInfo() {
                         <div className="w-10 rounded">
                           <img
                             alt="null"
-                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                            src={`http://localhost:5000/products/img/default-product-1715956746174-672817587.jpeg`}
                           />
                         </div>
                       </div>
