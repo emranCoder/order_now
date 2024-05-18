@@ -3,13 +3,34 @@ import FoodItem from "./FoodItem";
 import FooterMenu from "./FooterMenu";
 import OrderMenuBox from "./OrderMenuBox";
 import Loading from "../component/Loading";
+import { useDispatch } from "react-redux";
+import { addToast } from "../redux/ToastSlice";
 
 export default function OrderBox() {
   const [loader, setLoader] = useState(true);
+  const urlParams = new URLSearchParams(window.location.search);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setTimeout(() => {
       setLoader(false);
+      if (urlParams.get("forget")) {
+        dispatch(
+          addToast({
+            type: "info",
+            msg: "We will miss you!",
+          })
+        );
+      }
+      if (urlParams.get("user")) {
+        dispatch(
+          addToast({
+            type: "info",
+            msg: `Hi! ${urlParams.get("user")}`,
+          })
+        );
+      }
     }, 500);
   }, [0]);
 

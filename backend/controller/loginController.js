@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
-const { checkPwd, tokenVerify } = require('../config/utility');
+const { hashedPwd, checkPwd, tokenVerify } = require('../config/utility');
 
 const login = async (req, res) => {
 
@@ -23,7 +23,7 @@ const login = async (req, res) => {
 
         if (!token) {
             return res.status(404).send({
-                err: "Authentication failed!",
+                err: "Username & Password Don't match ",
             });
         }
 
@@ -36,7 +36,7 @@ const login = async (req, res) => {
         const tokenUpdate = await user.save();
         if (!tokenUpdate) {
             return res.status(404).send({
-                err: "Authentication failed!",
+                err: "Username & Password Don't match ",
             });
         }
         const userData = await User.findOne({
@@ -45,7 +45,6 @@ const login = async (req, res) => {
 
         res.status(200).json({ message: `Hi! ${userFname}`, token: authToken.token, user: userData });
     } catch (error) {
-        console.log(error)
         res.status(500).send({
             err: "Bad request!"
         });
@@ -93,4 +92,40 @@ const logout = async (req, res, next) => {
 
 
 
-module.exports = { login, logout };
+const reset = async (req, res, next) => {
+
+    try {
+        const { email, pwd, conPwd } = { ...req.body };
+        if (!(conPwd === pwd)) return res.status(404).send({ mess: "Passwords do NOT match!" });
+
+
+
+        const encPwd = await hashedPwd(pwd);
+
+        const user = await User.findOneAndUpdate({ email: email }, { pwd: encPwd }).select('_id');
+        if (!user) {
+            return res.status(404).send({
+                err: "User Not Found",
+            });
+        }
+
+        if (!user) { return res.res.status(500).send({ err: "Please, try again later!" }); }
+
+        res.status(200).json({
+            mess: "Credential Updated. Login to Continue!"
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            err: "Bad request!",
+        });
+    }
+}
+
+
+
+
+
+
+
+module.exports = { login, logout, reset };

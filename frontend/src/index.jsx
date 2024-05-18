@@ -38,6 +38,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import AdminCredential from "./Authentication/AdminCredential";
 import CouponCode from "./Admin/pages/CouponCode";
+import ForgetPwd from "./Authentication/ForgetPwd";
 
 const token = Cookies.get("auth");
 
@@ -92,6 +93,7 @@ const router = createBrowserRouter(
         <Route path="/view" element={<ViewCustomerDetails />} />
       </Route>
       <Route path="/admin-login" element={<AdminCredential />} />
+      <Route path="/forget" element={<ForgetPwd />} />
     </Route>
   )
 );

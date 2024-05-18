@@ -15,10 +15,19 @@ export default function Login(props) {
   const navigate = useNavigate();
   const [err, setErr] = useState(null);
   const [loader, setLoader] = useState(true);
+  const urlParams = new URLSearchParams(window.location.search);
 
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
+      if (urlParams.get("reset")) {
+        dispatch(
+          addToast({
+            type: "info",
+            msg: "Credential Updated. Login to Continue!",
+          })
+        );
+      }
     }, 500);
   }, [0]);
 
@@ -63,15 +72,22 @@ export default function Login(props) {
         );
 
         if (response && response.status === 200) {
-          const { message, user, token } = response.data;
-          dispatch(addToast({ type: "info", msg: message }));
+          const { message, user, token, fName } = response.data;
           Cookies.set("id", user._id, process.env.REACT_APP_AUTH_EXP);
           Cookies.set("auth", token, process.env.REACT_APP_AUTH_EXP);
-          window.location.replace("/");
+
+          window.location.replace(`/?user= ${user.fName}`);
         }
       } catch (error) {
         if (error.response.data.err) {
           setErr(error.response.data.err);
+          setFormData({
+            username: "",
+            pwd: "",
+            rememberMe: false,
+          });
+
+          dispatch(addToast({ type: "error", msg: error.response.data.err }));
         }
       }
     }
@@ -207,12 +223,12 @@ export default function Login(props) {
                 </Mui.ListItemButton>
               </button>
               <label className="label mt-3">
-                <a
-                  href="#"
+                <Link
+                  to="/forget"
                   className="label-text-alt link link-hover hover:!text-slate-800"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </label>
             </form>
           </div>

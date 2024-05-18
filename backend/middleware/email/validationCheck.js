@@ -20,6 +20,24 @@ const emailValidate = [
         }),
 ];
 
+const emailValidate2 = [
+    // Validation checks using express-validator
+    check('email')
+        .isEmail().trim()
+        .withMessage('Invalid email format')
+        .custom(async (data) => {
+            try {
+                const user = await User.findOne({ email: data });
+
+                if (!user) {
+                    throw createHttpError("Email already use!");
+                }
+            } catch (error) {
+                throw createHttpError(error.message);
+            }
+        }),
+];
+
 
 const emailValidation = (req, res, next) => {
     const errors = validationResult(req);
@@ -33,4 +51,4 @@ const emailValidation = (req, res, next) => {
 
 
 
-module.exports = { emailValidate, emailValidation };
+module.exports = { emailValidate, emailValidate2, emailValidation };

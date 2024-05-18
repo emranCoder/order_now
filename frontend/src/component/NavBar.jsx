@@ -11,6 +11,7 @@ import { addToast } from "../redux/ToastSlice";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default function NavBar() {
+  const urlParams = new URLSearchParams(window.location.search);
   const [haveToken, setHaveToken] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,6 +20,16 @@ export default function NavBar() {
   useEffect(() => {
     if (token) {
       setHaveToken(true);
+    }
+    if (urlParams.size) {
+      setTimeout(() => {
+        dispatch(
+          addToast({
+            type: "",
+            msg: "",
+          })
+        );
+      }, 2000);
     }
   }, [0]);
 
@@ -53,7 +64,7 @@ export default function NavBar() {
         dispatch(addToast({ type: "info", msg: response.data.mess }));
         Cookies.remove("auth");
         Cookies.remove("id");
-        window.location.replace("/?true=forget");
+        window.location.replace("/?forget=true");
       }
     } catch (error) {
       console.log(error.response);

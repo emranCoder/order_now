@@ -39,6 +39,10 @@ const userValidates = [
     check('dateOfBirth', 'Invalid date of birth').isISO8601(),
 ];
 
+
+
+
+
 const avatarValidation = function (req, res, next) {
 
     const errors = validationResult(req);
@@ -76,6 +80,11 @@ const loginValidation = (req, res, next) => {
         res.status(500).json({ err: allErrors });
     }
 }
+
+
+
+
+
 
 
 
