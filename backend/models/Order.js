@@ -20,6 +20,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    discount: {
+        type: String,
+        default: null,
+    },
     paymentMethod: {
         type: String,
         default: "cash",

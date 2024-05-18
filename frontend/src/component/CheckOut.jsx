@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDispatch, useSelector } from "react-redux";
-import { decQty, incQty, removeProduct } from "../redux/CartSlice";
+import {
+  couponDiscount,
+  decQty,
+  incQty,
+  removeProduct,
+} from "../redux/CartSlice";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { addToast } from "../redux/ToastSlice";
@@ -10,18 +15,23 @@ import Login from "../Authentication/Login";
 import { json } from "react-router-dom";
 
 export default function CheckOut(props) {
-  const { cartProduct, total, subTotal } = useSelector((state) => state.cart);
-  console.log(cartProduct);
+  const { cartProduct, total, discount, subTotal } = useSelector(
+    (state) => state.cart
+  );
+  const [success, setSuccess] = useState(false);
+  const [coupon, setCoupon] = useState(null);
+
   const dispatch = useDispatch();
   const token = Cookies.get("auth");
   const handleCheckout = async () => {
-    const id = Cookies.get("id");
-    const data = {
-      orderPrice: total,
-      products: JSON.stringify(cartProduct),
-      user: id,
-    };
     try {
+      const id = Cookies.get("id");
+      const data = {
+        orderPrice: total,
+        discount: discount,
+        products: JSON.stringify(cartProduct),
+        user: id,
+      };
       const response = await axios.post(
         `http://localhost:5000/api/order/`,
         data,
@@ -34,9 +44,31 @@ export default function CheckOut(props) {
       );
       if (response && response.status === 200) {
         dispatch(addToast({ type: "info", msg: response.data.mess }));
+        localStorage.removeItem("cartProduct");
         setTimeout(() => {
           window.location.replace("/");
         }, 1000);
+      }
+    } catch (error) {
+      if (error.message === "Network Error") console.error(error.message);
+    }
+  };
+
+  const handleCoupon = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/coupon/${coupon}`,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        if (response.data) {
+          dispatch(couponDiscount(response.data.coupon.discountRate));
+        }
+        setSuccess(true);
       }
     } catch (error) {
       if (error.message === "Network Error") console.error(error.message);
@@ -98,7 +130,7 @@ export default function CheckOut(props) {
                             <button
                               onClick={() => {
                                 if (val.qty === 1) {
-                                  dispatch(removeProduct(val.id));
+                                  dispatch(removeProduct(val));
                                 }
                                 dispatch(decQty(val.id));
                               }}
@@ -152,7 +184,12 @@ export default function CheckOut(props) {
                     </div>
                     <div className="w-full border-b">
                       <span>Discount:</span>
-                      <span className="float-right">{subTotal - total} $</span>
+                      <span className="float-right">
+                        {/^-?[0-9]+$/.test(subTotal - total)
+                          ? subTotal - total
+                          : (subTotal - total).toFixed(2)}
+                        $
+                      </span>
                     </div>
                     <div className="w-full">
                       <span>Total: </span>
@@ -162,19 +199,34 @@ export default function CheckOut(props) {
                     </div>
                     <div className="flex justify-center w-full my-5">
                       <input
-                        className="border-spacing-0 w-full inline-block p-2 outline-none border-slate-600 focus:border-slate-700 border no-underline rounded-l-md"
+                        className={`border-spacing-0 w-full inline-block p-2 outline-none border-slate-600 focus:border-slate-700 border no-underline rounded-l-md ${
+                          success ? "input-disabled !border-slate-300" : ""
+                        }`}
                         placeholder="Coupon Code"
                         inputprops={{ "aria-label": "search" }}
+                        onChange={(e) => {
+                          setCoupon(e.target.value);
+                        }}
+                        disabled={success}
                       />
-                      <button className="p-2 m-0 text-sm inline-block  text-white font-semibold bg-slate-700 rounded-l-none rounded-md border border-slate-700 hover:text-red hover:bg-slate-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-700 focus:ring-offset-2">
+                      <button
+                        onClick={() => {
+                          if (coupon) handleCoupon();
+                        }}
+                        className={`p-2 m-0 text-sm inline-block  text-white font-semibold bg-slate-700 rounded-l-none rounded-md border border-slate-700 hover:text-red hover:bg-slate-300 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-700 focus:ring-offset-2 cursor-pointer  ${
+                          success
+                            ? "bg-slate-300 !border-slate-300 btn-disabled"
+                            : ""
+                        }`}
+                      >
                         <KeyboardArrowRightIcon />
                       </button>
                     </div>
                     <div className="w-full my-5">
                       <button
                         onClick={() => {
-                          if (token) handleCheckout();
-                          else window.location.replace("/login");
+                          if (cartProduct) handleCheckout();
+                          if (!token) window.location.replace("/login");
                         }}
                         className=" w-full py-2 text-sm text-slate-700 font-semibold rounded-full border border-slate-700 focus:outline-none focus:ring-2 hover:text-white  hover:border-slate-300 hover:bg-slate-700   focus:ring-slate-300 focus:bg-slate-700 focus:text-white   focus:ring-offset-2 ease-out duration-300"
                       >

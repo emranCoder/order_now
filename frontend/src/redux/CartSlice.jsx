@@ -17,6 +17,7 @@ const CartSLice = createSlice({
       state.size = size;
       state.total = total;
       state.subTotal += data.price;
+      state.discount += state.subTotal - state.total;
       const istExist = state.cartProduct.find((item) => item.id === data.id);
       if (istExist) {
         state.size = size;
@@ -34,6 +35,7 @@ const CartSLice = createSlice({
       if (istExist) {
         state.total -= istExist.currentPrice > 0 ? istExist.currentPrice : 0;
         state.subTotal -= istExist.price > 0 ? istExist.price : 0;
+        state.discount += state.subTotal - state.total;
         istExist.qty = istExist.qty > 0 ? istExist.qty - 1 : 0;
       }
       localStorage.setItem("cartProduct", JSON.stringify(state));
@@ -45,22 +47,28 @@ const CartSLice = createSlice({
       if (istExist) {
         state.total += istExist.currentPrice > 0 ? istExist.currentPrice : 0;
         state.subTotal += istExist.price > 0 ? istExist.price : 0;
+        state.discount += state.subTotal - state.total;
         istExist.qty = istExist.qty > 0 ? istExist.qty + 1 : 0;
       }
       localStorage.setItem("cartProduct", JSON.stringify(state));
     },
     removeProduct: (state, action) => {
-      state.size = 0;
-      state.total = 0;
-      state.subTotal = 0;
-      state.cartProduct = state.cartProduct.filter(
-        (itm) => itm.id !== action.payload
-      );
+      const { id, size, currentPrice, price, ...data } = action.payload;
+      state.size = state.size - 1;
+      state.total = state.total - currentPrice;
+      state.subTotal -= price;
+      state.discount += state.subTotal - state.total;
+      state.cartProduct = state.cartProduct.filter((itm) => itm.id !== id);
       localStorage.setItem("cartProduct", JSON.stringify(state));
+    },
+    couponDiscount: (state, action) => {
+      state.discount += (state.total * action.payload) / 100;
+      state.total -= (state.total * action.payload) / 100;
     },
   },
 });
 
-export const { addCart, decQty, incQty, removeProduct } = CartSLice.actions;
+export const { addCart, decQty, incQty, removeProduct, couponDiscount } =
+  CartSLice.actions;
 
 export default CartSLice.reducer;

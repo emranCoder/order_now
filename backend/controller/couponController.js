@@ -35,16 +35,18 @@ const getAllCoupon = async (req, res) => {
 }
 
 const getCoupon = async (req, res) => {
-
     try {
-        const products = await Coupon.findById(req.params.id);
+        const query = req.params.id;
 
-        if (!products) {
+        const coupon = await Coupon.findOne({ code: query });
+
+        if (!coupon) {
             return res.status(404).json({ err: "False Attempted!" });
         }
-        res.status(200).json({ products: products });
+        res.status(200).json({ coupon: coupon });
 
     } catch (error) {
+        console.log(error)
         res.status(500).send({ err: "Bad request!" });
     }
 }
