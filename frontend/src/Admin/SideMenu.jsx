@@ -7,6 +7,7 @@ import PaidIcon from "@mui/icons-material/Paid";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CategoryIcon from "@mui/icons-material/Category";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ContactsIcon from "@mui/icons-material/Contacts";
@@ -110,6 +111,15 @@ export default function SideMenu() {
               <MoveToInboxIcon fontSize="small" className="icon" />
             </span>
             <span className="font-semibold text-sm">Message</span>
+          </Mui.ListItemButton>
+        </NavLink>
+
+        <NavLink to="all-news">
+          <Mui.ListItemButton className="font-thin item-btn">
+            <span className="mr-5">
+              <NewspaperIcon fontSize="small" className="icon" />
+            </span>
+            <span className="font-semibold text-sm">News</span>
           </Mui.ListItemButton>
         </NavLink>
 

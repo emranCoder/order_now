@@ -8,6 +8,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import CategoryIcon from "@mui/icons-material/Category";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
@@ -302,6 +303,14 @@ export default function Header() {
                   <MoveToInboxIcon fontSize="small" className="icon" />
                 </span>
                 <span className="font-semibold text-sm">Message</span>
+              </Mui.ListItemButton>
+            </NavLink>
+            <NavLink to="all-news">
+              <Mui.ListItemButton className="font-thin item-btn">
+                <span className="mr-5">
+                  <NewspaperIcon fontSize="small" className="icon" />
+                </span>
+                <span className="font-semibold text-sm">News</span>
               </Mui.ListItemButton>
             </NavLink>
 

@@ -7,7 +7,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import Animation from "../spinner/Animation";
 import axios from "axios";
 import Toast from "../Alert/Toast";
-import defaultImg from "../../img/default-avatar.png";
 import Cookies from "js-cookie";
 
 export default function Staffs() {
