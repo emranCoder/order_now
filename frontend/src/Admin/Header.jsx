@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Mui from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SellIcon from "@mui/icons-material/Sell";
@@ -13,7 +13,7 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import GroupsIcon from "@mui/icons-material/Groups";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../img/orderNow.png";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -22,6 +22,12 @@ import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
 
 export default function Header() {
   const { isLoading, user, err } = useSelector((state) => state.user);
+  const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    getMessage();
+  }, [0]);
+
   const [drawerActive, setDrawerActive] = useState({
     left: false,
     bottom: false,
@@ -41,6 +47,25 @@ export default function Header() {
     if (anchor === "bottom") setDrawerActive({ bottom: open });
     if (anchor === "right") setDrawerActive({ right: open });
     if (anchor === "top") setDrawerActive({ top: open });
+  };
+
+  const getMessage = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/message/all`,
+        {
+          headers: {
+            token: Cookies.get("auth"),
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        setMessage(response.data.message);
+      }
+    } catch (error) {
+      if (error.message === "Network Error")
+        return console.error(error.message);
+    }
   };
 
   const logOut = async () => {
@@ -141,21 +166,17 @@ export default function Header() {
             </button>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              className="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-box w-52 "
             >
-              <li>
-                <a href="#" className="justify-between">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => {
-                    logOut();
-                  }}
-                >
-                  Logout
-                </a>
+              <li className="border-b-2 mb-2">
+                {message &&
+                  message
+                    .slice(message.length - 5, message.length)
+                    .map((val, key) => (
+                      <Link to="/message">
+                        <p className="py-1 text-sky-800">{val.subject}</p>
+                      </Link>
+                    ))}
               </li>
             </ul>
           </div>
@@ -178,7 +199,7 @@ export default function Header() {
             </div>
             <ul
               tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              className="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
                 <NavLink to="setting" className="justify-between">

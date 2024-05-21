@@ -134,7 +134,7 @@ export default function Message() {
                   </div>
                 </div>
               </dialog>
-              <label className="input mr-3 max-sm:w-3/5 max-sm:h-9  h-10 rounded-full  input-bmessageed input-md flex focus-within:outline-none focus-within:bmessage-sky-800  items-center gap-2">
+              <label className="input mr-3 max-sm:w-3/5 max-sm:h-9  h-10 rounded-full  input-bordered input-md flex focus-within:outline-none focus-within:border-sky-800  items-center gap-2">
                 <input
                   type="text"
                   className="grow max-sm:w-0 "
