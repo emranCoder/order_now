@@ -3,7 +3,7 @@ import * as Mui from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Loading from "../component/Loading";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function AdminCredential() {
@@ -11,6 +11,7 @@ export default function AdminCredential() {
   const { state } = useLocation();
   const [err, setErr] = useState(null);
   const [loader, setLoader] = useState(true);
+  const auth = Cookies.get("auth");
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,6 +21,8 @@ export default function AdminCredential() {
       setErr(state);
       Cookies.remove("auth");
       Cookies.remove("id");
+    } else if (auth) {
+      navigate("/dashboard");
     }
   }, [0]);
 
@@ -213,12 +216,12 @@ export default function AdminCredential() {
                 </Mui.ListItemButton>
               </button>
               <label className="label mt-3">
-                <a
-                  href="#"
+                <Link
+                  to="/forget"
                   className="label-text-alt link link-hover hover:!text-slate-800"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </label>
             </form>
           </div>

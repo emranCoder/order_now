@@ -27,7 +27,7 @@ export default function AlertError() {
                   setOpen(false);
                   setTimeout(() => {
                     dispatch(removeToast());
-                  }, 1000);
+                  }, 2000);
                 }}
               >
                 <CloseIcon fontSize="inherit" />

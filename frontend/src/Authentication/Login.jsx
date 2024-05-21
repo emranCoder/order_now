@@ -20,15 +20,15 @@ export default function Login(props) {
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
-      if (urlParams.get("reset")) {
-        dispatch(
-          addToast({
-            type: "info",
-            msg: "Credential Updated. Login to Continue!",
-          })
-        );
-      }
     }, 500);
+    if (urlParams.get("reset")) {
+      dispatch(
+        addToast({
+          type: "info",
+          msg: "Credential Updated. Login to Continue!",
+        })
+      );
+    }
   }, [0]);
 
   const [formData, setFormData] = useState({
@@ -102,9 +102,9 @@ export default function Login(props) {
   };
 
   return (
-    <div className="container-fluid bg-slate-50 py-10 ">
+    <div className="container-fluid bg-slate-50 ">
       {loader && <Loading />}
-      <div className="container-row justify-center content-center flex-start items-center m-auto">
+      <div className="container-row justify-center content-center flex-start items-center m-auto py-10">
         <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
           {" "}
           <h3 className="text-[50px] font-serif font-bold text-slate-800 mb-10 mt-8">

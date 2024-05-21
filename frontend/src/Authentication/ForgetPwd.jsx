@@ -143,7 +143,7 @@ export default function ForgetPwd() {
               });
               setTimeout(() => {
                 window.location.replace("/login?reset=true");
-              }, 1000);
+              }, "2s");
             }
           }
         } else {
@@ -168,9 +168,17 @@ export default function ForgetPwd() {
       } catch (error) {
         if (error && error.response) {
           setLoader(false);
+          if (error.response.data.err) {
+            setToast({
+              type: "info",
+              msg: error.response.data.err,
+              open: true,
+            });
+          }
         }
       }
     }
+    setLoader(false);
   };
 
   const handleChange = (e) => {

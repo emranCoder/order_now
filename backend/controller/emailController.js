@@ -12,7 +12,7 @@ const sendOtp = async (req, res) => {
 
 
         const msg = `Hello,
-    Thank you for registering with ${process.env.APP_NAME}. To complete the verification process and ensure the security of your account, please use the following One-Time Password (OTP):
+    Thank you for with ${process.env.APP_NAME}. To complete the verification process and ensure the security of your account, please use the following One-Time Password (OTP):
     
     Verification Code: ${otp}
     
