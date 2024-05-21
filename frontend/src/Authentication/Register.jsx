@@ -113,6 +113,23 @@ export default function Register() {
       } catch (error) {
         if (error && error.response.data.err) {
           setErr(error.response.data.err);
+          console.log(error.response.data.err);
+          if (error.response.data.err.fName) {
+            setErrors({ ...errors, fName: error.response.data.err.fName.msg });
+          } else if (error.response.data.err.lName) {
+            setErrors({ ...errors, lName: error.response.data.err.lName.msg });
+          } else if (error.response.data.err.email) {
+            setErrors({ ...errors, email: error.response.data.err.email.msg });
+          } else if (error.response.data.err.mobile) {
+            setErrors({ ...errors, email: error.response.data.err.mobile.msg });
+          } else if (error.response.data.err.dateOfBirth) {
+            setErrors({
+              ...errors,
+              dateOfBirth: error.response.data.err.dateOfBirth.msg,
+            });
+          } else if (error.response.data.err.pwd) {
+            setErrors({ ...errors, pwd: error.response.data.err.pwd.msg });
+          }
         }
       }
     }
