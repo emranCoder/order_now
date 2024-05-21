@@ -36,7 +36,8 @@ const CartSLice = createSlice({
         state.size = state.size - 1;
         state.total -= istExist.currentPrice > 0 ? istExist.currentPrice : 0;
         state.subTotal -= istExist.price > 0 ? istExist.price : 0;
-        state.discount += state.subTotal - state.total;
+        state.discount +=
+          state.subTotal - state.total < 1 ? 0 : state.subTotal - state.total;
         istExist.qty = istExist.qty > 0 ? istExist.qty - 1 : 0;
       }
       localStorage.setItem("cartProduct", JSON.stringify(state));
@@ -57,9 +58,11 @@ const CartSLice = createSlice({
     removeProduct: (state, action) => {
       const { id, size, currentPrice, price, ...data } = action.payload;
       state.size = state.size - 1;
-      state.total = state.total - currentPrice;
-      state.subTotal -= price;
-      state.discount += state.subTotal - state.total;
+      state.total =
+        state.total - currentPrice < 0 ? 0 : state.total - currentPrice;
+      state.subTotal = state.subTotal - price < 1 ? 0 : state.subTotal - price;
+      state.discount =
+        state.subTotal - state.total < 1 ? 0 : state.subTotal - state.total;
       state.cartProduct = state.cartProduct.filter((itm) => itm.id !== id);
       localStorage.setItem("cartProduct", JSON.stringify(state));
     },
