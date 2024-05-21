@@ -12,6 +12,7 @@ import { LuSoup, LuSalad, LuSandwich } from "react-icons/lu";
 import { FaHotjar, FaPlateWheat } from "react-icons/fa6";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckOut from "./CheckOut";
+import OrderHistory from "./OrderHistory";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -58,6 +59,7 @@ export default function FooterMenu() {
 
     if (anchor === "right") setDrawerActive({ right: open });
     if (anchor === "bottom") setDrawerActive({ bottom: open });
+    if (anchor === "top") setDrawerActive({ top: open });
   };
 
   const getCategory = async () => {
@@ -156,12 +158,20 @@ export default function FooterMenu() {
           </Drawer>
           <BottomNavigationAction
             showLabel={true}
-            label="Recents"
+            label="History"
             value="recents"
             className="!text-slate-800"
+            onClick={toggleDrawer("top", true)}
             icon={<RestoreIcon />}
           />
         </BottomNavigation>
+        <Drawer
+          anchor={"top"}
+          open={drawerActive["top"]}
+          onClose={toggleDrawer("top", false)}
+        >
+          <OrderHistory closeBtn={toggleDrawer("top", false)} />
+        </Drawer>
       </div>
     </div>
   );

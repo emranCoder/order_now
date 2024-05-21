@@ -12,17 +12,25 @@ import Cookies from "js-cookie";
 
 export default function Product() {
   const [page, setPage] = useState(2);
+
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [data, setData] = useState();
+  const [data, setData] = useState({
+    name: "",
+    category: "",
+    price: "",
+    description: "",
+  });
   const [category, setCategory] = useState(null);
   const [product, setProduct] = useState(null);
   const [previewFile, setPreviewFIle] = useState(null);
   const [success, setSuccess] = useState(null);
   const [inputErr, setInputErr] = useState(null);
   const [search, setSearch] = useState("");
+  const [del, setDel] = useState("");
   const token = Cookies.get("auth");
 
   const closeBtn = useRef(null);
+  const inputFile = useRef(null);
 
   useEffect(() => {
     getCategory();
@@ -59,7 +67,14 @@ export default function Product() {
       );
       if (response && response.status === 200) {
         setSuccess({ type: "success", msg: response.data.message });
-        setData(null);
+        setData({
+          name: "",
+          category: "",
+          price: "",
+          description: "",
+        });
+        inputFile.current.value = "";
+        setPreviewFIle(null);
         closeBtn.current.click();
       }
     } catch (error) {
@@ -137,6 +152,33 @@ export default function Product() {
           {/* Toast */}
           {success && <Toast msg={success} control={handleSuccess} />}
           {/* Toast End */}
+          <dialog id="delete_modal" className="modal">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">
+                Are You Sure You want to delete this staff?
+              </h3>
+              <p className="py-4">
+                This will delete permanently. You can not undo this action.
+              </p>
+              <div className="modal-action">
+                <form method="dialog" className="grid grid-cols-2 w-full gap-3">
+                  <button
+                    onClick={() => {
+                      if (del) {
+                        handleDelete(del);
+                      }
+                    }}
+                    className="btn rounded-full bg-transparent  border-rose-500  text-rose-500 hover:bg-rose-700 hover:text-slate-50 "
+                  >
+                    Confirm
+                  </button>
+                  <button className="btn rounded-full  bg-slate-700 border-slate-700 border text-slate-50 hover:bg-slate-800 hover:text-slate-50">
+                    Close
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
           <div className="product-box ">
             <div className="head flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">Product</h3>
@@ -152,9 +194,17 @@ export default function Product() {
               <div className="tooltip " data-tip="Add Product">
                 <button
                   className="bg-transparent btn-sm btn btn-circle   mr-5 border-dotted border-slate-500  border-2 rounded-full text-slate-500 cursor-pointer overflow-hidden flex justify-center !content-center"
-                  onClick={() =>
-                    document.getElementById("my_modal_1").showModal()
-                  }
+                  onClick={() => {
+                    setPreviewFIle(null);
+                    setData({
+                      name: "",
+                      category: "",
+                      price: "",
+                      description: "",
+                    });
+                    inputFile.current.value = "";
+                    document.getElementById("my_modal_1").showModal();
+                  }}
                 >
                   <Mui.ListItemButton className="!p-1 !m-0 !flex !justify-center !items-center">
                     <AddIcon sx={{ fontSize: 25 }} />
@@ -181,6 +231,7 @@ export default function Product() {
                         inputErr && inputErr.category && "border-red-500"
                       }`}
                       defaultValue="default"
+                      value={data.category}
                       required
                     >
                       <option disabled value="default">
@@ -200,6 +251,7 @@ export default function Product() {
                       type="text"
                       name="name"
                       placeholder="Product Name"
+                      value={data.name}
                       className={`input input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc ${
                         inputErr && inputErr.name && "border-red-500"
                       }`}
@@ -216,6 +268,7 @@ export default function Product() {
                       }`}
                     >
                       <input
+                        value={data.price}
                         type="text"
                         placeholder="Price"
                         name="price"
@@ -233,6 +286,7 @@ export default function Product() {
                       type="text"
                       name="description"
                       placeholder="Description"
+                      value={data.description}
                       className="rounded-lg h-24 my-2 w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered"
                       onChange={handleOnChange}
                     />
@@ -241,11 +295,17 @@ export default function Product() {
                       name="image"
                       placeholder="Upload Product Image"
                       className="file-input w-full file-input-sm"
+                      ref={inputFile}
                       onChange={(e) => {
                         let fileName = e.target.files[0];
                         setPreviewFIle(fileName);
                       }}
                     />
+                    {inputErr && inputErr.avatar && (
+                      <small className="text-red-500">
+                        {inputErr.avatar.msg}
+                      </small>
+                    )}
                     <div className="grid grid-cols-2 gap-1 my-5 mt-10">
                       <button
                         onClick={handleOnSubmit}
@@ -337,10 +397,10 @@ export default function Product() {
                           </Link>
                           <button
                             onClick={() => {
-                              let chk = window.confirm(
-                                "Attention! You want to delete this data!"
-                              );
-                              if (chk === true) handleDelete(val._id);
+                              setDel(val._id);
+                              document
+                                .getElementById("delete_modal")
+                                .showModal();
                             }}
                             className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
                           >

@@ -20,6 +20,7 @@ const addNews = async (req, res) => {
 
         res.status(200).json({ message: "News added Successfully!", id: addNews._id });
     } catch (error) {
+
         res.status(500).send({
             err: "Bad request!"
         });

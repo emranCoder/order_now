@@ -3,10 +3,12 @@ const newsSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
+        unique: false,
     },
     description: {
         type: String,
         required: true,
+        unique: false,
     },
     image: {
         type: String,

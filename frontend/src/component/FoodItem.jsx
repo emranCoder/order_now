@@ -6,8 +6,8 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import CheckOut from "./CheckOut";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart } from "../redux/CartSlice";
-import axios from "axios";
-import Cookies from "js-cookie";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+
 import { fetchProduct } from "../redux/ProductFetch";
 
 export default function FoodItem() {
@@ -80,13 +80,15 @@ export default function FoodItem() {
               <div
                 key={key}
                 className={`list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ${
-                  val.stock ? "" : "bg-stone-200 hover:bg-stone-200 border-0 "
+                  val.stock
+                    ? ""
+                    : "bg-stone-200 hover:bg-stone-300 border-0 !text-[#d4d6d9]"
                 }`}
               >
-                <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-                  <div className="mask mask-squircle z-10">
+                <div className="flex max-sm:justify-between   max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
+                  <div className="z-10 w-24">
                     <img
-                      className="block   h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
+                      className="block h-24  rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
                       src={`http://localhost:5000/products/img/${
                         (val && val.image) || "default-product.png"
                       }`}
@@ -105,6 +107,11 @@ export default function FoodItem() {
                       )}
                       {val.price - (val.discount * val.price) / 100}$
                     </p>
+                    {!val.stock && (
+                      <p className="my-1 font-semibold text-red-400 hidden max-sm:block">
+                        Out of Stock
+                      </p>
+                    )}
                   </div>
                   <button
                     onClick={() => {
@@ -112,154 +119,29 @@ export default function FoodItem() {
                         handleAddToCart(val);
                       }
                     }}
-                    className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white"
+                    className={`px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white ${
+                      !val.stock && "btn-disabled"
+                    }`}
                   >
                     {(val.stock && (
-                      <span className="max-sm:hidden">
-                        Add To Cart
-                        <span className="ml-1">
+                      <p>
+                        <span className="max-sm:hidden">Add To Cart</span>
+                        <span className="lg:ml-1">
                           <AddShoppingCartIcon />
                         </span>
-                      </span>
-                    )) || <span className="max-sm:hidden">Out Of Stock</span>}
+                      </p>
+                    )) || (
+                      <p>
+                        <span className="hidden max-sm:block">
+                          <RemoveShoppingCartIcon />
+                        </span>
+                        <span className="max-sm:hidden ">Out Of Stock</span>
+                      </p>
+                    )}
                   </button>
                 </div>
               </div>
             ))}
-        <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-            <img
-              className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="max-sm:ml-3 text-center max-sm:text-left ">
-              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                Vegetables Salad{" "}
-              </p>
-              <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-            </div>
-            <button className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white">
-              <span className="max-sm:hidden">Add To Cart</span>{" "}
-              <AddShoppingCartIcon />
-            </button>
-          </div>
-        </div>
-
-        <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-            <img
-              className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="max-sm:ml-3 text-center max-sm:text-left ">
-              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                Vegetables Salad{" "}
-              </p>
-              <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-            </div>
-            <button className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white">
-              <span className="max-sm:hidden">Add To Cart</span>{" "}
-              <AddShoppingCartIcon />
-            </button>
-          </div>
-        </div>
-        <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-            <img
-              className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="max-sm:ml-3 text-center max-sm:text-left ">
-              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                Vegetables Salad{" "}
-              </p>
-              <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-            </div>
-            <button className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white">
-              <span className="max-sm:hidden">Add To Cart</span>{" "}
-              <AddShoppingCartIcon />
-            </button>
-          </div>
-        </div>
-        <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-            <img
-              className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="max-sm:ml-3 text-center max-sm:text-left ">
-              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                Vegetables Salad{" "}
-              </p>
-              <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-            </div>
-            <button className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white">
-              <span className="max-sm:hidden">Add To Cart</span>{" "}
-              <AddShoppingCartIcon />
-            </button>
-          </div>
-        </div>
-        <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-            <img
-              className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="max-sm:ml-3 text-center max-sm:text-left ">
-              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                Vegetables Salad{" "}
-              </p>
-              <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-            </div>
-            <button className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white">
-              <span className="max-sm:hidden">Add To Cart</span>{" "}
-              <AddShoppingCartIcon />
-            </button>
-          </div>
-        </div>
-        <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-            <img
-              className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="max-sm:ml-3 text-center max-sm:text-left ">
-              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                Vegetables Salad{" "}
-              </p>
-              <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-            </div>
-            <button className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white">
-              <span className="max-sm:hidden">Add To Cart</span>{" "}
-              <AddShoppingCartIcon />
-            </button>
-          </div>
-        </div>
-        <div className="list bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] ">
-          <div className="flex max-sm:justify-between  max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-            <img
-              className="block h-24 rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-              alt="Woman's Face"
-            />
-            <div className="max-sm:ml-3 text-center max-sm:text-left ">
-              <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                Vegetables Salad{" "}
-              </p>
-              <p className="my-1 font-semibold text-slate-900">$ 8.99</p>
-            </div>
-            <button className="px-4 py-1 max-sm:ml-3 max-sm:rounded-lg max-sm:btn-md max-sm:px-6 max-sm:btn-square bg-transparent btn-sm btn  my-1 text-sm text-slate-700 font-semibold rounded-full border border-slate-600 hover:text-white hover:bg-slate-700 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 max-lg:bg-slate-700 max-lg:text-white">
-              <span className="max-sm:hidden">Add To Cart</span>{" "}
-              <AddShoppingCartIcon />
-            </button>
-          </div>
-        </div>
       </div>
       {isVisible && (
         <div className="cart lg:block hidden">

@@ -19,6 +19,7 @@ export default function AllNews() {
   const [search, setSearch] = useState("");
   const [activate, setActivate] = useState(false);
   const [previewFile, setPreviewFIle] = useState(null);
+  const [del, setDel] = useState("");
 
   useEffect(() => {
     getNews();
@@ -32,7 +33,7 @@ export default function AllNews() {
   const handleOnSubmit = async (e) => {
     try {
       const form = document.querySelector("#form");
-      let dataUpload = new FormData(form);
+      const dataUpload = new FormData(form);
 
       let response;
       if (edit) {
@@ -118,6 +119,33 @@ export default function AllNews() {
           {/* Toast */}
           {success && <Toast msg={success} control={handleSuccess} />}
           {/* Toast End */}
+          <dialog id="delete_modal" className="modal">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">
+                Are You Sure You want to delete this staff?
+              </h3>
+              <p className="py-4">
+                This will delete permanently. You can not undo this action.
+              </p>
+              <div className="modal-action">
+                <form method="dialog" className="grid grid-cols-2 w-full gap-3">
+                  <button
+                    onClick={() => {
+                      if (del) {
+                        handleDelete(del);
+                      }
+                    }}
+                    className="btn rounded-full bg-transparent  border-rose-500  text-rose-500 hover:bg-rose-700 hover:text-slate-50 "
+                  >
+                    Confirm
+                  </button>
+                  <button className="btn rounded-full  bg-slate-700 border-slate-700 border text-slate-50 hover:bg-slate-800 hover:text-slate-50">
+                    Close
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
           <div className="news-box">
             <div className="head flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">News</h3>
@@ -183,6 +211,7 @@ export default function AllNews() {
                       placeholder="Description"
                       name="description"
                       value={(data && data.description) || ""}
+                      maxLength={255}
                       className={`h-32 rounded-lg  mt-5 w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered ${
                         error && error.description
                           ? "border-error text-error"
@@ -328,10 +357,10 @@ export default function AllNews() {
                           <button
                             className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
                             onClick={() => {
-                              let chk = window.confirm(
-                                "Attention! You want to delete this data!"
-                              );
-                              if (chk === true) handleDelete(val._id);
+                              setDel(val._id);
+                              document
+                                .getElementById("delete_modal")
+                                .showModal();
                             }}
                           >
                             <Mui.ListItemButton className="!flex !justify-center !items-center">

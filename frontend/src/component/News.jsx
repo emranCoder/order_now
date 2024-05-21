@@ -31,10 +31,10 @@ export default function News() {
   const items = (val, key) => (
     <div
       key={key}
-      className="card rounded-none card-side bg-base-100 border-b pb-2 mb-8"
+      className="card rounded-none card-side bg-base-100 border-b pb-2 mb-8 max-sm:card"
     >
-      <div className="avatar">
-        <div className="w-56">
+      <div className="avatar ">
+        <div className="w-56 max-sm:w-auto max-sm:p-8">
           <img
             src={`http://localhost:5000/news/img/${
               val.image ? val.image : "default-product.png"
@@ -74,7 +74,7 @@ export default function News() {
       {loader && <Loading />}
       <div className="container  rounded-xl px-10 py-10 max-sm:p-5 max-md:px-5 bg-white">
         <div className="container-row">
-          <div className="col-lg-8">
+          <div className="col-lg-8 col-sm-12 col-md-12">
             <h5 className="mb-8 text-red-800 font-semibold uppercase font-serif">
               The Latest & Greatest
             </h5>
@@ -100,7 +100,7 @@ export default function News() {
               </p>
             )}
           </div>
-          <div className="col-lg-4">
+          <div className="col-lg-4 max-sm:hidden">
             <h5 className="mb-8 text-red-800 font-semibold uppercase font-serif">
               News Collections
             </h5>

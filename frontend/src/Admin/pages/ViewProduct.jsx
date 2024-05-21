@@ -14,6 +14,7 @@ export default function ViewProduct(props) {
   const [product, setProduct] = useState(null);
   const [success, setSuccess] = useState(null);
   const { state } = useLocation();
+  const [inputErr, setInputErr] = useState(null);
 
   const navigate = useNavigate();
 
@@ -56,9 +57,9 @@ export default function ViewProduct(props) {
         setEdit(false);
       }
     } catch (error) {
-      if (error.message === "Network Error")
-        return console.error(error.message);
-      console.log(error.response.data.message);
+      if (error.response.data.err) {
+        setInputErr(error.response.data.err);
+      }
     }
   };
 
@@ -177,6 +178,11 @@ export default function ViewProduct(props) {
                                 }}
                               />
                             </Mui.ListItemButton>
+                            {inputErr && inputErr.avatar && (
+                              <small className="text-red-500">
+                                {inputErr.avatar.msg}
+                              </small>
+                            )}
                           </div>
                         )}
                       </div>

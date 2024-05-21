@@ -17,6 +17,7 @@ export default function Category() {
   const [edit, setEdit] = useState(false);
   const closeBtn = useRef(null);
   const [search, setSearch] = useState("");
+  const [del, setDel] = useState("");
 
   useEffect(() => {
     getCategory();
@@ -117,6 +118,33 @@ export default function Category() {
           {/* Toast */}
           {success && <Toast msg={success} control={handleSuccess} />}
           {/* Toast End */}
+          <dialog id="delete_modal" className="modal">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">
+                Are You Sure You want to delete this staff?
+              </h3>
+              <p className="py-4">
+                This will delete permanently. You can not undo this action.
+              </p>
+              <div className="modal-action">
+                <form method="dialog" className="grid grid-cols-2 w-full gap-3">
+                  <button
+                    onClick={() => {
+                      if (del) {
+                        handleDelete(del);
+                      }
+                    }}
+                    className="btn rounded-full bg-transparent  border-rose-500  text-rose-500 hover:bg-rose-700 hover:text-slate-50 "
+                  >
+                    Confirm
+                  </button>
+                  <button className="btn rounded-full  bg-slate-700 border-slate-700 border text-slate-50 hover:bg-slate-800 hover:text-slate-50">
+                    Close
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
           <div className="category-box">
             <div className="head flex justify-between content-center">
               <h3 className="text-2xl font-semibold text-slate-600">
@@ -265,10 +293,10 @@ export default function Category() {
                           <button
                             className="btn btn-sm btn-error text-white btn-circle flex just-center overflow-  content-center !items-center overflow-hidden"
                             onClick={() => {
-                              let chk = window.confirm(
-                                "Attention! You want to delete this data!"
-                              );
-                              if (chk === true) handleDelete(val._id);
+                              setDel(val._id);
+                              document
+                                .getElementById("delete_modal")
+                                .showModal();
                             }}
                           >
                             <Mui.ListItemButton className="!flex !justify-center !items-center">
