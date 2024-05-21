@@ -7,13 +7,11 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToast } from "../redux/ToastSlice";
 import Loading from "../component/Loading";
-import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function Login(props) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [err, setErr] = useState(null);
+
   const [loader, setLoader] = useState(true);
   const urlParams = new URLSearchParams(window.location.search);
 
@@ -64,6 +62,7 @@ export default function Login(props) {
   };
 
   const handleSubmit = async () => {
+    console.log(formData);
     if (validateForm()) {
       try {
         const response = await axios.post(
@@ -72,22 +71,34 @@ export default function Login(props) {
         );
 
         if (response && response.status === 200) {
-          const { message, user, token, fName } = response.data;
+          const { user, token } = response.data;
           Cookies.set("id", user._id, process.env.REACT_APP_AUTH_EXP);
           Cookies.set("auth", token, process.env.REACT_APP_AUTH_EXP);
 
           window.location.replace(`/?user= ${user.fName}`);
         }
       } catch (error) {
-        if (error.response.data.err) {
-          setErr(error.response.data.err);
+        if (error.response && error.response.data.err) {
           setFormData({
             username: "",
             pwd: "",
             rememberMe: false,
           });
-
-          dispatch(addToast({ type: "error", msg: error.response.data.err }));
+          if (error.response.data.err.pwd) {
+            const newErrors = {
+              username: "",
+              pwd: error.response.data.err.pwd.msg,
+            };
+            setErrors(newErrors);
+          } else if (error.response.data.err.username) {
+            const newErrors = {
+              username: "",
+              pwd: error.response.data.err.username.msg,
+            };
+            setErrors(newErrors);
+          } else {
+            dispatch(addToast({ type: "error", msg: error.response.data.err }));
+          }
         }
       }
     }
