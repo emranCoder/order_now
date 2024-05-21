@@ -8,7 +8,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 export default function Customer() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [success, setSuccess] = useState(null);
   const [customer, setCustomer] = useState(null);
@@ -92,6 +92,7 @@ export default function Customer() {
                 {/* row 1 */}
                 {customer &&
                   customer
+                    .slice(page, rowsPerPage)
                     .filter((item) => {
                       return search.toLowerCase() === ""
                         ? item

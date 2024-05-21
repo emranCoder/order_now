@@ -10,7 +10,7 @@ import Toast from "../Alert/Toast";
 import { Link } from "react-router-dom";
 
 export default function PaymentStatus() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [edit, setEdit] = useState(false);
   const [order, setOrder] = useState(null);
@@ -248,6 +248,7 @@ export default function PaymentStatus() {
                 <tbody>
                   {order &&
                     order
+                      .slice(page, rowsPerPage)
                       .filter((item) => {
                         return search.toLowerCase() === ""
                           ? item

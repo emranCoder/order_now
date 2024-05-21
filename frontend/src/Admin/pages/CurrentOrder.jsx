@@ -10,8 +10,7 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 export default function CurrentOrder() {
-  const [edit, setEdit] = useState(false);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState(null);
   const [product, setProduct] = useState({ product: "", order: "" });
@@ -247,6 +246,7 @@ export default function CurrentOrder() {
                 <tbody>
                   {order &&
                     order
+                      .slice(page, rowsPerPage)
                       .filter((item) => {
                         return search.toLowerCase() === ""
                           ? item

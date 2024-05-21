@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Toast from "../Alert/Toast";
 
 export default function AllOrders() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState(null);
   const [product, setProduct] = useState({ product: "", order: "" });
@@ -226,6 +226,7 @@ export default function AllOrders() {
                 <tbody>
                   {order &&
                     order
+                      .slice(page, rowsPerPage)
                       .filter((item) => {
                         return search.toLowerCase() === ""
                           ? item

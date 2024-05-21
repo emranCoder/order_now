@@ -8,7 +8,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Toast from "../Alert/Toast";
 export default function Message() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [message, setMessage] = useState(null);
   const [viewMessage, setViewMessage] = useState(null);
@@ -158,6 +158,7 @@ export default function Message() {
                 <tbody>
                   {message &&
                     message
+                      .slice(page, rowsPerPage)
                       .filter((item) => {
                         return search.toLowerCase() === ""
                           ? item

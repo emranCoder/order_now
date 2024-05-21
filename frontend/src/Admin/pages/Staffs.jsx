@@ -10,7 +10,7 @@ import Toast from "../Alert/Toast";
 import Cookies from "js-cookie";
 
 export default function Staffs() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [previewFile, setPreviewFIle] = useState(null);
   const [data, setData] = useState();
@@ -356,6 +356,7 @@ export default function Staffs() {
               <tbody>
                 {staff &&
                   staff
+                    .slice(page, rowsPerPage)
                     .filter((item) => {
                       return search.toLowerCase() === ""
                         ? item

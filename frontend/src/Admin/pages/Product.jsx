@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function Product() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [data, setData] = useState({
@@ -343,6 +343,7 @@ export default function Product() {
 
                 {product &&
                   product
+                    .slice(page, rowsPerPage)
                     .filter((item) => {
                       return search.toLowerCase() === ""
                         ? item

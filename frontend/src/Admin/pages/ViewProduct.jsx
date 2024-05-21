@@ -209,7 +209,7 @@ export default function ViewProduct(props) {
                           {(edit && (
                             <textarea
                               type="text"
-                              className="rounded-lg w-full bg-gray-100 p-2 px-4 focus-within:border border-slate-600 !outline-none"
+                              className="rounded-lg w-full h-36 bg-gray-100 p-2 px-4 focus-within:border border-slate-600 !outline-none"
                               defaultValue={product.description}
                               onChange={handleOnChange}
                               name="description"
