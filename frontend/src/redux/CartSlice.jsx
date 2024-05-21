@@ -56,7 +56,7 @@ const CartSLice = createSlice({
       localStorage.setItem("cartProduct", JSON.stringify(state));
     },
     removeProduct: (state, action) => {
-      const { id, size, currentPrice, price, ...data } = action.payload;
+      const { id, currentPrice, price } = action.payload;
       state.size = state.size - 1;
       state.total =
         state.total - currentPrice < 0 ? 0 : state.total - currentPrice;

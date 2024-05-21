@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import CheckOut from "./CheckOut";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { addToast } from "../redux/ToastSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
@@ -14,12 +13,9 @@ import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 export default function NavBar() {
   const urlParams = new URLSearchParams(window.location.search);
   const [haveToken, setHaveToken] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, user, err } = useSelector((state) => state.user);
-  const { cartProduct, total, discount, subTotal, size } = useSelector(
-    (state) => state.cart
-  );
+  const { user } = useSelector((state) => state.user);
+  const { size } = useSelector((state) => state.cart);
   const token = Cookies.get("auth");
   useEffect(() => {
     if (token) {
@@ -229,13 +225,13 @@ export default function NavBar() {
                     <NavLink to="changepwd">Change Password</NavLink>
                   </li>
                   <li>
-                    <a
+                    <span
                       onClick={() => {
                         logOut();
                       }}
                     >
                       Logout
-                    </a>
+                    </span>
                   </li>
                 </ul>
               </div>
