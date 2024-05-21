@@ -86,7 +86,7 @@ export default function FoodItem() {
                 }`}
               >
                 <div className="flex max-sm:justify-between   max-sm:flex-row xl:px-2  w-full flex-col items-center content-center justify-center">
-                  <div className="z-10 w-24">
+                  <div className=" w-24">
                     <img
                       className="block h-24  rounded-box max-lg:mx-0 max-lg:shrink-0 sm:mx-0 sm:shrink-0"
                       src={`http://localhost:5000/products/img/${

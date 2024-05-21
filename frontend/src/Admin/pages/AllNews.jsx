@@ -20,6 +20,7 @@ export default function AllNews() {
   const [activate, setActivate] = useState(false);
   const [previewFile, setPreviewFIle] = useState(null);
   const [del, setDel] = useState("");
+  const inputFile = useRef(null);
 
   useEffect(() => {
     getNews();
@@ -61,13 +62,17 @@ export default function AllNews() {
       }
       if (response && response.status === 200) {
         setSuccess({ type: "success", msg: response.data.message });
+        inputFile.current.value = "";
+        setPreviewFIle(null);
         setData(null);
         closeBtn.current.click();
       }
     } catch (error) {
+      if (error.response.data.err) {
+        setError(error.response.data.err);
+      }
       if (error.message === "Network Error")
         return console.error(error.message);
-      setError(error.response.data.err);
     }
   };
 
@@ -165,6 +170,8 @@ export default function AllNews() {
                     document.getElementById("my_modal_1").showModal();
                     setData(null);
                     setSuccess(null);
+                    inputFile.current.value = "";
+                    setPreviewFIle(null);
                     setError(null);
                   }}
                 >
@@ -250,6 +257,7 @@ export default function AllNews() {
                         id="fileInput"
                         placeholder="Upload Staff Image"
                         className="file-input w-full file-input-sm  hidden"
+                        ref={inputFile}
                         accept="image/*"
                         onChange={(e) => {
                           setActivate(true);
@@ -258,6 +266,11 @@ export default function AllNews() {
                           setPreviewFIle(preview);
                         }}
                       />
+                      {error && error.image && (
+                        <small className="text-red-500">
+                          {error.image.msg}
+                        </small>
+                      )}
                     </div>
                     <div className="grid grid-cols-2 gap-1 my-5 mt-10">
                       <button

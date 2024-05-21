@@ -9,6 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { addToast } from "../redux/ToastSlice";
 import CloseIcon from "@mui/icons-material/Close";
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 
 export default function NavBar() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -16,6 +17,9 @@ export default function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, user, err } = useSelector((state) => state.user);
+  const { cartProduct, total, discount, subTotal, size } = useSelector(
+    (state) => state.cart
+  );
   const token = Cookies.get("auth");
   useEffect(() => {
     if (token) {
@@ -171,12 +175,22 @@ export default function NavBar() {
                 <li className="nav-link">Contact Us</li>
               </NavLink>
               <li className="nav-link">
-                <span onClick={toggleDrawer("bottom", true)}>Cart</span>
+                <span onClick={toggleDrawer("bottom", true)}></span>
               </li>
             </ul>
           </div>
 
           <div className="navbar-end">
+            <button className="btn btn-circle btn-md mr-5 text-slate-700 hidden lg:block">
+              <div className="indicator">
+                <LocalMallOutlinedIcon />
+                {Boolean(size) && (
+                  <span className="badge badge-xs text-red-700 indicator-item ">
+                    {size}
+                  </span>
+                )}
+              </div>
+            </button>
             {!haveToken && (
               <a
                 href="/login"

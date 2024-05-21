@@ -170,28 +170,24 @@ export default function PaymentStatus() {
                           <div className="w-full border-b">
                             <span>Subtotal: </span>
                             <span className="float-right">
-                              {/^-?[0-9]+$/.test(product.order.currentPrice)
-                                ? product.order.currentPrice
-                                : product.order.currentPrice.toFixed(2)}{" "}
+                              {/^-?[0-9]+$/.test(
+                                Number(product.order.currentPrice)
+                              )
+                                ? Number(product.order.currentPrice) +
+                                  Number(product.order.discount)
+                                : (
+                                    Number(product.order.currentPrice) +
+                                    Number(product.order.discount)
+                                  ).toFixed(2)}{" "}
                               $
                             </span>
                           </div>
                           <div className="w-full border-b">
                             <span>Discount:</span>
                             <span className="float-right">
-                              {/^-?[0-9]+$/.test(
-                                (product.order.currentPrice *
-                                  product.order.discount) /
-                                  100
-                              )
-                                ? (product.order.currentPrice *
-                                    product.order.discount) /
-                                  100
-                                : (
-                                    (product.order.currentPrice *
-                                      product.order.discount) /
-                                    100
-                                  ).toFixed(2)}
+                              {/^-?[0-9]+$/.test(Number(product.order.discount))
+                                ? Number(product.order.discount)
+                                : Number(product.order.discount).toFixed(2)}
                               $
                             </span>
                           </div>
@@ -199,21 +195,12 @@ export default function PaymentStatus() {
                             <span>Total: </span>
                             <span className="float-right">
                               {/^-?[0-9]+$/.test(
-                                product.order.currentPrice -
-                                  (product.order.currentPrice *
-                                    product.order.discount) /
-                                    100
+                                Number(product.order.currentPrice)
                               )
-                                ? product.order.currentPrice -
-                                  (product.order.currentPrice *
-                                    product.order.discount) /
-                                    100
-                                : (
-                                    product.order.currentPrice -
-                                    (product.order.currentPrice *
-                                      product.order.discount) /
-                                      100
-                                  ).toFixed(2)}{" "}
+                                ? Number(product.order.currentPrice)
+                                : Number(product.order.currentPrice).toFixed(
+                                    2
+                                  )}{" "}
                               $
                             </span>
                           </div>

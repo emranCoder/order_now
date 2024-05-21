@@ -33,6 +33,7 @@ const CartSLice = createSlice({
         (item) => item.id === action.payload
       );
       if (istExist) {
+        state.size = state.size - 1;
         state.total -= istExist.currentPrice > 0 ? istExist.currentPrice : 0;
         state.subTotal -= istExist.price > 0 ? istExist.price : 0;
         state.discount += state.subTotal - state.total;
@@ -45,6 +46,7 @@ const CartSLice = createSlice({
         (item) => item.id === action.payload
       );
       if (istExist) {
+        state.size = state.size + 1;
         state.total += istExist.currentPrice > 0 ? istExist.currentPrice : 0;
         state.subTotal += istExist.price > 0 ? istExist.price : 0;
         state.discount += state.subTotal - state.total;

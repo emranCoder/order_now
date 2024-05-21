@@ -12,7 +12,7 @@ export default function AllOrders() {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState(null);
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState({ product: "", order: "" });
   const [search, setSearch] = useState("");
   const [success, setSuccess] = useState(null);
 
@@ -57,6 +57,7 @@ export default function AllOrders() {
     const updateData = {
       id: id,
       orderStatus: "Pending",
+      paymentStatus: false,
     };
     try {
       const response = await axios.put(
@@ -99,8 +100,8 @@ export default function AllOrders() {
                   <div className="modal-action">
                     <form method="dialog" className="w-full">
                       <div className="grid grid-cols-2 gap-3">
-                        {product &&
-                          product.map((val, key) => (
+                        {product.product &&
+                          product.product.map((val, key) => (
                             <div
                               key={key}
                               className=" bg-white shadow-md py-5 max-sm:p-2 hover:border-slate-700 border-slate-700 border-opacity-20 border cursor-pointer ease-out duration-75  rounded-2xl hover:bg-[rgb(255,248,248)] "
@@ -143,8 +144,56 @@ export default function AllOrders() {
                           </p>
                         )}
                       </div>
+
+                      {product.order && (
+                        <div className="col-lg-12 col-md-12 max-sm:w-full max-md:w-full mt-5">
+                          <div className="list px-5 ">
+                            <div className="w-full ">
+                              <div className="w-full border-b">
+                                <span>Subtotal: </span>
+                                <span className="float-right">
+                                  {/^-?[0-9]+$/.test(
+                                    Number(product.order.currentPrice)
+                                  )
+                                    ? Number(product.order.currentPrice) +
+                                      Number(product.order.discount)
+                                    : (
+                                        Number(product.order.currentPrice) +
+                                        Number(product.order.discount)
+                                      ).toFixed(2)}{" "}
+                                  $
+                                </span>
+                              </div>
+                              <div className="w-full border-b">
+                                <span>Discount:</span>
+                                <span className="float-right">
+                                  {/^-?[0-9]+$/.test(
+                                    Number(product.order.discount)
+                                  )
+                                    ? Number(product.order.discount)
+                                    : Number(product.order.discount).toFixed(2)}
+                                  $
+                                </span>
+                              </div>
+                              <div className="w-full">
+                                <span>Total: </span>
+                                <span className="float-right">
+                                  {/^-?[0-9]+$/.test(
+                                    Number(product.order.currentPrice)
+                                  )
+                                    ? Number(product.order.currentPrice)
+                                    : Number(
+                                        product.order.currentPrice
+                                      ).toFixed(2)}{" "}
+                                  $
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                       <div className="w-full flex justify-end mt-5">
-                        <button className="btn  rounded-full bg-transparent text-slate-700 border-slate-700 border hover:bg-red-500  hover:text-slate-50">
+                        <button className="btn  rounded-full bg-transparent text-slate-700 border-slate-700 border hover:bg-red-500  hover:text-slate-50  ">
                           Close
                         </button>
                       </div>
@@ -192,7 +241,14 @@ export default function AllOrders() {
                           <td>
                             <span
                               onClick={() => {
-                                setProduct(JSON.parse(val.products));
+                                setProduct({
+                                  product: JSON.parse(val.products),
+                                  order: {
+                                    currentPrice: val.orderPrice,
+                                    discount: val.discount,
+                                    orderDate: val.orderDate,
+                                  },
+                                });
                                 document
                                   .getElementById("view_product")
                                   .showModal();

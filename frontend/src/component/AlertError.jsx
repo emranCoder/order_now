@@ -14,7 +14,7 @@ export default function AlertError() {
 
   return (
     toast.type && (
-      <div className="w-80 mt-5 absolute right-5 z-20 px-0 shadow-lg">
+      <div className="w-80 mt-5  right-5 z-20 px-0 shadow-lg fixed ease-in">
         <Collapse in={open}>
           <Alert
             severity={toast.type}
