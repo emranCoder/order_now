@@ -174,14 +174,14 @@ export default function NavBar() {
               <NavLink to="contactus">
                 <li className="nav-link">Contact Us</li>
               </NavLink>
-              <li className="nav-link">
-                <span onClick={toggleDrawer("bottom", true)}></span>
-              </li>
             </ul>
           </div>
 
           <div className="navbar-end">
-            <button className="btn btn-circle btn-md mr-5 text-slate-700 hidden lg:block">
+            <button
+              onClick={toggleDrawer("bottom", true)}
+              className="btn btn-circle btn-md mr-5 text-slate-700 hidden lg:block"
+            >
               <div className="indicator">
                 <LocalMallOutlinedIcon />
                 {Boolean(size) && (
