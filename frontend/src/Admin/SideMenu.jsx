@@ -15,9 +15,11 @@ import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
 import { NavLink } from "react-router-dom";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function SideMenu() {
-  const { isLoading, user, err } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const logOut = async () => {
     const token = Cookies.get("auth");
     try {
