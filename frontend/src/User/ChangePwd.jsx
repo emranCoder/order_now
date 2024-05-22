@@ -98,6 +98,12 @@ export default function ChangePwd() {
           const { message, user } = response.data;
           dispatch(addToast({ type: "success", msg: message }));
           setLoader(false);
+          setTimeout(() => {
+            Cookies.remove("auth");
+            Cookies.remove("id");
+            localStorage.clear();
+            window.location.replace("/login");
+          }, 2000);
         }
       } catch (error) {
         if (error && error.response.data) {
