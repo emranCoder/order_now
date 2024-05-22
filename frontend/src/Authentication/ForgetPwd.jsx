@@ -283,7 +283,7 @@ export default function ForgetPwd() {
                   disabled={active && false}
                   fullWidth
                   onKeyPress={(e) => {
-                    if (!/\d/.test(e.key)) e.preventDefault();
+                    if (!/^[0-9\b]+$/.test(e.key)) e.preventDefault();
                   }}
                   className="!border-slate-700 "
                   label="OTP"

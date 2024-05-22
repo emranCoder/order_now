@@ -18,6 +18,29 @@ import { useSelector } from "react-redux";
 
 export default function SideMenu() {
   const { isLoading, user, err } = useSelector((state) => state.user);
+  const logOut = async () => {
+    const token = Cookies.get("auth");
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/login/logout`,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      );
+      if (response && response.status === 200) {
+        Cookies.remove("auth");
+        Cookies.remove("id");
+        window.location.replace("/admin-login?true=forget");
+      }
+    } catch (error) {
+      console.log(error.response);
+      if (error.message === "Network Error")
+        return console.error(error.message);
+      console.log(error.response.data.message);
+    }
+  };
   return (
     <nav
       className=" text-slate-400 nav pb-14 lg:block hidden col-lg-3 col-md-3 lg:w-1/5"
@@ -134,7 +157,12 @@ export default function SideMenu() {
             <span className="font-semibold text-sm">Setting</span>
           </Mui.ListItemButton>
         </NavLink>
-        <Mui.ListItemButton className="font-thin item-btn">
+        <Mui.ListItemButton
+          className="font-thin item-btn"
+          onClick={() => {
+            logOut();
+          }}
+        >
           <span className="mr-5">
             <LogoutIcon fontSize="small" className="icon" />
           </span>

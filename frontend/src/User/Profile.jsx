@@ -31,8 +31,13 @@ export default function Profile() {
   }, [0]);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setUpdate({ ...update, [name]: value });
+    if (name === "mobile") {
+      setUpdate({ ...update, [name]: "+88" + value });
+    } else {
+      setUpdate({ ...update, [name]: value });
+    }
   };
+  console.log(update);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (update || previewFile) {
@@ -249,6 +254,9 @@ export default function Profile() {
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-slate-600 peer"
                         defaultValue={user.mobile}
                         placeholder=" "
+                        onKeyPress={(e) => {
+                          if (!/^[.0-9\b]+$/.test(e.key)) e.preventDefault();
+                        }}
                         required
                       />
                       <label

@@ -121,7 +121,7 @@ export default function PaymentStatus() {
               <div className="modal-action">
                 <form method="dialog" className="w-full">
                   <div className="grid grid-cols-2 gap-3">
-                    {product.product &&
+                    {Boolean(product.product) &&
                       product.product.map((val, key) => (
                         <div
                           key={key}

@@ -207,13 +207,13 @@ export default function Header() {
                 </NavLink>
               </li>
               <li>
-                <a
+                <span
                   onClick={() => {
                     logOut();
                   }}
                 >
                   Logout
-                </a>
+                </span>
               </li>
             </ul>
           </div>

@@ -135,12 +135,14 @@ export default function Register() {
     }
   };
 
+  
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "mobile") {
+      setFormData({ ...formData, [name]: "+88" + value });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
   const handleBob = (e) => {
     let { $y, $M, $D } = e;

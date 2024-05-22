@@ -267,6 +267,10 @@ export default function ViewProduct(props) {
                                     className="rounded-lg bg-gray-100 p-2 px-4 focus-within:border border-slate-600 !outline-none"
                                     onChange={handleOnChange}
                                     name="discount"
+                                    onKeyPress={(e) => {
+                                      if (!/^[.0-9\b]+$/.test(e.key))
+                                        e.preventDefault();
+                                    }}
                                     defaultValue={
                                       (product.discount && product.discount) ||
                                       0
