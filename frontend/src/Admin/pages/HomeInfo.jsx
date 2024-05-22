@@ -17,18 +17,19 @@ export default function HomeInfo() {
     getProductFrequency();
     getOrderFrequency();
     getUserFrequency();
-  }, []);
+  }, [0]);
 
   const [productFrequency, setProductFrequency] = useState(0);
   const [orderFrequency, setOrderFrequency] = useState(0);
   const [userFrequency, setUserFrequency] = useState(0);
   const [income, setIncome] = useState(0);
+  const [charData, setChartData] = useState(0);
   const pieData = [
     productFrequency,
     userFrequency,
     (orderFrequency && orderFrequency.length) || 0,
   ];
-  const barData = [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65];
+  const barData = [44, 55, 41, 67, parseInt(charData / 2)];
 
   const getProductFrequency = async () => {
     try {
@@ -58,6 +59,15 @@ export default function HomeInfo() {
         response.data.order.sort(
           (a, b) => new Date(b.orderDate) - new Date(a.orderDate)
         );
+        const monthIncome = response.data.order
+          .filter(
+            (val) =>
+              new Date(val.orderDate).getMonth() === new Date().getMonth()
+          )
+          .forEach((el) =>
+            setChartData((charData) => charData + Number(el.orderPrice))
+          );
+
         setOrderFrequency(response.data.order);
         setIncome(response.data.total);
       }
