@@ -84,23 +84,23 @@ export default function NavBar() {
           <CloseIcon className="!font-bold" sx={{ fontSize: 16 }} />
         </button>
       </li>
-      <ul
-        className="cursor-pointer navbar-ul main-nav  pr-2 pl-5 "
-        onClick={toggleDrawer("left", false)}
-      >
-        <NavLink to="/">
+      <ul className="cursor-pointer navbar-ul main-nav  pr-2 pl-5 ">
+        <NavLink to="/" onClick={toggleDrawer("left", false)}>
           <li className="nav-link my-5 !pr-16">Home</li>
         </NavLink>
 
-        <NavLink to="news">
+        <NavLink to="news" onClick={toggleDrawer("left", false)}>
           <li className="nav-link my-5 !pr-16">News</li>
         </NavLink>
 
-        <NavLink to="contactus">
+        <NavLink to="contactus" onClick={toggleDrawer("left", false)}>
           <li className="nav-link my-5 !pr-16">Contact Us</li>
         </NavLink>
-        <li className="nav-link my-5 !pr-16">
-          <span onClick={toggleDrawer("bottom", true)}>Cart</span>
+        <li
+          className="nav-link my-5 !pr-16"
+          onClick={toggleDrawer("bottom", true)}
+        >
+          <span>Cart</span>
         </li>
       </ul>
     </div>
