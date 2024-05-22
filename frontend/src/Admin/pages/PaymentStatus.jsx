@@ -139,7 +139,7 @@ export default function PaymentStatus() {
                             </div>
                             <div className="max-sm:ml-3 text-center max-sm:text-left ">
                               <p className="text-lg max-sm:m-0  mt-3  my-1 text-slate-900">
-                                {val.name}
+                                {Boolean(val.name) ? val.name : "Not Found"}
                               </p>
                               <p className="my-1 font-semibold text-slate-900">
                                 {val.discount > 0 && (

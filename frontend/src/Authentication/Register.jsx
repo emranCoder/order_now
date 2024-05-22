@@ -100,10 +100,11 @@ export default function Register() {
       setErrors({ ...errors, pwd: true });
     }
     if (validateForm() && conPwd === formData.pwd) {
+      const uploadData = { ...formData, mobile: "+88" + formData.mobile };
       try {
         let response = await axios.post(
           `http://localhost:5000/api/auth/createuser`,
-          formData
+          uploadData
         );
 
         if (response && response.status === 200) {
@@ -135,14 +136,9 @@ export default function Register() {
     }
   };
 
-  
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
-    if (name === "mobile") {
-      setFormData({ ...formData, [name]: "+88" + value });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
   };
   const handleBob = (e) => {
     let { $y, $M, $D } = e;
@@ -301,6 +297,9 @@ export default function Register() {
                       onChange={handleChange}
                       error={Boolean(errors.mobile)}
                       helperText={errors.mobile}
+                      onKeyPress={(e) => {
+                        if (!/^[0-9\b]+$/.test(e.key)) e.preventDefault();
+                      }}
                       margin="normal"
                       inputProps={{ "ng-pattern": "/^(?:+88|01)?d{11}\r?$/" }}
                       sx={{

@@ -42,7 +42,14 @@ export default function Staffs() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const form = document.querySelector("#form");
-    const staffUpload = new FormData(form);
+    let staffUpload = new FormData(form);
+    if (staffUpload.get("mobile")) {
+      const mobile = staffUpload.get("mobile");
+      staffUpload.set(
+        "mobile",
+        mobile.slice(0, 3) === "+88" ? mobile : "+88" + mobile
+      );
+    }
 
     try {
       let response;
@@ -77,7 +84,9 @@ export default function Staffs() {
         setData(null);
         setPreviewFIle(null);
         setEdit(null);
+        form.reset();
         closeBtn.current.click();
+        setInputErr(null);
       }
     } catch (error) {
       if (error.response.data.err) {
@@ -226,6 +235,9 @@ export default function Staffs() {
                       type="text"
                       placeholder="Phone Number (01........)"
                       name="mobile"
+                      onKeyPress={(e) => {
+                        if (!/^[0-9\b]+$/.test(e.key)) e.preventDefault();
+                      }}
                       defaultValue={edit && edit.mobile ? edit.mobile : ""}
                       className={`input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc ${
                         inputErr && inputErr.mobile && "border-red-500"
@@ -241,6 +253,9 @@ export default function Staffs() {
                       type="text"
                       placeholder="NID No."
                       name="nidNo"
+                      onKeyPress={(e) => {
+                        if (!/^[0-9\b]+$/.test(e.key)) e.preventDefault();
+                      }}
                       defaultValue={edit && edit.nidNo ? edit.nidNo : ""}
                       className={`input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc ${
                         inputErr && inputErr.nidNo && "border-red-500"
@@ -279,6 +294,9 @@ export default function Staffs() {
                       type="text"
                       placeholder="Salary Amount (in hr/USD)"
                       name="wages"
+                      onKeyPress={(e) => {
+                        if (!/^[.0-9\b]+$/.test(e.key)) e.preventDefault();
+                      }}
                       className={`input mt-2 input-bordered rounded-lg w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc ${
                         inputErr && inputErr.wages && "border-red-500"
                       }`}

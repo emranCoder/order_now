@@ -274,6 +274,9 @@ export default function Product() {
                         name="price"
                         className="grow"
                         onChange={handleOnChange}
+                        onKeyPress={(e) => {
+                          if (!/^[.0-9\b]+$/.test(e.key)) e.preventDefault();
+                        }}
                       />
                       <span>USD ($)</span>
                     </div>

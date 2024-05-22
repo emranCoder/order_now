@@ -243,6 +243,10 @@ export default function ViewProduct(props) {
 
                                   {(edit && (
                                     <input
+                                      onKeyPress={(e) => {
+                                        if (!/^[.0-9\b]+$/.test(e.key))
+                                          e.preventDefault();
+                                      }}
                                       type="text"
                                       className="rounded-lg bg-gray-100 p-2 px-4 focus-within:border border-slate-600 !outline-none"
                                       defaultValue={product.price}

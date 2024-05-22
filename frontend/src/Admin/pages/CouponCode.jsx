@@ -213,23 +213,29 @@ export default function CouponCode() {
                         {error.code.msg}
                       </span>
                     )}
-                    <input
-                      type="text"
-                      placeholder="Discount Rate"
-                      name="discountRate"
-                      value={(data && data.discountRate) || ""}
-                      className={`rounded-lg  mt-5 w-full focus:outline-none focus:border-sky-800 focus:ring-sky-500 focus:ring-1oc textarea textarea-bordered ${
-                        error && error.discountRate
-                          ? "border-error text-error"
-                          : ""
+                    <div
+                      className={`input mt-2 flex items-center input-bordered rounded-lg w-full focus:outline-none focus-within:border-sky-800 !outline-none focus-within:ring-sky-500 focus:ring-1oc ${
+                        error && error.discountRate && "border-red-500"
                       }`}
-                      onChange={handleOnChange}
-                    />
-                    {error && error.discountRate && (
-                      <span className="label-text-alt ml-2 text-error">
-                        {error.discountRate.msg}
-                      </span>
-                    )}
+                    >
+                      <input
+                        type="text"
+                        placeholder="Discount Rate"
+                        name="discountRate"
+                        value={(data && data.discountRate) || ""}
+                        className="grow"
+                        onChange={handleOnChange}
+                        onKeyPress={(e) => {
+                          if (!/^[.0-9\b]+$/.test(e.key)) e.preventDefault();
+                        }}
+                      />
+                      <span>(%)</span>
+                      {error && error.discountRate && (
+                        <span className="label-text-alt ml-2 text-error">
+                          {error.discountRate.msg}
+                        </span>
+                      )}
+                    </div>
                     <div className="grid grid-cols-2 gap-1 my-5 mt-10">
                       <button
                         type="btn"

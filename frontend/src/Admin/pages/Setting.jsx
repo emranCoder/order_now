@@ -18,6 +18,7 @@ export default function Setting() {
   const [previewFile, setPreviewFIle] = useState(null);
   const { isLoading, user, err } = useSelector((state) => state.user);
   const [msg, setMsg] = useState(null);
+  const [inputError, setInputError] = useState(null);
   const id = Cookies.get("id");
   const [success, setSuccess] = useState(null);
   const token = Cookies.get("auth");
@@ -43,6 +44,13 @@ export default function Setting() {
     userUpdate.append("id", user._id);
     userUpdate.append("oldImg", user.avatar);
     try {
+      if (userUpdate.get("mobile")) {
+        const mobile = userUpdate.get("mobile");
+        userUpdate.set(
+          "mobile",
+          mobile.slice(0, 3) === "+88" ? mobile : "+88" + mobile
+        );
+      }
       const response = await axios.put(
         `http://localhost:5000/api/auth/updateuser`,
         userUpdate,
@@ -57,10 +65,13 @@ export default function Setting() {
       if (response && response.status === 200) {
         const { message, user } = response.data;
         setMsg({ msg: message });
+
         dispatch(fetchUser());
       }
     } catch (error) {
-      console.log(error.response);
+      if (error.response.data.err) {
+        setInputError(error.response.err);
+      }
     }
   };
 
@@ -229,6 +240,11 @@ export default function Setting() {
                           >
                             Upload Picture
                           </label>
+                          {inputError && inputError.avatar && (
+                            <small className="text-red-500">
+                              {inputError.avatar.msg}
+                            </small>
+                          )}
                           <input
                             type="file"
                             name="avatar"
@@ -263,6 +279,11 @@ export default function Setting() {
                             className="input input-md py-2 input-bordered w-full focus-within:outline-none focus-within:border-sky-800 hover:bg-slate-50"
                             required
                           />
+                          {inputError && inputError.fName && (
+                            <small className="text-red-500">
+                              {inputError.fName.msg}
+                            </small>
+                          )}
                         </div>
                         <div className="col-md-6 max-sm:pl-0 pl-3 max-sm:w-full">
                           <label className="text-slate-700 ml-1 text-sm">
@@ -275,6 +296,11 @@ export default function Setting() {
                             placeholder="Last Name"
                             className="input input-md py-2 input-bordered w-full focus-within:outline-none focus-within:border-sky-800 hover:bg-slate-50"
                           />
+                          {inputError && inputError.lName && (
+                            <small className="text-red-500">
+                              {inputError.lName.msg}
+                            </small>
+                          )}
                         </div>
                       </div>
                       <div className="container-row mt-3">
@@ -296,6 +322,11 @@ export default function Setting() {
                               required
                             />
                           </label>
+                          {inputError && inputError.email && (
+                            <small className="text-red-500">
+                              {inputError.email.msg}
+                            </small>
+                          )}
                         </div>
                         <div className="col-md-6 max-sm:pl-0 pl-3 max-sm:w-full">
                           <label className="text-slate-700 ml-1 text-sm">
@@ -313,9 +344,18 @@ export default function Setting() {
                               name="mobile"
                               placeholder="Phone Number*"
                               className="w-full "
+                              onKeyPress={(e) => {
+                                if (!/^[0-9\b]+$/.test(e.key))
+                                  e.preventDefault();
+                              }}
                               required
                             />
                           </label>
+                          {inputError && inputError.mobile && (
+                            <small className="text-red-500">
+                              {inputError.mobile.msg}
+                            </small>
+                          )}
                         </div>
                       </div>
                       <div className="container-row mt-4">
@@ -329,6 +369,11 @@ export default function Setting() {
                             className="input input-md py-2 input-bordered w-full focus-within:outline-none focus-within:border-sky-800 hover:bg-slate-50"
                             required
                           />
+                          {inputError && inputError.city && (
+                            <small className="text-red-500">
+                              {inputError.city.msg}
+                            </small>
+                          )}
                         </div>
                         <div className="col-md-6 max-sm:pl-0 pl-3 max-sm:w-full">
                           <label className="text-slate-700 ml-1 text-sm">
@@ -349,6 +394,11 @@ export default function Setting() {
                               </option>
                             ))}
                           </select>
+                          {inputError && inputError.country && (
+                            <small className="text-red-500">
+                              {inputError.country.msg}
+                            </small>
+                          )}
                         </div>
                       </div>
                       <div className="container-row">
