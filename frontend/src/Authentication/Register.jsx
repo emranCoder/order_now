@@ -181,7 +181,7 @@ export default function Register() {
             >
               <div className="container">
                 <div className="container-row">
-                  <div className="col-lg-6 pr-1">
+                  <div className="col-lg-6 col-md-6 col-sm-12 pr-1 max-sm:pr-0 max-sm:w-full">
                     <TextField
                       fullWidth
                       className="!border-slate-700 "
@@ -216,7 +216,7 @@ export default function Register() {
                       }}
                     />
                   </div>
-                  <div className="col-lg-6 pl-1">
+                  <div className="col-lg-6 col-md-6 col-sm-12 pl-1 max-sm:pl-0 max-sm:w-full">
                     <TextField
                       fullWidth
                       label="Last Name"
@@ -250,7 +250,7 @@ export default function Register() {
                       }}
                     />
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-12 col-md-12 col-sm-12 lg:pr-1 max-sm:w-full">
                     <TextField
                       disabled={formData.email && true}
                       className="bg-stone-100"
@@ -287,7 +287,7 @@ export default function Register() {
                       }}
                     />
                   </div>
-                  <div className="col-lg-8 pr-1">
+                  <div className="col-lg-8 col-md-12 col-sm-12 lg:pr-1  max-sm:w-full">
                     <TextField
                       fullWidth
                       className="!border-slate-700 "
@@ -326,7 +326,7 @@ export default function Register() {
                       }}
                     />
                   </div>
-                  <div className="col-lg-4 pl-1 flex items-center">
+                  <div className="col-lg-4 col-md-12 col-sm-12 lg:pl-1 lg:flex items-center max-sm:w-full">
                     <LocalizationProvider
                       dateAdapter={AdapterDayjs}
                       className="w-full"
@@ -373,7 +373,7 @@ export default function Register() {
                       </DemoContainer>
                     </LocalizationProvider>
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-12  col-md-12 col-sm-12 pl-1 max-sm:w-full">
                     <TextField
                       fullWidth
                       type="password"
@@ -408,7 +408,7 @@ export default function Register() {
                       }}
                     />
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-12 col-md-12 col-sm-12  max-sm:w-full">
                     <TextField
                       onChange={handleConPwd}
                       fullWidth

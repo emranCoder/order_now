@@ -31,17 +31,15 @@ export default function SideMenu() {
           },
         }
       );
-      if (response && response.status === 200) {
-        Cookies.remove("auth");
-        Cookies.remove("id");
-        window.location.replace("/admin-login?true=forget");
-      }
     } catch (error) {
       console.log(error.response);
       if (error.message === "Network Error")
         return console.error(error.message);
       console.log(error.response.data.message);
     }
+    Cookies.remove("auth");
+    Cookies.remove("id");
+    window.location.replace("/admin-login?true=forget");
   };
   return (
     <nav

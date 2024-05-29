@@ -239,7 +239,7 @@ export default function OrderHistory(props) {
                       <td>
                         <span
                           className={`uppercase px-3 py-1  font-medium text-xs bg-opacity-30  rounded-full ${
-                            val.orderStatus == "Pending"
+                            val.orderStatus === "Pending"
                               ? "text-orange-800 bg-orange-200"
                               : val.orderStatus === "Refunded"
                               ? "text-red-800 bg-red-200 "
@@ -256,7 +256,7 @@ export default function OrderHistory(props) {
                       <td>
                         <span
                           className={`uppercase px-3 py-1  font-medium text-xs bg-opacity-30  rounded-full ${
-                            val.paymentStatus == false
+                            val.paymentStatus === false
                               ? "text-red-800 bg-red-200 "
                               : "text-green-800 bg-green-200"
                           }`}

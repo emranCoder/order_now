@@ -21,10 +21,10 @@ const { errorHandler, notFoundError } = require('./middleware/error_handler');
 const app = express()
 dotenv.config();
 const options = {
-    "Access-Control-Allow-Origin": `http://localhost:${process.env.PORT}/`,
-    origin: '*',
-    methods: '*',
-    allowedHeaders: '*'
+    origin: `${process.env.ROOT}${process.env.CLIENT_PORT}`,
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    allowedHeaders: '*',
+    optionsSuccessStatus: 200
 }
 
 
@@ -55,6 +55,6 @@ app.use(notFoundError);
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
-    console.log(`Example app listening on port http://localhost:${process.env.PORT}`);
+    console.log(`Example app listening on port ${process.env.ROOT}${process.env.PORT}`);
     db();
 });

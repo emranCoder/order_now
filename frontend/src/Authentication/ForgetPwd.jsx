@@ -220,7 +220,7 @@ export default function ForgetPwd() {
         <div className="col-lg-1 max-md:block hidden max-sm:block mt-0">
           {" "}
           <h3 className="text-[50px] font-serif font-bold text-slate-800 mb-10 mt-8">
-            OrderNow
+             OrderNow
           </h3>
         </div>
         <div className="col-lg-5 col-md-9 max-sm:w-full">

@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Loading from "../component/Loading";
 import { addToast } from "../redux/ToastSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function ChangePwd() {
   const [loader, setLoader] = useState(true);

@@ -11,8 +11,6 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import { addToast } from "../redux/ToastSlice";
-import Login from "../Authentication/Login";
-import { json } from "react-router-dom";
 
 export default function CheckOut(props) {
   const { cartProduct, total, discount, subTotal } = useSelector(
@@ -80,7 +78,7 @@ export default function CheckOut(props) {
       <div className="container-row lg:px-10">
         <div className="col-lg-12 col-md-12 col-sm-12 max-sm:pt-4 pt-8  w-full">
           <div className="flex justify-between">
-            <h3 className="capitalize font-medium text-2xl mb-5 text-slate-800 max-sm:px-3 max-sm:w-full">
+            <h3 className="ml-3 capitalize font-medium text-2xl mb-5 text-slate-800 max-sm:px-3 max-sm:w-full">
               Order Details:
             </h3>
             <button
@@ -96,12 +94,12 @@ export default function CheckOut(props) {
             <div className="container-row">
               <div className="col-lg-8 col-md-6  max-sm:w-full max-md:w-full pb-10">
                 <div className="container-fluid md:border-r">
-                  <div className="container-row grid justify-center lg:grid-cols-2 gap-y-2  md:grid-cols-1  rounded-lg overflow-y-auto h-52 max-sm:h-40">
+                  <div className="container-row grid justify-center lg:grid-cols-2 gap-y-2  md:grid-cols-1  rounded-lg overflow-y-auto h-52 max-sm:h-40 gap-5 px-3">
                     {cartProduct &&
                       cartProduct.map((val, key) => (
                         <div
                           key={key}
-                          className="border-slate-100 pl-0 w-max h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center"
+                          className="border-slate-100 pl-0  h-max  border mb-0 rounded-lg flex justify-between px-1  flex-row items-center content-center w-auto "
                         >
                           <div className="w-24">
                             <img

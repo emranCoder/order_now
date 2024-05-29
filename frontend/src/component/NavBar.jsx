@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Drawer } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import logo from "../img/orderNow.png";
+import logo from "../img/OrderNow.png";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import CheckOut from "./CheckOut";
@@ -60,18 +60,15 @@ export default function NavBar() {
           },
         }
       );
-      if (response && response.status === 200) {
-        dispatch(addToast({ type: "info", msg: response.data.mess }));
-        Cookies.remove("auth");
-        Cookies.remove("id");
-        window.location.replace("/?forget=true");
-      }
     } catch (error) {
       console.log(error.response);
       if (error.message === "Network Error")
         return console.error(error.message);
       console.log(error.response.data.message);
     }
+    Cookies.remove("auth");
+    Cookies.remove("id");
+    window.location.replace("/?forget=true");
   };
 
   const SideBar = (
@@ -207,9 +204,10 @@ export default function NavBar() {
                     <img
                       alt="Tailwind CSS Navbar component"
                       src={
-                        (user &&
-                          `http://localhost:5000/avatar/${user.avatar} `) ||
-                        "default-avatar.png"
+                        user &&
+                        `http://localhost:5000/avatar/${
+                          user.avatar ? user.avatar : "default-avatar.png"
+                        } `
                       }
                     />
                   </div>

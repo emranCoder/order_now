@@ -12,12 +12,9 @@ import { fetchProduct } from "../redux/ProductFetch";
 
 export default function FoodItem() {
   const [isVisible, setIsVisible] = useState(true);
-  const [height, setHeight] = useState(0);
   const dispatch = useDispatch();
-  const { size, cartProduct, total } = useSelector((state) => state.cart);
-  const { isLoading, product, err, category } = useSelector(
-    (state) => state.product
-  );
+  const { size, total } = useSelector((state) => state.cart);
+  const { product, category } = useSelector((state) => state.product);
   useEffect(() => {
     dispatch(fetchProduct());
     window.addEventListener("scroll", listenToScroll);
@@ -56,12 +53,10 @@ export default function FoodItem() {
   };
 
   const listenToScroll = () => {
-    let scrollHeight = document.body.scrollHeight;
     let heightToHideFrom = 200;
 
     const winScroll =
       document.body.scrollTop || document.documentElement.scrollTop;
-    setHeight(winScroll);
 
     if (winScroll > heightToHideFrom) {
       isVisible && setIsVisible(false);

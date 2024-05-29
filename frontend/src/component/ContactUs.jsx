@@ -5,7 +5,6 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { addToast } from "../redux/ToastSlice";
-import Cookies from "js-cookie";
 import axios from "axios";
 
 export default function ContactUs() {

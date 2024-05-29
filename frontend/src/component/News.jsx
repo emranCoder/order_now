@@ -100,7 +100,7 @@ export default function News() {
               </p>
             )}
           </div>
-          <div className="col-lg-4 max-sm:hidden">
+          <div className="col-lg-4 col-md-6 max-sm:hidden">
             <h5 className="mb-8 text-red-800 font-semibold uppercase font-serif">
               News Collections
             </h5>
@@ -117,7 +117,7 @@ export default function News() {
                   1
                 </span>
                 <a>Most Viewed</a>{" "}
-                <span className="float-right mr-5"> {news && news.length}</span>
+                <span className="float-right mr-5 ">{news && news.length}</span>
               </li>
               <li
                 onClick={() => {
@@ -130,7 +130,7 @@ export default function News() {
                 <span className="mr-5 rounded-full !bg-red-800 text-white btn-circle btn btn-xs border-none">
                   2
                 </span>
-                <a>Previous</a>{" "}
+                <span>Previous</span>{" "}
                 <span className="float-right mr-5">{news && news.length}</span>
               </li>
               <li
@@ -144,7 +144,7 @@ export default function News() {
                 <span className="mr-5 rounded-full !bg-red-800 text-white btn-circle btn btn-xs border-none">
                   3
                 </span>
-                <a>Today</a>{" "}
+                <span>Today</span>{" "}
                 <span className="float-right mr-5">
                   {news &&
                     news.filter((val) => {

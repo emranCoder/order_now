@@ -291,7 +291,9 @@ export default function PaymentStatus() {
                             {JSON.parse(val.products) &&
                             JSON.parse(val.products).length > 1
                               ? JSON.parse(val.products).length + ", Products"
-                              : JSON.parse(val.products)[0].name}
+                              : Boolean(JSON.parse(val.products)[0])
+                              ? JSON.parse(val.products)[0].name
+                              : console.log(JSON.parse(val.products))}
                           </td>
                           <td className="hover:text-sky-900 ">
                             <Link to="/view" state={val.user._id}>

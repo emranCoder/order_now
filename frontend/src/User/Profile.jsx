@@ -8,18 +8,14 @@ import Loading from "../component/Loading";
 import OrderHistory from "../component/OrderHistory";
 import { fetchUser } from "../redux/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
-import SyncIcon from "@mui/icons-material/Sync";
 
 export default function Profile() {
   const [previewFile, setPreviewFIle] = useState(null);
-  const [data, setData] = useState(null);
   const [update, setUpdate] = useState(null);
   const [error, setError] = useState(null);
   const [loader, setLoader] = useState(true);
-  const [order, setOrder] = useState(null);
-  const [product, setProduct] = useState({ product: "", order: "" });
   const dispatch = useDispatch();
-  const { isLoading, user, err } = useSelector((state) => state.user);
+  const { isLoading, user } = useSelector((state) => state.user);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,7 +23,6 @@ export default function Profile() {
     setTimeout(() => {
       setLoader(isLoading);
     }, 500);
-    getOrder();
   }, [0]);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -76,52 +71,6 @@ export default function Profile() {
           console.log(error.response.data);
         }
       }
-    }
-  };
-
-  const getOrder = async () => {
-    const id = Cookies.get("id");
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/order/user/${id}`,
-        {
-          headers: {
-            token: Cookies.get("auth"),
-          },
-        }
-      );
-      if (response && response.status === 200) {
-        setOrder(response.data.order);
-      }
-    } catch (error) {
-      if (error.message === "Network Error")
-        return console.error(error.message);
-    }
-  };
-
-  const handleOrderStatus = async (id) => {
-    const updateData = {
-      id: id,
-      orderStatus: "Refunded",
-      paymentStatus: false,
-    };
-    try {
-      const response = await axios.put(
-        `http://localhost:5000/api/order/`,
-        updateData,
-        {
-          headers: {
-            token: Cookies.get("auth"),
-          },
-        }
-      );
-      if (response && response.status === 200) {
-        dispatch(addToast({ type: "success", msg: response.data.mess }));
-        getOrder();
-      }
-    } catch (error) {
-      if (error.message === "Network Error")
-        return console.error(error.message);
     }
   };
 

@@ -14,7 +14,7 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../img/orderNow.png";
+import logo from "../img/OrderNow.png";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
@@ -79,17 +79,15 @@ export default function Header() {
           },
         }
       );
-      if (response && response.status === 200) {
-        Cookies.remove("auth");
-        Cookies.remove("id");
-        window.location.replace("/admin-login?true=forget");
-      }
     } catch (error) {
       console.log(error.response);
       if (error.message === "Network Error")
         return console.error(error.message);
       console.log(error.response.data.message);
     }
+    Cookies.remove("auth");
+    Cookies.remove("id");
+    window.location.replace("/admin-login?true=forget");
   };
 
   return (
@@ -191,8 +189,10 @@ export default function Header() {
                 <img
                   alt="loading"
                   src={
-                    (user && `http://localhost:5000/avatar/${user.avatar}`) ||
-                    "default-avatar.png"
+                    user &&
+                    `http://localhost:5000/avatar/${
+                      user.avatar ? user.avatar : "default-avatar.png"
+                    } `
                   }
                 />
               </div>

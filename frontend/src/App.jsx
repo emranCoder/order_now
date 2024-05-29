@@ -9,7 +9,6 @@ import { fetchUser } from "./redux/AuthSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const { isLoading, user, err } = useSelector((state) => state.user);
   useEffect(() => {
     dispatch(fetchUser());
   }, [0]);

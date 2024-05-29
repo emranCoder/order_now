@@ -16,14 +16,14 @@ export default function OrderMenuBox() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [category, setCategories] = useState(0);
   const dispatch = useDispatch();
-  const [icon, setIcon] = useState([
+  const icon = [
     <GiCookie />,
     <LuSoup />,
     <LuSalad />,
     <LuSandwich />,
     <FaHotjar />,
     <FaPlateWheat />,
-  ]);
+  ];
 
   useEffect(() => {
     getCategory();
@@ -77,10 +77,10 @@ export default function OrderMenuBox() {
                     dispatch(setCategory(val.name));
                   }}
                 >
-                  <a>
+                  <span>
                     {icon[key]}
                     <span>{val.name}</span>
-                  </a>
+                  </span>
                 </li>
               </SwiperSlide>
             ))}

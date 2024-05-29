@@ -19,6 +19,11 @@ const authCheck = async (req, res, next) => {
     const token = auth.token;
     const id = token.split("_")[1];
     const user = await User.findById(id).select('auth role');
+    if (!user) {
+        return res.status(500).send({
+            err: "Server is down!",
+        });
+    }
     const uToken = user.auth[0].token
     if (uToken == null) {
         return res.status(404).send({

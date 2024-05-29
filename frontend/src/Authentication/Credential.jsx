@@ -82,6 +82,7 @@ export default function Credential() {
         }
       } catch (error) {
         if (error && error.response) {
+          console.log(error.response);
           if (error.response.data) {
             if (error.response.data.err.email) {
               const err = error.response.data.err.email.msg;
