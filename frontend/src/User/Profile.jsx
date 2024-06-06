@@ -67,11 +67,19 @@ export default function Profile() {
         }
       } catch (error) {
         if (error && error.response.data) {
-          setError(error.response.data.err);
           console.log(error.response.data);
+        }
+        if (error.response.data.err.avatar) {
+          setError(error.response.data.err);
+          setPreviewFIle(
+            `http://localhost:5000/avatar/${
+              (user && user.avatar) || "default-avatar.png"
+            }`
+          );
         }
       }
     }
+    setLoader(false);
   };
 
   return (
@@ -119,14 +127,10 @@ export default function Profile() {
                       >
                         Upload Picture
                       </label>
-                      {error && error.avatar && (
-                        <small className="text-red-500">
-                          {error.avatar.msg}
-                        </small>
-                      )}
+
                       <input
                         type="file"
-                        name="staffImage"
+                        name="avatar"
                         id="fileInput"
                         placeholder="Upload Image"
                         className="file-input w-full file-input-sm  hidden"
@@ -135,10 +139,14 @@ export default function Profile() {
                           let fileName = e.target.files[0];
                           let preview = URL.createObjectURL(fileName);
                           setPreviewFIle(preview);
+                          setError(null);
                         }}
                       />
                     </Mui.ListItemButton>
                   </div>
+                  {error && error.avatar && (
+                    <small className="text-red-500">{error.avatar.msg}</small>
+                  )}
                 </div>
               </div>
               <div className="col-lg-7 col-md-12 col-sm-12 pl-2 max-sm:w-full max-sm:mt-5">
